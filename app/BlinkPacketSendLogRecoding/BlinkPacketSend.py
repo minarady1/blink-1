@@ -82,11 +82,18 @@ def mynotifIndication(mynotif):
     if mynotif[0]==['txDone']:
         for key, value in mynotif[1].items():
             if key == "status":
-                if value == 0:
-                    print ('\n     txDone Status = {0}, Blink packet successfully sent\n'.format(value))
+                if value == 0:                    
+                    #print ('\n     txDone Status = {0}, Blink packet successfully sent\n'.format(value))
+                    #timeTx = datetime.datetime.now()
+                    jsonTimeTxDone = {'TimeTxDone': '{}'.format(datetime.datetime.now()), 'Payload':'{}'.format(STRING_TO_PUBLISH)}
+                    with open('2blinkTxDone.json', 'a') as f:                    
+                        f.write(json.dumps(jsonTimeTxDone))
+                        f.write('\n')   
+                    print ('\n     txDone Status = {0}, Blink packet successfully sent\n'.format(value))                 
                 else:
                     print ('\n     txDone Status = {0}, Error, Blink packet NOT sent\n'.format(value))
                 NotifEventDone.set()
+
 
 def mydisconnectedIndication():
     print 'Mote was disconnected\n'
@@ -140,16 +147,16 @@ try:
                 payload             = [ord(i) for i in STRING_TO_PUBLISH],
             )            
             print '    Requested a Blink with payload --> "{0}"'.format(STRING_TO_PUBLISH)
-            # Wtire capture time in json file here            
-            jsonTime = {'Time': '{}'.format(datetime.datetime.now()), 'Payload':'{}'.format(STRING_TO_PUBLISH)}
-            with open('BlinkSent.json', 'a') as f:                    
-                f.write(json.dumps(jsonTime))
+            # Wtire capture time in json file here
+            jsonBlinkIssue = {'TimeIssueDone': '{}'.format(datetime.datetime.now()), 'Payload':'{}'.format(STRING_TO_PUBLISH)}
+            with open('1blinkIssue.json', 'a') as f:                    
+                f.write(json.dumps(jsonBlinkIssue))
                 f.write('\n') 
 
         except Exception as err:
             print ("Could not execute dn_blink: {0}\n".format(err))
                
-        print "...waiting for packet sent Notifaction",
+        #print "...waiting for packet sent Notifaction",       
         while not NotifEventDone.is_set():
             print '.',
             time.sleep(1)
