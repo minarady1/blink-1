@@ -1,0 +1,2244 @@
+2019-04-19 18:03:15,084 [SerialConnector:INFO] creating object
+2019-04-19 18:03:19,851 [Hdlc:INFO] Creating object
+2019-04-19 18:03:19,853 [Hdlc:INFO] opened port /dev/ttyUSB3@115200baud
+2019-04-19 18:03:19,853 [SerialConnector:INFO] hdlc notification: connection state=True
+2019-04-19 18:03:19,853 [Hdlc:INFO] thread started
+2019-04-19 18:03:19,854 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['hello']
+- fieldsToFill:     {'cliSeqNo': 255, 'version': 4, 'mode': 0}
+2019-04-19 18:03:19,855 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            1
+- byteArray:        04-ff-00
+2019-04-19 18:03:19,855 [SerialConnector:DEBUG] _sendInternal cmdId=1 retry=0 isResponse=False serializedFields=[4, 255, 0]
+2019-04-19 18:03:19,855 [SerialConnector:DEBUG] ---------- pcToMote DATA (0) ---------->
+2019-04-19 18:03:19,856 [Crc:DEBUG] calculating for data=00-01-00-03-04-ff-00
+2019-04-19 18:03:19,856 [Crc:DEBUG] fcs=0x3731
+2019-04-19 18:03:19,856 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 00 01 00 03 04 ff 00
+ - fcs:     37 31
+ - valid:   True
+2019-04-19 18:03:19,860 [Crc:DEBUG] calculating for data=00-02-00-05-00-04-00-ff-00
+2019-04-19 18:03:19,860 [Crc:DEBUG] fcs=0x2323
+2019-04-19 18:03:19,860 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 00 02 00 05 00 04 00 ff 00
+ - fcs:     23 23
+ - valid:   True
+2019-04-19 18:03:19,860 [SerialConnector:DEBUG] cmdId=2 length=5 isResponse=False packetId=0 payload=[0, 4, 0, 255, 0]
+2019-04-19 18:03:19,860 [SerialConnector:DEBUG] <--------- moteToPc DATA (0) ----------
+2019-04-19 18:03:19,860 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:19,860 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               2
+- byteArray:        00-04-00-ff-00
+2019-04-19 18:03:19,860 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['hello_response']
+- returnFields:     {'cliSeqNo': 255, 'version': 4, 'successCode': 0, 'mgrSeqNo': 0, 'mode': 0}
+2019-04-19 18:03:19,864 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 12], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]}
+2019-04-19 18:03:19,864 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:03:19,864 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]
+2019-04-19 18:03:19,864 [SerialConnector:DEBUG] ---------- pcToMote DATA (0) ---------->
+2019-04-19 18:03:19,864 [Crc:DEBUG] calculating for data=02-27-00-18-00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:03:19,864 [Crc:DEBUG] fcs=0x4ede
+2019-04-19 18:03:19,864 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 00 18 00 00 0c 22 38 4e 5a 0c 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 11
+ - fcs:     4e de
+ - valid:   True
+2019-04-19 18:03:19,931 [Crc:DEBUG] calculating for data=03-27-00-01-00
+2019-04-19 18:03:19,932 [Crc:DEBUG] fcs=0x1113
+2019-04-19 18:03:19,932 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 00 01 00
+ - fcs:     11 13
+ - valid:   True
+2019-04-19 18:03:19,932 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=0 payload=[0]
+2019-04-19 18:03:19,932 [SerialConnector:DEBUG] <--------- pcToMote ACK (0) after 0.068 --------
+2019-04-19 18:03:19,932 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:19,932 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:19,933 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:19,979 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 43], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]}
+2019-04-19 18:03:19,979 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:03:19,980 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]
+2019-04-19 18:03:19,980 [SerialConnector:DEBUG] ---------- pcToMote DATA (1) ---------->
+2019-04-19 18:03:19,980 [Crc:DEBUG] calculating for data=02-27-01-18-00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:03:19,980 [Crc:DEBUG] fcs=0xa07a
+2019-04-19 18:03:19,981 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 01 18 00 00 0c 22 38 4e 5a 2b 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0f 10
+ - fcs:     a0 7a
+ - valid:   True
+2019-04-19 18:03:20,048 [Crc:DEBUG] calculating for data=03-27-01-01-00
+2019-04-19 18:03:20,048 [Crc:DEBUG] fcs=0xcd49
+2019-04-19 18:03:20,048 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 01 01 00
+ - fcs:     cd 49
+ - valid:   True
+2019-04-19 18:03:20,049 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=1 payload=[0]
+2019-04-19 18:03:20,049 [SerialConnector:DEBUG] <--------- pcToMote ACK (1) after 0.069 --------
+2019-04-19 18:03:20,049 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:20,049 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:20,049 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:20,096 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 34], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]}
+2019-04-19 18:03:20,097 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:03:20,097 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]
+2019-04-19 18:03:20,097 [SerialConnector:DEBUG] ---------- pcToMote DATA (2) ---------->
+2019-04-19 18:03:20,098 [Crc:DEBUG] calculating for data=02-27-02-18-00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:03:20,098 [Crc:DEBUG] fcs=0x443a
+2019-04-19 18:03:20,098 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 02 18 00 00 0c 22 38 4e 5a 22 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0f 0e 12
+ - fcs:     44 3a
+ - valid:   True
+2019-04-19 18:03:20,166 [Crc:DEBUG] calculating for data=03-27-02-01-00
+2019-04-19 18:03:20,166 [Crc:DEBUG] fcs=0xa9a6
+2019-04-19 18:03:20,166 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 02 01 00
+ - fcs:     a9 a6
+ - valid:   True
+2019-04-19 18:03:20,166 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=2 payload=[0]
+2019-04-19 18:03:20,166 [SerialConnector:DEBUG] <--------- pcToMote ACK (2) after 0.069 --------
+2019-04-19 18:03:20,167 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:20,167 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:20,167 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:20,213 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 25], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]}
+2019-04-19 18:03:20,214 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:03:20,214 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 25, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]
+2019-04-19 18:03:20,214 [SerialConnector:DEBUG] ---------- pcToMote DATA (3) ---------->
+2019-04-19 18:03:20,214 [Crc:DEBUG] calculating for data=02-27-03-18-00-00-0c-22-38-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:03:20,215 [Crc:DEBUG] fcs=0x b15
+2019-04-19 18:03:20,215 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 03 18 00 00 0c 22 38 4e 5a 19 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0e 0e 13
+ - fcs:     0b 15
+ - valid:   True
+2019-04-19 18:03:20,282 [Crc:DEBUG] calculating for data=03-27-03-01-00
+2019-04-19 18:03:20,282 [Crc:DEBUG] fcs=0x75fc
+2019-04-19 18:03:20,283 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 03 01 00
+ - fcs:     75 fc
+ - valid:   True
+2019-04-19 18:03:20,283 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=3 payload=[0]
+2019-04-19 18:03:20,283 [SerialConnector:DEBUG] <--------- pcToMote ACK (3) after 0.069 --------
+2019-04-19 18:03:20,283 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:20,283 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:20,283 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:20,330 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 35], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]}
+2019-04-19 18:03:20,330 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:03:20,331 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 35, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]
+2019-04-19 18:03:20,331 [SerialConnector:DEBUG] ---------- pcToMote DATA (4) ---------->
+2019-04-19 18:03:20,331 [Crc:DEBUG] calculating for data=02-27-04-18-00-00-0c-22-38-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:03:20,331 [Crc:DEBUG] fcs=0x96fb
+2019-04-19 18:03:20,332 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 04 18 00 00 0c 22 38 4e 5a 23 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 13
+ - fcs:     96 fb
+ - valid:   True
+2019-04-19 18:03:20,399 [Crc:DEBUG] calculating for data=03-27-04-01-00
+2019-04-19 18:03:20,400 [Crc:DEBUG] fcs=0x7070
+2019-04-19 18:03:20,400 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 04 01 00
+ - fcs:     70 70
+ - valid:   True
+2019-04-19 18:03:20,400 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=4 payload=[0]
+2019-04-19 18:03:20,400 [SerialConnector:DEBUG] <--------- pcToMote ACK (4) after 0.069 --------
+2019-04-19 18:03:20,400 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:20,400 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:20,400 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:20,447 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 65], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]}
+2019-04-19 18:03:20,447 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:03:20,447 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 65, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]
+2019-04-19 18:03:20,447 [SerialConnector:DEBUG] ---------- pcToMote DATA (5) ---------->
+2019-04-19 18:03:20,447 [Crc:DEBUG] calculating for data=02-27-05-18-00-00-0c-22-38-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:03:20,448 [Crc:DEBUG] fcs=0xb0ee
+2019-04-19 18:03:20,448 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 05 18 00 00 0c 22 38 4e 5a 41 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 13
+ - fcs:     b0 ee
+ - valid:   True
+2019-04-19 18:03:20,515 [Crc:DEBUG] calculating for data=03-27-05-01-00
+2019-04-19 18:03:20,515 [Crc:DEBUG] fcs=0xac2a
+2019-04-19 18:03:20,515 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 05 01 00
+ - fcs:     ac 2a
+ - valid:   True
+2019-04-19 18:03:20,516 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=5 payload=[0]
+2019-04-19 18:03:20,516 [SerialConnector:DEBUG] <--------- pcToMote ACK (5) after 0.068 --------
+2019-04-19 18:03:20,516 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:20,516 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:20,516 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:20,562 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 32], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]}
+2019-04-19 18:03:20,563 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:03:20,563 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 32, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]
+2019-04-19 18:03:20,563 [SerialConnector:DEBUG] ---------- pcToMote DATA (6) ---------->
+2019-04-19 18:03:20,563 [Crc:DEBUG] calculating for data=02-27-06-18-00-00-0c-22-38-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:03:20,563 [Crc:DEBUG] fcs=0x247a
+2019-04-19 18:03:20,564 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 06 18 00 00 0c 22 38 4e 5a 20 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 11
+ - fcs:     24 7a
+ - valid:   True
+2019-04-19 18:03:20,647 [Crc:DEBUG] calculating for data=03-27-06-01-00
+2019-04-19 18:03:20,647 [Crc:DEBUG] fcs=0xc8c5
+2019-04-19 18:03:20,647 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 06 01 00
+ - fcs:     c8 c5
+ - valid:   True
+2019-04-19 18:03:20,647 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=6 payload=[0]
+2019-04-19 18:03:20,648 [SerialConnector:DEBUG] <--------- pcToMote ACK (6) after 0.085 --------
+2019-04-19 18:03:20,648 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:20,648 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:20,648 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:20,678 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 93], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]}
+2019-04-19 18:03:20,679 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:03:20,679 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 93, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]
+2019-04-19 18:03:20,679 [SerialConnector:DEBUG] ---------- pcToMote DATA (7) ---------->
+2019-04-19 18:03:20,679 [Crc:DEBUG] calculating for data=02-27-07-18-00-00-0c-22-38-4e-5a-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:03:20,680 [Crc:DEBUG] fcs=0x3f86
+2019-04-19 18:03:20,680 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 07 18 00 00 0c 22 38 4e 5a 5d 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 10
+ - fcs:     3f 86
+ - valid:   True
+2019-04-19 18:03:20,747 [Crc:DEBUG] calculating for data=03-27-07-01-00
+2019-04-19 18:03:20,748 [Crc:DEBUG] fcs=0x149f
+2019-04-19 18:03:20,748 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 07 01 00
+ - fcs:     14 9f
+ - valid:   True
+2019-04-19 18:03:20,748 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=7 payload=[0]
+2019-04-19 18:03:20,748 [SerialConnector:DEBUG] <--------- pcToMote ACK (7) after 0.069 --------
+2019-04-19 18:03:20,748 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:20,748 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:20,748 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:20,795 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 24], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]}
+2019-04-19 18:03:20,795 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:03:20,796 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 24, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]
+2019-04-19 18:03:20,796 [SerialConnector:DEBUG] ---------- pcToMote DATA (8) ---------->
+2019-04-19 18:03:20,796 [Crc:DEBUG] calculating for data=02-27-08-18-00-00-0c-22-38-4e-5a-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:03:20,796 [Crc:DEBUG] fcs=0x7658
+2019-04-19 18:03:20,797 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 08 18 00 00 0c 22 38 4e 5a 18 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 21 0e 12
+ - fcs:     76 58
+ - valid:   True
+2019-04-19 18:03:20,864 [Crc:DEBUG] calculating for data=03-27-08-01-00
+2019-04-19 18:03:20,864 [Crc:DEBUG] fcs=0xd3d5
+2019-04-19 18:03:20,864 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 08 01 00
+ - fcs:     d3 d5
+ - valid:   True
+2019-04-19 18:03:20,864 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=8 payload=[0]
+2019-04-19 18:03:20,865 [SerialConnector:DEBUG] <--------- pcToMote ACK (8) after 0.069 --------
+2019-04-19 18:03:20,865 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:20,865 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:20,865 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:20,911 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 12], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]}
+2019-04-19 18:03:20,912 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:03:20,912 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]
+2019-04-19 18:03:20,912 [SerialConnector:DEBUG] ---------- pcToMote DATA (9) ---------->
+2019-04-19 18:03:20,913 [Crc:DEBUG] calculating for data=02-27-09-18-00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:03:20,913 [Crc:DEBUG] fcs=0xf849
+2019-04-19 18:03:20,913 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 09 18 00 00 0c 22 38 4e 5a 0c 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 11
+ - fcs:     f8 49
+ - valid:   True
+2019-04-19 18:03:20,979 [Crc:DEBUG] calculating for data=03-27-09-01-00
+2019-04-19 18:03:20,980 [Crc:DEBUG] fcs=0x f8f
+2019-04-19 18:03:20,980 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 09 01 00
+ - fcs:     0f 8f
+ - valid:   True
+2019-04-19 18:03:20,980 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=9 payload=[0]
+2019-04-19 18:03:20,980 [SerialConnector:DEBUG] <--------- pcToMote ACK (9) after 0.067 --------
+2019-04-19 18:03:20,980 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:20,980 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:20,981 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:21,028 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 43], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]}
+2019-04-19 18:03:21,029 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:03:21,029 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]
+2019-04-19 18:03:21,029 [SerialConnector:DEBUG] ---------- pcToMote DATA (10) ---------->
+2019-04-19 18:03:21,030 [Crc:DEBUG] calculating for data=02-27-0a-18-00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:03:21,030 [Crc:DEBUG] fcs=0xa77f
+2019-04-19 18:03:21,030 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 0a 18 00 00 0c 22 38 4e 5a 2b 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0f 10
+ - fcs:     a7 7f
+ - valid:   True
+2019-04-19 18:03:21,097 [Crc:DEBUG] calculating for data=03-27-0a-01-00
+2019-04-19 18:03:21,097 [Crc:DEBUG] fcs=0x6b60
+2019-04-19 18:03:21,097 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 0a 01 00
+ - fcs:     6b 60
+ - valid:   True
+2019-04-19 18:03:21,097 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=10 payload=[0]
+2019-04-19 18:03:21,097 [SerialConnector:DEBUG] <--------- pcToMote ACK (10) after 0.068 --------
+2019-04-19 18:03:21,097 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:21,097 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:21,098 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:21,145 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 34], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]}
+2019-04-19 18:03:21,146 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:03:21,146 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]
+2019-04-19 18:03:21,146 [SerialConnector:DEBUG] ---------- pcToMote DATA (11) ---------->
+2019-04-19 18:03:21,147 [Crc:DEBUG] calculating for data=02-27-0b-18-00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:03:21,147 [Crc:DEBUG] fcs=0xf2ad
+2019-04-19 18:03:21,147 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 0b 18 00 00 0c 22 38 4e 5a 22 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0f 0e 12
+ - fcs:     f2 ad
+ - valid:   True
+2019-04-19 18:03:21,215 [Crc:DEBUG] calculating for data=03-27-0b-01-00
+2019-04-19 18:03:21,215 [Crc:DEBUG] fcs=0xb73a
+2019-04-19 18:03:21,215 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 0b 01 00
+ - fcs:     b7 3a
+ - valid:   True
+2019-04-19 18:03:21,216 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=11 payload=[0]
+2019-04-19 18:03:21,216 [SerialConnector:DEBUG] <--------- pcToMote ACK (11) after 0.069 --------
+2019-04-19 18:03:21,216 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:21,216 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:21,216 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:21,262 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 66, 78, 90, 25], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]}
+2019-04-19 18:03:21,263 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-42-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:03:21,263 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 66, 78, 90, 25, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]
+2019-04-19 18:03:21,263 [SerialConnector:DEBUG] ---------- pcToMote DATA (12) ---------->
+2019-04-19 18:03:21,264 [Crc:DEBUG] calculating for data=02-27-0c-18-00-00-0c-22-42-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:03:21,264 [Crc:DEBUG] fcs=0x1489
+2019-04-19 18:03:21,265 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 0c 18 00 00 0c 22 42 4e 5a 19 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0e 0e 13
+ - fcs:     14 89
+ - valid:   True
+2019-04-19 18:03:21,331 [Crc:DEBUG] calculating for data=03-27-0c-01-00
+2019-04-19 18:03:21,332 [Crc:DEBUG] fcs=0xb2b6
+2019-04-19 18:03:21,332 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 0c 01 00
+ - fcs:     b2 b6
+ - valid:   True
+2019-04-19 18:03:21,332 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=12 payload=[0]
+2019-04-19 18:03:21,332 [SerialConnector:DEBUG] <--------- pcToMote ACK (12) after 0.069 --------
+2019-04-19 18:03:21,332 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:21,332 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:21,333 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:21,379 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 76, 78, 90, 35], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]}
+2019-04-19 18:03:21,380 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-4c-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:03:21,380 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 76, 78, 90, 35, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]
+2019-04-19 18:03:21,380 [SerialConnector:DEBUG] ---------- pcToMote DATA (13) ---------->
+2019-04-19 18:03:21,381 [Crc:DEBUG] calculating for data=02-27-0d-18-00-00-0c-22-4c-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:03:21,381 [Crc:DEBUG] fcs=0x4bc1
+2019-04-19 18:03:21,381 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 0d 18 00 00 0c 22 4c 4e 5a 23 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 13
+ - fcs:     4b c1
+ - valid:   True
+2019-04-19 18:03:21,449 [Crc:DEBUG] calculating for data=03-27-0d-01-00
+2019-04-19 18:03:21,450 [Crc:DEBUG] fcs=0x6eec
+2019-04-19 18:03:21,450 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 0d 01 00
+ - fcs:     6e ec
+ - valid:   True
+2019-04-19 18:03:21,450 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=13 payload=[0]
+2019-04-19 18:03:21,450 [SerialConnector:DEBUG] <--------- pcToMote ACK (13) after 0.070 --------
+2019-04-19 18:03:21,450 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:21,450 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:21,450 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:21,496 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 86, 78, 90, 65], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]}
+2019-04-19 18:03:21,496 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-56-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:03:21,497 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 86, 78, 90, 65, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]
+2019-04-19 18:03:21,497 [SerialConnector:DEBUG] ---------- pcToMote DATA (14) ---------->
+2019-04-19 18:03:21,497 [Crc:DEBUG] calculating for data=02-27-0e-18-00-00-0c-22-56-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:03:21,497 [Crc:DEBUG] fcs=0x aa7
+2019-04-19 18:03:21,498 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 0e 18 00 00 0c 22 56 4e 5a 41 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 13
+ - fcs:     0a a7
+ - valid:   True
+2019-04-19 18:03:21,565 [Crc:DEBUG] calculating for data=03-27-0e-01-00
+2019-04-19 18:03:21,565 [Crc:DEBUG] fcs=0x a 3
+2019-04-19 18:03:21,565 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 0e 01 00
+ - fcs:     0a 03
+ - valid:   True
+2019-04-19 18:03:21,565 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=14 payload=[0]
+2019-04-19 18:03:21,565 [SerialConnector:DEBUG] <--------- pcToMote ACK (14) after 0.068 --------
+2019-04-19 18:03:21,565 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:21,566 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:21,566 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:21,612 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 96, 78, 90, 32], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]}
+2019-04-19 18:03:21,613 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-60-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:03:21,613 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 96, 78, 90, 32, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]
+2019-04-19 18:03:21,613 [SerialConnector:DEBUG] ---------- pcToMote DATA (15) ---------->
+2019-04-19 18:03:21,613 [Crc:DEBUG] calculating for data=02-27-0f-18-00-00-0c-22-60-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:03:21,613 [Crc:DEBUG] fcs=0x2fdc
+2019-04-19 18:03:21,614 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 0f 18 00 00 0c 22 60 4e 5a 20 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 11
+ - fcs:     2f dc
+ - valid:   True
+2019-04-19 18:03:21,681 [Crc:DEBUG] calculating for data=03-27-0f-01-00
+2019-04-19 18:03:21,681 [Crc:DEBUG] fcs=0xd659
+2019-04-19 18:03:21,681 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 0f 01 00
+ - fcs:     d6 59
+ - valid:   True
+2019-04-19 18:03:21,681 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=15 payload=[0]
+2019-04-19 18:03:21,681 [SerialConnector:DEBUG] <--------- pcToMote ACK (15) after 0.068 --------
+2019-04-19 18:03:21,681 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:21,681 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:21,681 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:21,728 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [72, 24, 46, 78, 93, 93], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]}
+2019-04-19 18:03:21,728 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-48-18-2e-4e-5d-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:03:21,728 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 72, 24, 46, 78, 93, 93, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]
+2019-04-19 18:03:21,729 [SerialConnector:DEBUG] ---------- pcToMote DATA (16) ---------->
+2019-04-19 18:03:21,729 [Crc:DEBUG] calculating for data=02-27-10-18-00-00-48-18-2e-4e-5d-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:03:21,729 [Crc:DEBUG] fcs=0xac23
+2019-04-19 18:03:21,729 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 10 18 00 00 48 18 2e 4e 5d 5d 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 10
+ - fcs:     ac 23
+ - valid:   True
+2019-04-19 18:03:21,796 [Crc:DEBUG] calculating for data=03-27-10-01-00
+2019-04-19 18:03:21,796 [Crc:DEBUG] fcs=0x8496
+2019-04-19 18:03:21,796 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 10 01 00
+ - fcs:     84 96
+ - valid:   True
+2019-04-19 18:03:21,796 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=16 payload=[0]
+2019-04-19 18:03:21,796 [SerialConnector:DEBUG] <--------- pcToMote ACK (16) after 0.068 --------
+2019-04-19 18:03:21,796 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:21,797 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:21,797 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:21,843 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [192, 34, 16, 78, 91, 24], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]}
+2019-04-19 18:03:21,844 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-c0-22-10-4e-5b-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:03:21,844 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 192, 34, 16, 78, 91, 24, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]
+2019-04-19 18:03:21,844 [SerialConnector:DEBUG] ---------- pcToMote DATA (17) ---------->
+2019-04-19 18:03:21,844 [Crc:DEBUG] calculating for data=02-27-11-18-00-00-c0-22-10-4e-5b-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:03:21,844 [Crc:DEBUG] fcs=0xd0ba
+2019-04-19 18:03:21,844 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 11 18 00 00 c0 22 10 4e 5b 18 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 21 0e 12
+ - fcs:     d0 ba
+ - valid:   True
+2019-04-19 18:03:21,912 [Crc:DEBUG] calculating for data=03-27-11-01-00
+2019-04-19 18:03:21,912 [Crc:DEBUG] fcs=0x58cc
+2019-04-19 18:03:21,912 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 11 01 00
+ - fcs:     58 cc
+ - valid:   True
+2019-04-19 18:03:21,912 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=17 payload=[0]
+2019-04-19 18:03:21,912 [SerialConnector:DEBUG] <--------- pcToMote ACK (17) after 0.068 --------
+2019-04-19 18:03:21,913 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:03:21,913 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:03:21,913 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:03:21,959 [Hdlc:INFO] disconnect
+2019-04-19 18:10:10,501 [SerialConnector:INFO] creating object
+2019-04-19 18:10:14,150 [Hdlc:INFO] Creating object
+2019-04-19 18:10:14,152 [Hdlc:INFO] opened port /dev/ttyUSB3@115200baud
+2019-04-19 18:10:14,152 [SerialConnector:INFO] hdlc notification: connection state=True
+2019-04-19 18:10:14,152 [Hdlc:INFO] thread started
+2019-04-19 18:10:14,153 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['hello']
+- fieldsToFill:     {'cliSeqNo': 255, 'version': 4, 'mode': 0}
+2019-04-19 18:10:14,153 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            1
+- byteArray:        04-ff-00
+2019-04-19 18:10:14,153 [SerialConnector:DEBUG] _sendInternal cmdId=1 retry=0 isResponse=False serializedFields=[4, 255, 0]
+2019-04-19 18:10:14,154 [SerialConnector:DEBUG] ---------- pcToMote DATA (0) ---------->
+2019-04-19 18:10:14,154 [Crc:DEBUG] calculating for data=00-01-00-03-04-ff-00
+2019-04-19 18:10:14,154 [Crc:DEBUG] fcs=0x3731
+2019-04-19 18:10:14,154 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 00 01 00 03 04 ff 00
+ - fcs:     37 31
+ - valid:   True
+2019-04-19 18:10:14,158 [Crc:DEBUG] calculating for data=00-02-00-05-00-04-00-ff-00
+2019-04-19 18:10:14,158 [Crc:DEBUG] fcs=0x2323
+2019-04-19 18:10:14,159 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 00 02 00 05 00 04 00 ff 00
+ - fcs:     23 23
+ - valid:   True
+2019-04-19 18:10:14,159 [SerialConnector:DEBUG] cmdId=2 length=5 isResponse=False packetId=0 payload=[0, 4, 0, 255, 0]
+2019-04-19 18:10:14,159 [SerialConnector:DEBUG] <--------- moteToPc DATA (0) ----------
+2019-04-19 18:10:14,159 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:10:14,159 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               2
+- byteArray:        00-04-00-ff-00
+2019-04-19 18:10:14,159 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['hello_response']
+- returnFields:     {'cliSeqNo': 255, 'version': 4, 'successCode': 0, 'mgrSeqNo': 0, 'mode': 0}
+2019-04-19 18:10:14,162 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 12], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]}
+2019-04-19 18:10:14,162 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:10:14,162 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]
+2019-04-19 18:10:14,163 [SerialConnector:DEBUG] ---------- pcToMote DATA (0) ---------->
+2019-04-19 18:10:14,163 [Crc:DEBUG] calculating for data=02-27-00-18-00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:10:14,163 [Crc:DEBUG] fcs=0x4ede
+2019-04-19 18:10:14,163 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 00 18 00 00 0c 22 38 4e 5a 0c 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 11
+ - fcs:     4e de
+ - valid:   True
+2019-04-19 18:10:14,225 [Crc:DEBUG] calculating for data=03-27-00-01-00
+2019-04-19 18:10:14,225 [Crc:DEBUG] fcs=0x1113
+2019-04-19 18:10:14,225 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 00 01 00
+ - fcs:     11 13
+ - valid:   True
+2019-04-19 18:10:14,226 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=0 payload=[0]
+2019-04-19 18:10:14,226 [SerialConnector:DEBUG] <--------- pcToMote ACK (0) after 0.063 --------
+2019-04-19 18:10:14,226 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:10:14,226 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:10:14,226 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:10:14,227 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 43], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]}
+2019-04-19 18:10:14,227 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:10:14,228 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]
+2019-04-19 18:10:14,228 [SerialConnector:DEBUG] ---------- pcToMote DATA (1) ---------->
+2019-04-19 18:10:14,228 [Crc:DEBUG] calculating for data=02-27-01-18-00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:10:14,228 [Crc:DEBUG] fcs=0xa07a
+2019-04-19 18:10:14,229 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 01 18 00 00 0c 22 38 4e 5a 2b 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0f 10
+ - fcs:     a0 7a
+ - valid:   True
+2019-04-19 18:10:14,291 [Crc:DEBUG] calculating for data=03-27-01-01-00
+2019-04-19 18:10:14,291 [Crc:DEBUG] fcs=0xcd49
+2019-04-19 18:10:14,291 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 01 01 00
+ - fcs:     cd 49
+ - valid:   True
+2019-04-19 18:10:14,292 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=1 payload=[0]
+2019-04-19 18:10:14,292 [SerialConnector:DEBUG] <--------- pcToMote ACK (1) after 0.064 --------
+2019-04-19 18:10:14,292 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:10:14,292 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:10:14,292 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:10:14,293 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 34], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]}
+2019-04-19 18:10:14,293 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:10:14,294 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]
+2019-04-19 18:10:14,294 [SerialConnector:DEBUG] ---------- pcToMote DATA (2) ---------->
+2019-04-19 18:10:14,294 [Crc:DEBUG] calculating for data=02-27-02-18-00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:10:14,294 [Crc:DEBUG] fcs=0x443a
+2019-04-19 18:10:14,294 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 02 18 00 00 0c 22 38 4e 5a 22 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0f 0e 12
+ - fcs:     44 3a
+ - valid:   True
+2019-04-19 18:10:14,357 [Crc:DEBUG] calculating for data=03-27-02-01-00
+2019-04-19 18:10:14,357 [Crc:DEBUG] fcs=0xa9a6
+2019-04-19 18:10:14,358 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 02 01 00
+ - fcs:     a9 a6
+ - valid:   True
+2019-04-19 18:10:14,358 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=2 payload=[0]
+2019-04-19 18:10:14,358 [SerialConnector:DEBUG] <--------- pcToMote ACK (2) after 0.064 --------
+2019-04-19 18:10:14,358 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:10:14,358 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:10:14,358 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:10:14,359 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 25], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]}
+2019-04-19 18:10:14,359 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:10:14,360 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 25, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]
+2019-04-19 18:10:14,360 [SerialConnector:DEBUG] ---------- pcToMote DATA (3) ---------->
+2019-04-19 18:10:14,360 [Crc:DEBUG] calculating for data=02-27-03-18-00-00-0c-22-38-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:10:14,360 [Crc:DEBUG] fcs=0x b15
+2019-04-19 18:10:14,360 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 03 18 00 00 0c 22 38 4e 5a 19 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0e 0e 13
+ - fcs:     0b 15
+ - valid:   True
+2019-04-19 18:10:14,423 [Crc:DEBUG] calculating for data=03-27-03-01-00
+2019-04-19 18:10:14,424 [Crc:DEBUG] fcs=0x75fc
+2019-04-19 18:10:14,424 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 03 01 00
+ - fcs:     75 fc
+ - valid:   True
+2019-04-19 18:10:14,424 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=3 payload=[0]
+2019-04-19 18:10:14,425 [SerialConnector:DEBUG] <--------- pcToMote ACK (3) after 0.065 --------
+2019-04-19 18:10:14,425 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:10:14,425 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:10:14,425 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:10:14,475 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 35], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]}
+2019-04-19 18:10:14,476 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:10:14,476 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 35, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]
+2019-04-19 18:10:14,476 [SerialConnector:DEBUG] ---------- pcToMote DATA (4) ---------->
+2019-04-19 18:10:14,477 [Crc:DEBUG] calculating for data=02-27-04-18-00-00-0c-22-38-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:10:14,477 [Crc:DEBUG] fcs=0x96fb
+2019-04-19 18:10:14,477 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 04 18 00 00 0c 22 38 4e 5a 23 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 13
+ - fcs:     96 fb
+ - valid:   True
+2019-04-19 18:10:14,541 [Crc:DEBUG] calculating for data=03-27-04-01-00
+2019-04-19 18:10:14,541 [Crc:DEBUG] fcs=0x7070
+2019-04-19 18:10:14,542 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 04 01 00
+ - fcs:     70 70
+ - valid:   True
+2019-04-19 18:10:14,542 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=4 payload=[0]
+2019-04-19 18:10:14,542 [SerialConnector:DEBUG] <--------- pcToMote ACK (4) after 0.066 --------
+2019-04-19 18:10:14,542 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:10:14,542 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:10:14,543 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:10:14,592 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 65], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]}
+2019-04-19 18:10:14,593 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:10:14,593 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 65, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]
+2019-04-19 18:10:14,593 [SerialConnector:DEBUG] ---------- pcToMote DATA (5) ---------->
+2019-04-19 18:10:14,594 [Crc:DEBUG] calculating for data=02-27-05-18-00-00-0c-22-38-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:10:14,594 [Crc:DEBUG] fcs=0xb0ee
+2019-04-19 18:10:14,594 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 05 18 00 00 0c 22 38 4e 5a 41 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 13
+ - fcs:     b0 ee
+ - valid:   True
+2019-04-19 18:10:14,675 [Crc:DEBUG] calculating for data=03-27-05-01-00
+2019-04-19 18:10:14,676 [Crc:DEBUG] fcs=0xac2a
+2019-04-19 18:10:14,676 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 05 01 00
+ - fcs:     ac 2a
+ - valid:   True
+2019-04-19 18:10:14,676 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=5 payload=[0]
+2019-04-19 18:10:14,676 [SerialConnector:DEBUG] <--------- pcToMote ACK (5) after 0.083 --------
+2019-04-19 18:10:14,676 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:10:14,676 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:10:14,677 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:10:14,709 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 32], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]}
+2019-04-19 18:10:14,709 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:10:14,709 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 32, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]
+2019-04-19 18:10:14,709 [SerialConnector:DEBUG] ---------- pcToMote DATA (6) ---------->
+2019-04-19 18:10:14,710 [Crc:DEBUG] calculating for data=02-27-06-18-00-00-0c-22-38-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:10:14,710 [Crc:DEBUG] fcs=0x247a
+2019-04-19 18:10:14,710 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 06 18 00 00 0c 22 38 4e 5a 20 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 11
+ - fcs:     24 7a
+ - valid:   True
+2019-04-19 18:10:14,774 [Crc:DEBUG] calculating for data=03-27-06-01-00
+2019-04-19 18:10:14,774 [Crc:DEBUG] fcs=0xc8c5
+2019-04-19 18:10:14,775 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 06 01 00
+ - fcs:     c8 c5
+ - valid:   True
+2019-04-19 18:10:14,775 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=6 payload=[0]
+2019-04-19 18:10:14,775 [SerialConnector:DEBUG] <--------- pcToMote ACK (6) after 0.065 --------
+2019-04-19 18:10:14,775 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:10:14,775 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:10:14,776 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:10:14,825 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 93], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]}
+2019-04-19 18:10:14,825 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:10:14,826 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 93, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]
+2019-04-19 18:10:14,826 [SerialConnector:DEBUG] ---------- pcToMote DATA (7) ---------->
+2019-04-19 18:10:14,826 [Crc:DEBUG] calculating for data=02-27-07-18-00-00-0c-22-38-4e-5a-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:10:14,826 [Crc:DEBUG] fcs=0x3f86
+2019-04-19 18:10:14,826 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 07 18 00 00 0c 22 38 4e 5a 5d 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 10
+ - fcs:     3f 86
+ - valid:   True
+2019-04-19 18:10:14,908 [Crc:DEBUG] calculating for data=03-27-07-01-00
+2019-04-19 18:10:14,909 [Crc:DEBUG] fcs=0x149f
+2019-04-19 18:10:14,909 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 07 01 00
+ - fcs:     14 9f
+ - valid:   True
+2019-04-19 18:10:14,909 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=7 payload=[0]
+2019-04-19 18:10:14,909 [SerialConnector:DEBUG] <--------- pcToMote ACK (7) after 0.083 --------
+2019-04-19 18:10:14,909 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:10:14,909 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:10:14,910 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:10:14,941 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 24], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]}
+2019-04-19 18:10:14,942 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:10:14,942 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 24, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]
+2019-04-19 18:10:14,942 [SerialConnector:DEBUG] ---------- pcToMote DATA (8) ---------->
+2019-04-19 18:10:14,942 [Crc:DEBUG] calculating for data=02-27-08-18-00-00-0c-22-38-4e-5a-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:10:14,943 [Crc:DEBUG] fcs=0x7658
+2019-04-19 18:10:14,943 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 08 18 00 00 0c 22 38 4e 5a 18 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 21 0e 12
+ - fcs:     76 58
+ - valid:   True
+2019-04-19 18:10:15,025 [Crc:DEBUG] calculating for data=03-27-08-01-00
+2019-04-19 18:10:15,025 [Crc:DEBUG] fcs=0xd3d5
+2019-04-19 18:10:15,025 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 08 01 00
+ - fcs:     d3 d5
+ - valid:   True
+2019-04-19 18:10:15,025 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=8 payload=[0]
+2019-04-19 18:10:15,026 [SerialConnector:DEBUG] <--------- pcToMote ACK (8) after 0.083 --------
+2019-04-19 18:10:15,026 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:10:15,026 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:10:15,026 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:10:15,057 [Hdlc:INFO] disconnect
+2019-04-19 18:27:39,569 [SerialConnector:INFO] creating object
+2019-04-19 18:27:44,478 [Hdlc:INFO] Creating object
+2019-04-19 18:27:44,479 [Hdlc:INFO] opened port /dev/ttyUSB3@115200baud
+2019-04-19 18:27:44,479 [SerialConnector:INFO] hdlc notification: connection state=True
+2019-04-19 18:27:44,480 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['hello']
+- fieldsToFill:     {'cliSeqNo': 255, 'version': 4, 'mode': 0}
+2019-04-19 18:27:44,480 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            1
+- byteArray:        04-ff-00
+2019-04-19 18:27:44,480 [Hdlc:INFO] thread started
+2019-04-19 18:27:44,480 [SerialConnector:DEBUG] _sendInternal cmdId=1 retry=0 isResponse=False serializedFields=[4, 255, 0]
+2019-04-19 18:27:44,480 [SerialConnector:DEBUG] ---------- pcToMote DATA (0) ---------->
+2019-04-19 18:27:44,480 [Crc:DEBUG] calculating for data=00-01-00-03-04-ff-00
+2019-04-19 18:27:44,481 [Crc:DEBUG] fcs=0x3731
+2019-04-19 18:27:44,481 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 00 01 00 03 04 ff 00
+ - fcs:     37 31
+ - valid:   True
+2019-04-19 18:27:44,484 [Crc:DEBUG] calculating for data=00-02-00-05-00-04-00-ff-00
+2019-04-19 18:27:44,485 [Crc:DEBUG] fcs=0x2323
+2019-04-19 18:27:44,485 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 00 02 00 05 00 04 00 ff 00
+ - fcs:     23 23
+ - valid:   True
+2019-04-19 18:27:44,485 [SerialConnector:DEBUG] cmdId=2 length=5 isResponse=False packetId=0 payload=[0, 4, 0, 255, 0]
+2019-04-19 18:27:44,485 [SerialConnector:DEBUG] <--------- moteToPc DATA (0) ----------
+2019-04-19 18:27:44,485 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:27:44,485 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               2
+- byteArray:        00-04-00-ff-00
+2019-04-19 18:27:44,485 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['hello_response']
+- returnFields:     {'cliSeqNo': 255, 'version': 4, 'successCode': 0, 'mgrSeqNo': 0, 'mode': 0}
+2019-04-19 18:27:44,488 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 12], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]}
+2019-04-19 18:27:44,488 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:27:44,489 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]
+2019-04-19 18:27:44,489 [SerialConnector:DEBUG] ---------- pcToMote DATA (0) ---------->
+2019-04-19 18:27:44,489 [Crc:DEBUG] calculating for data=02-27-00-18-00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:27:44,489 [Crc:DEBUG] fcs=0x4ede
+2019-04-19 18:27:44,489 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 00 18 00 00 0c 22 38 4e 5a 0c 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 11
+ - fcs:     4e de
+ - valid:   True
+2019-04-19 18:27:44,554 [Crc:DEBUG] calculating for data=03-27-00-01-00
+2019-04-19 18:27:44,554 [Crc:DEBUG] fcs=0x1113
+2019-04-19 18:27:44,554 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 00 01 00
+ - fcs:     11 13
+ - valid:   True
+2019-04-19 18:27:44,555 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=0 payload=[0]
+2019-04-19 18:27:44,555 [SerialConnector:DEBUG] <--------- pcToMote ACK (0) after 0.066 --------
+2019-04-19 18:27:44,555 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:27:44,555 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:27:44,555 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:27:44,604 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 43], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]}
+2019-04-19 18:27:44,604 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:27:44,604 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]
+2019-04-19 18:27:44,604 [SerialConnector:DEBUG] ---------- pcToMote DATA (1) ---------->
+2019-04-19 18:27:44,604 [Crc:DEBUG] calculating for data=02-27-01-18-00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:27:44,604 [Crc:DEBUG] fcs=0xa07a
+2019-04-19 18:27:44,605 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 01 18 00 00 0c 22 38 4e 5a 2b 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0f 10
+ - fcs:     a0 7a
+ - valid:   True
+2019-04-19 18:27:44,687 [Crc:DEBUG] calculating for data=03-27-01-01-00
+2019-04-19 18:27:44,687 [Crc:DEBUG] fcs=0xcd49
+2019-04-19 18:27:44,688 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 01 01 00
+ - fcs:     cd 49
+ - valid:   True
+2019-04-19 18:27:44,688 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=1 payload=[0]
+2019-04-19 18:27:44,688 [SerialConnector:DEBUG] <--------- pcToMote ACK (1) after 0.084 --------
+2019-04-19 18:27:44,688 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:27:44,688 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:27:44,688 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:27:44,719 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 34], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]}
+2019-04-19 18:27:44,719 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:27:44,719 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]
+2019-04-19 18:27:44,720 [SerialConnector:DEBUG] ---------- pcToMote DATA (2) ---------->
+2019-04-19 18:27:44,720 [Crc:DEBUG] calculating for data=02-27-02-18-00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:27:44,720 [Crc:DEBUG] fcs=0x443a
+2019-04-19 18:27:44,720 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 02 18 00 00 0c 22 38 4e 5a 22 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0f 0e 12
+ - fcs:     44 3a
+ - valid:   True
+2019-04-19 18:27:44,785 [Crc:DEBUG] calculating for data=03-27-02-01-00
+2019-04-19 18:27:44,785 [Crc:DEBUG] fcs=0xa9a6
+2019-04-19 18:27:44,785 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 02 01 00
+ - fcs:     a9 a6
+ - valid:   True
+2019-04-19 18:27:44,785 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=2 payload=[0]
+2019-04-19 18:27:44,785 [SerialConnector:DEBUG] <--------- pcToMote ACK (2) after 0.066 --------
+2019-04-19 18:27:44,785 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:27:44,785 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:27:44,786 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:27:44,834 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 25], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]}
+2019-04-19 18:27:44,835 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:27:44,835 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 25, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]
+2019-04-19 18:27:44,835 [SerialConnector:DEBUG] ---------- pcToMote DATA (3) ---------->
+2019-04-19 18:27:44,835 [Crc:DEBUG] calculating for data=02-27-03-18-00-00-0c-22-38-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:27:44,835 [Crc:DEBUG] fcs=0x b15
+2019-04-19 18:27:44,835 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 03 18 00 00 0c 22 38 4e 5a 19 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0e 0e 13
+ - fcs:     0b 15
+ - valid:   True
+2019-04-19 18:27:44,900 [Crc:DEBUG] calculating for data=03-27-03-01-00
+2019-04-19 18:27:44,901 [Crc:DEBUG] fcs=0x75fc
+2019-04-19 18:27:44,901 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 03 01 00
+ - fcs:     75 fc
+ - valid:   True
+2019-04-19 18:27:44,901 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=3 payload=[0]
+2019-04-19 18:27:44,901 [SerialConnector:DEBUG] <--------- pcToMote ACK (3) after 0.066 --------
+2019-04-19 18:27:44,901 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:27:44,901 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:27:44,901 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:27:44,950 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 35], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]}
+2019-04-19 18:27:44,950 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:27:44,950 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 35, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]
+2019-04-19 18:27:44,950 [SerialConnector:DEBUG] ---------- pcToMote DATA (4) ---------->
+2019-04-19 18:27:44,951 [Crc:DEBUG] calculating for data=02-27-04-18-00-00-0c-22-38-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:27:44,951 [Crc:DEBUG] fcs=0x96fb
+2019-04-19 18:27:44,951 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 04 18 00 00 0c 22 38 4e 5a 23 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 13
+ - fcs:     96 fb
+ - valid:   True
+2019-04-19 18:27:45,016 [Crc:DEBUG] calculating for data=03-27-04-01-00
+2019-04-19 18:27:45,016 [Crc:DEBUG] fcs=0x7070
+2019-04-19 18:27:45,016 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 04 01 00
+ - fcs:     70 70
+ - valid:   True
+2019-04-19 18:27:45,016 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=4 payload=[0]
+2019-04-19 18:27:45,016 [SerialConnector:DEBUG] <--------- pcToMote ACK (4) after 0.066 --------
+2019-04-19 18:27:45,016 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:27:45,016 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:27:45,016 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:27:45,066 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 65], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]}
+2019-04-19 18:27:45,066 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:27:45,066 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 65, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]
+2019-04-19 18:27:45,066 [SerialConnector:DEBUG] ---------- pcToMote DATA (5) ---------->
+2019-04-19 18:27:45,066 [Crc:DEBUG] calculating for data=02-27-05-18-00-00-0c-22-38-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:27:45,066 [Crc:DEBUG] fcs=0xb0ee
+2019-04-19 18:27:45,067 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 05 18 00 00 0c 22 38 4e 5a 41 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 13
+ - fcs:     b0 ee
+ - valid:   True
+2019-04-19 18:27:45,132 [Crc:DEBUG] calculating for data=03-27-05-01-00
+2019-04-19 18:27:45,132 [Crc:DEBUG] fcs=0xac2a
+2019-04-19 18:27:45,132 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 05 01 00
+ - fcs:     ac 2a
+ - valid:   True
+2019-04-19 18:27:45,132 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=5 payload=[0]
+2019-04-19 18:27:45,132 [SerialConnector:DEBUG] <--------- pcToMote ACK (5) after 0.066 --------
+2019-04-19 18:27:45,132 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:27:45,132 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:27:45,132 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:27:45,181 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 32], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]}
+2019-04-19 18:27:45,181 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:27:45,182 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 32, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]
+2019-04-19 18:27:45,182 [SerialConnector:DEBUG] ---------- pcToMote DATA (6) ---------->
+2019-04-19 18:27:45,182 [Crc:DEBUG] calculating for data=02-27-06-18-00-00-0c-22-38-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:27:45,182 [Crc:DEBUG] fcs=0x247a
+2019-04-19 18:27:45,182 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 06 18 00 00 0c 22 38 4e 5a 20 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 11
+ - fcs:     24 7a
+ - valid:   True
+2019-04-19 18:27:45,247 [Crc:DEBUG] calculating for data=03-27-06-01-00
+2019-04-19 18:27:45,247 [Crc:DEBUG] fcs=0xc8c5
+2019-04-19 18:27:45,247 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 06 01 00
+ - fcs:     c8 c5
+ - valid:   True
+2019-04-19 18:27:45,247 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=6 payload=[0]
+2019-04-19 18:27:45,248 [SerialConnector:DEBUG] <--------- pcToMote ACK (6) after 0.066 --------
+2019-04-19 18:27:45,248 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:27:45,248 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:27:45,248 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:27:45,297 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 93], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]}
+2019-04-19 18:27:45,297 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:27:45,298 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 93, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]
+2019-04-19 18:27:45,298 [SerialConnector:DEBUG] ---------- pcToMote DATA (7) ---------->
+2019-04-19 18:27:45,298 [Crc:DEBUG] calculating for data=02-27-07-18-00-00-0c-22-38-4e-5a-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:27:45,298 [Crc:DEBUG] fcs=0x3f86
+2019-04-19 18:27:45,298 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 07 18 00 00 0c 22 38 4e 5a 5d 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 10
+ - fcs:     3f 86
+ - valid:   True
+2019-04-19 18:27:45,363 [Crc:DEBUG] calculating for data=03-27-07-01-00
+2019-04-19 18:27:45,363 [Crc:DEBUG] fcs=0x149f
+2019-04-19 18:27:45,363 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 07 01 00
+ - fcs:     14 9f
+ - valid:   True
+2019-04-19 18:27:45,363 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=7 payload=[0]
+2019-04-19 18:27:45,363 [SerialConnector:DEBUG] <--------- pcToMote ACK (7) after 0.066 --------
+2019-04-19 18:27:45,363 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:27:45,364 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:27:45,364 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:27:45,413 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 24], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]}
+2019-04-19 18:27:45,413 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:27:45,414 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 24, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]
+2019-04-19 18:27:45,414 [SerialConnector:DEBUG] ---------- pcToMote DATA (8) ---------->
+2019-04-19 18:27:45,414 [Crc:DEBUG] calculating for data=02-27-08-18-00-00-0c-22-38-4e-5a-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:27:45,414 [Crc:DEBUG] fcs=0x7658
+2019-04-19 18:27:45,414 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 08 18 00 00 0c 22 38 4e 5a 18 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 21 0e 12
+ - fcs:     76 58
+ - valid:   True
+2019-04-19 18:27:45,493 [Crc:DEBUG] calculating for data=03-27-08-01-00
+2019-04-19 18:27:45,493 [Crc:DEBUG] fcs=0xd3d5
+2019-04-19 18:27:45,493 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 08 01 00
+ - fcs:     d3 d5
+ - valid:   True
+2019-04-19 18:27:45,493 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=8 payload=[0]
+2019-04-19 18:27:45,493 [SerialConnector:DEBUG] <--------- pcToMote ACK (8) after 0.080 --------
+2019-04-19 18:27:45,493 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:27:45,494 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:27:45,494 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:27:45,528 [Hdlc:INFO] disconnect
+2019-04-19 18:28:58,821 [SerialConnector:INFO] creating object
+2019-04-19 18:29:03,058 [Hdlc:INFO] Creating object
+2019-04-19 18:29:03,059 [Hdlc:INFO] opened port /dev/ttyUSB3@115200baud
+2019-04-19 18:29:03,059 [SerialConnector:INFO] hdlc notification: connection state=True
+2019-04-19 18:29:03,060 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['hello']
+- fieldsToFill:     {'cliSeqNo': 255, 'version': 4, 'mode': 0}
+2019-04-19 18:29:03,060 [Hdlc:INFO] thread started
+2019-04-19 18:29:03,061 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            1
+- byteArray:        04-ff-00
+2019-04-19 18:29:03,061 [SerialConnector:DEBUG] _sendInternal cmdId=1 retry=0 isResponse=False serializedFields=[4, 255, 0]
+2019-04-19 18:29:03,061 [SerialConnector:DEBUG] ---------- pcToMote DATA (0) ---------->
+2019-04-19 18:29:03,061 [Crc:DEBUG] calculating for data=00-01-00-03-04-ff-00
+2019-04-19 18:29:03,061 [Crc:DEBUG] fcs=0x3731
+2019-04-19 18:29:03,062 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 00 01 00 03 04 ff 00
+ - fcs:     37 31
+ - valid:   True
+2019-04-19 18:29:03,066 [Crc:DEBUG] calculating for data=00-02-00-05-00-04-00-ff-00
+2019-04-19 18:29:03,066 [Crc:DEBUG] fcs=0x2323
+2019-04-19 18:29:03,066 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 00 02 00 05 00 04 00 ff 00
+ - fcs:     23 23
+ - valid:   True
+2019-04-19 18:29:03,066 [SerialConnector:DEBUG] cmdId=2 length=5 isResponse=False packetId=0 payload=[0, 4, 0, 255, 0]
+2019-04-19 18:29:03,066 [SerialConnector:DEBUG] <--------- moteToPc DATA (0) ----------
+2019-04-19 18:29:03,066 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:03,066 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               2
+- byteArray:        00-04-00-ff-00
+2019-04-19 18:29:03,066 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['hello_response']
+- returnFields:     {'cliSeqNo': 255, 'version': 4, 'successCode': 0, 'mgrSeqNo': 0, 'mode': 0}
+2019-04-19 18:29:03,070 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 12], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]}
+2019-04-19 18:29:03,070 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:29:03,070 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]
+2019-04-19 18:29:03,071 [SerialConnector:DEBUG] ---------- pcToMote DATA (0) ---------->
+2019-04-19 18:29:03,071 [Crc:DEBUG] calculating for data=02-27-00-18-00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:29:03,071 [Crc:DEBUG] fcs=0x4ede
+2019-04-19 18:29:03,071 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 00 18 00 00 0c 22 38 4e 5a 0c 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 11
+ - fcs:     4e de
+ - valid:   True
+2019-04-19 18:29:03,136 [Crc:DEBUG] calculating for data=03-27-00-01-00
+2019-04-19 18:29:03,136 [Crc:DEBUG] fcs=0x1113
+2019-04-19 18:29:03,136 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 00 01 00
+ - fcs:     11 13
+ - valid:   True
+2019-04-19 18:29:03,136 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=0 payload=[0]
+2019-04-19 18:29:03,137 [SerialConnector:DEBUG] <--------- pcToMote ACK (0) after 0.066 --------
+2019-04-19 18:29:03,137 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:03,137 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:03,137 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:03,185 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 43], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]}
+2019-04-19 18:29:03,185 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:29:03,186 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]
+2019-04-19 18:29:03,186 [SerialConnector:DEBUG] ---------- pcToMote DATA (1) ---------->
+2019-04-19 18:29:03,186 [Crc:DEBUG] calculating for data=02-27-01-18-00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:29:03,186 [Crc:DEBUG] fcs=0xa07a
+2019-04-19 18:29:03,186 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 01 18 00 00 0c 22 38 4e 5a 2b 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0f 10
+ - fcs:     a0 7a
+ - valid:   True
+2019-04-19 18:29:03,251 [Crc:DEBUG] calculating for data=03-27-01-01-00
+2019-04-19 18:29:03,251 [Crc:DEBUG] fcs=0xcd49
+2019-04-19 18:29:03,251 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 01 01 00
+ - fcs:     cd 49
+ - valid:   True
+2019-04-19 18:29:03,251 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=1 payload=[0]
+2019-04-19 18:29:03,251 [SerialConnector:DEBUG] <--------- pcToMote ACK (1) after 0.066 --------
+2019-04-19 18:29:03,252 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:03,252 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:03,252 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:03,300 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 34], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]}
+2019-04-19 18:29:03,300 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:29:03,300 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]
+2019-04-19 18:29:03,300 [SerialConnector:DEBUG] ---------- pcToMote DATA (2) ---------->
+2019-04-19 18:29:03,300 [Crc:DEBUG] calculating for data=02-27-02-18-00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:29:03,300 [Crc:DEBUG] fcs=0x443a
+2019-04-19 18:29:03,301 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 02 18 00 00 0c 22 38 4e 5a 22 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0f 0e 12
+ - fcs:     44 3a
+ - valid:   True
+2019-04-19 18:29:03,365 [Crc:DEBUG] calculating for data=03-27-02-01-00
+2019-04-19 18:29:03,366 [Crc:DEBUG] fcs=0xa9a6
+2019-04-19 18:29:03,366 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 02 01 00
+ - fcs:     a9 a6
+ - valid:   True
+2019-04-19 18:29:03,366 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=2 payload=[0]
+2019-04-19 18:29:03,367 [SerialConnector:DEBUG] <--------- pcToMote ACK (2) after 0.066 --------
+2019-04-19 18:29:03,367 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:03,367 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:03,367 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:03,415 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 25], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]}
+2019-04-19 18:29:03,415 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:29:03,415 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 25, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]
+2019-04-19 18:29:03,416 [SerialConnector:DEBUG] ---------- pcToMote DATA (3) ---------->
+2019-04-19 18:29:03,416 [Crc:DEBUG] calculating for data=02-27-03-18-00-00-0c-22-38-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:29:03,416 [Crc:DEBUG] fcs=0x b15
+2019-04-19 18:29:03,416 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 03 18 00 00 0c 22 38 4e 5a 19 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0e 0e 13
+ - fcs:     0b 15
+ - valid:   True
+2019-04-19 18:29:03,481 [Crc:DEBUG] calculating for data=03-27-03-01-00
+2019-04-19 18:29:03,481 [Crc:DEBUG] fcs=0x75fc
+2019-04-19 18:29:03,482 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 03 01 00
+ - fcs:     75 fc
+ - valid:   True
+2019-04-19 18:29:03,482 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=3 payload=[0]
+2019-04-19 18:29:03,482 [SerialConnector:DEBUG] <--------- pcToMote ACK (3) after 0.066 --------
+2019-04-19 18:29:03,482 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:03,482 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:03,483 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:03,531 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 35], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]}
+2019-04-19 18:29:03,531 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:29:03,531 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 35, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]
+2019-04-19 18:29:03,531 [SerialConnector:DEBUG] ---------- pcToMote DATA (4) ---------->
+2019-04-19 18:29:03,531 [Crc:DEBUG] calculating for data=02-27-04-18-00-00-0c-22-38-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:29:03,532 [Crc:DEBUG] fcs=0x96fb
+2019-04-19 18:29:03,532 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 04 18 00 00 0c 22 38 4e 5a 23 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 13
+ - fcs:     96 fb
+ - valid:   True
+2019-04-19 18:29:03,598 [Crc:DEBUG] calculating for data=03-27-04-01-00
+2019-04-19 18:29:03,598 [Crc:DEBUG] fcs=0x7070
+2019-04-19 18:29:03,598 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 04 01 00
+ - fcs:     70 70
+ - valid:   True
+2019-04-19 18:29:03,598 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=4 payload=[0]
+2019-04-19 18:29:03,599 [SerialConnector:DEBUG] <--------- pcToMote ACK (4) after 0.067 --------
+2019-04-19 18:29:03,599 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:03,599 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:03,599 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:03,646 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 65], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]}
+2019-04-19 18:29:03,647 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:29:03,647 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 65, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]
+2019-04-19 18:29:03,647 [SerialConnector:DEBUG] ---------- pcToMote DATA (5) ---------->
+2019-04-19 18:29:03,647 [Crc:DEBUG] calculating for data=02-27-05-18-00-00-0c-22-38-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:29:03,647 [Crc:DEBUG] fcs=0xb0ee
+2019-04-19 18:29:03,647 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 05 18 00 00 0c 22 38 4e 5a 41 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 13
+ - fcs:     b0 ee
+ - valid:   True
+2019-04-19 18:29:03,729 [Crc:DEBUG] calculating for data=03-27-05-01-00
+2019-04-19 18:29:03,729 [Crc:DEBUG] fcs=0xac2a
+2019-04-19 18:29:03,729 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 05 01 00
+ - fcs:     ac 2a
+ - valid:   True
+2019-04-19 18:29:03,729 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=5 payload=[0]
+2019-04-19 18:29:03,729 [SerialConnector:DEBUG] <--------- pcToMote ACK (5) after 0.082 --------
+2019-04-19 18:29:03,729 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:03,729 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:03,730 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:03,762 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 32], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]}
+2019-04-19 18:29:03,763 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:29:03,763 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 32, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]
+2019-04-19 18:29:03,763 [SerialConnector:DEBUG] ---------- pcToMote DATA (6) ---------->
+2019-04-19 18:29:03,763 [Crc:DEBUG] calculating for data=02-27-06-18-00-00-0c-22-38-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:29:03,763 [Crc:DEBUG] fcs=0x247a
+2019-04-19 18:29:03,763 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 06 18 00 00 0c 22 38 4e 5a 20 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 11
+ - fcs:     24 7a
+ - valid:   True
+2019-04-19 18:29:03,828 [Crc:DEBUG] calculating for data=03-27-06-01-00
+2019-04-19 18:29:03,829 [Crc:DEBUG] fcs=0xc8c5
+2019-04-19 18:29:03,829 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 06 01 00
+ - fcs:     c8 c5
+ - valid:   True
+2019-04-19 18:29:03,829 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=6 payload=[0]
+2019-04-19 18:29:03,829 [SerialConnector:DEBUG] <--------- pcToMote ACK (6) after 0.066 --------
+2019-04-19 18:29:03,829 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:03,830 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:03,830 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:03,878 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 93], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]}
+2019-04-19 18:29:03,879 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:29:03,879 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 93, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]
+2019-04-19 18:29:03,879 [SerialConnector:DEBUG] ---------- pcToMote DATA (7) ---------->
+2019-04-19 18:29:03,879 [Crc:DEBUG] calculating for data=02-27-07-18-00-00-0c-22-38-4e-5a-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:29:03,879 [Crc:DEBUG] fcs=0x3f86
+2019-04-19 18:29:03,879 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 07 18 00 00 0c 22 38 4e 5a 5d 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 10
+ - fcs:     3f 86
+ - valid:   True
+2019-04-19 18:29:03,945 [Crc:DEBUG] calculating for data=03-27-07-01-00
+2019-04-19 18:29:03,945 [Crc:DEBUG] fcs=0x149f
+2019-04-19 18:29:03,946 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 07 01 00
+ - fcs:     14 9f
+ - valid:   True
+2019-04-19 18:29:03,946 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=7 payload=[0]
+2019-04-19 18:29:03,946 [SerialConnector:DEBUG] <--------- pcToMote ACK (7) after 0.067 --------
+2019-04-19 18:29:03,946 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:03,947 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:03,947 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:03,994 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 24], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]}
+2019-04-19 18:29:03,995 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:29:03,995 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 24, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]
+2019-04-19 18:29:03,995 [SerialConnector:DEBUG] ---------- pcToMote DATA (8) ---------->
+2019-04-19 18:29:03,995 [Crc:DEBUG] calculating for data=02-27-08-18-00-00-0c-22-38-4e-5a-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:29:03,995 [Crc:DEBUG] fcs=0x7658
+2019-04-19 18:29:03,995 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 08 18 00 00 0c 22 38 4e 5a 18 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 21 0e 12
+ - fcs:     76 58
+ - valid:   True
+2019-04-19 18:29:04,077 [Crc:DEBUG] calculating for data=03-27-08-01-00
+2019-04-19 18:29:04,077 [Crc:DEBUG] fcs=0xd3d5
+2019-04-19 18:29:04,077 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 08 01 00
+ - fcs:     d3 d5
+ - valid:   True
+2019-04-19 18:29:04,077 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=8 payload=[0]
+2019-04-19 18:29:04,077 [SerialConnector:DEBUG] <--------- pcToMote ACK (8) after 0.082 --------
+2019-04-19 18:29:04,077 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:04,078 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:04,078 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:04,110 [Hdlc:INFO] disconnect
+2019-04-19 18:29:22,133 [SerialConnector:INFO] creating object
+2019-04-19 18:29:26,562 [Hdlc:INFO] Creating object
+2019-04-19 18:29:26,563 [Hdlc:INFO] opened port /dev/ttyUSB3@115200baud
+2019-04-19 18:29:26,563 [SerialConnector:INFO] hdlc notification: connection state=True
+2019-04-19 18:29:26,563 [Hdlc:INFO] thread started
+2019-04-19 18:29:26,564 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['hello']
+- fieldsToFill:     {'cliSeqNo': 255, 'version': 4, 'mode': 0}
+2019-04-19 18:29:26,564 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            1
+- byteArray:        04-ff-00
+2019-04-19 18:29:26,565 [SerialConnector:DEBUG] _sendInternal cmdId=1 retry=0 isResponse=False serializedFields=[4, 255, 0]
+2019-04-19 18:29:26,565 [SerialConnector:DEBUG] ---------- pcToMote DATA (0) ---------->
+2019-04-19 18:29:26,565 [Crc:DEBUG] calculating for data=00-01-00-03-04-ff-00
+2019-04-19 18:29:26,565 [Crc:DEBUG] fcs=0x3731
+2019-04-19 18:29:26,565 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 00 01 00 03 04 ff 00
+ - fcs:     37 31
+ - valid:   True
+2019-04-19 18:29:26,569 [Crc:DEBUG] calculating for data=00-02-00-05-00-04-00-ff-00
+2019-04-19 18:29:26,569 [Crc:DEBUG] fcs=0x2323
+2019-04-19 18:29:26,570 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 00 02 00 05 00 04 00 ff 00
+ - fcs:     23 23
+ - valid:   True
+2019-04-19 18:29:26,570 [SerialConnector:DEBUG] cmdId=2 length=5 isResponse=False packetId=0 payload=[0, 4, 0, 255, 0]
+2019-04-19 18:29:26,570 [SerialConnector:DEBUG] <--------- moteToPc DATA (0) ----------
+2019-04-19 18:29:26,570 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:26,570 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               2
+- byteArray:        00-04-00-ff-00
+2019-04-19 18:29:26,571 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['hello_response']
+- returnFields:     {'cliSeqNo': 255, 'version': 4, 'successCode': 0, 'mgrSeqNo': 0, 'mode': 0}
+2019-04-19 18:29:26,573 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 12], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]}
+2019-04-19 18:29:26,574 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:29:26,574 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]
+2019-04-19 18:29:26,574 [SerialConnector:DEBUG] ---------- pcToMote DATA (0) ---------->
+2019-04-19 18:29:26,574 [Crc:DEBUG] calculating for data=02-27-00-18-00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:29:26,575 [Crc:DEBUG] fcs=0x4ede
+2019-04-19 18:29:26,575 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 00 18 00 00 0c 22 38 4e 5a 0c 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 11
+ - fcs:     4e de
+ - valid:   True
+2019-04-19 18:29:26,654 [Crc:DEBUG] calculating for data=03-27-00-01-00
+2019-04-19 18:29:26,654 [Crc:DEBUG] fcs=0x1113
+2019-04-19 18:29:26,654 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 00 01 00
+ - fcs:     11 13
+ - valid:   True
+2019-04-19 18:29:26,654 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=0 payload=[0]
+2019-04-19 18:29:26,654 [SerialConnector:DEBUG] <--------- pcToMote ACK (0) after 0.080 --------
+2019-04-19 18:29:26,654 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:26,654 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:26,654 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:26,689 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 43], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]}
+2019-04-19 18:29:26,689 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:29:26,689 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]
+2019-04-19 18:29:26,689 [SerialConnector:DEBUG] ---------- pcToMote DATA (1) ---------->
+2019-04-19 18:29:26,689 [Crc:DEBUG] calculating for data=02-27-01-18-00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:29:26,689 [Crc:DEBUG] fcs=0xa07a
+2019-04-19 18:29:26,690 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 01 18 00 00 0c 22 38 4e 5a 2b 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0f 10
+ - fcs:     a0 7a
+ - valid:   True
+2019-04-19 18:29:26,754 [Crc:DEBUG] calculating for data=03-27-01-01-00
+2019-04-19 18:29:26,754 [Crc:DEBUG] fcs=0xcd49
+2019-04-19 18:29:26,755 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 01 01 00
+ - fcs:     cd 49
+ - valid:   True
+2019-04-19 18:29:26,755 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=1 payload=[0]
+2019-04-19 18:29:26,755 [SerialConnector:DEBUG] <--------- pcToMote ACK (1) after 0.065 --------
+2019-04-19 18:29:26,755 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:26,755 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:26,755 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:26,804 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 34], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]}
+2019-04-19 18:29:26,804 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:29:26,804 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]
+2019-04-19 18:29:26,805 [SerialConnector:DEBUG] ---------- pcToMote DATA (2) ---------->
+2019-04-19 18:29:26,805 [Crc:DEBUG] calculating for data=02-27-02-18-00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:29:26,805 [Crc:DEBUG] fcs=0x443a
+2019-04-19 18:29:26,805 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 02 18 00 00 0c 22 38 4e 5a 22 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0f 0e 12
+ - fcs:     44 3a
+ - valid:   True
+2019-04-19 18:29:26,870 [Crc:DEBUG] calculating for data=03-27-02-01-00
+2019-04-19 18:29:26,870 [Crc:DEBUG] fcs=0xa9a6
+2019-04-19 18:29:26,870 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 02 01 00
+ - fcs:     a9 a6
+ - valid:   True
+2019-04-19 18:29:26,870 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=2 payload=[0]
+2019-04-19 18:29:26,870 [SerialConnector:DEBUG] <--------- pcToMote ACK (2) after 0.066 --------
+2019-04-19 18:29:26,870 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:26,871 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:26,871 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:26,920 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 25], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]}
+2019-04-19 18:29:26,920 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:29:26,920 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 25, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]
+2019-04-19 18:29:26,920 [SerialConnector:DEBUG] ---------- pcToMote DATA (3) ---------->
+2019-04-19 18:29:26,920 [Crc:DEBUG] calculating for data=02-27-03-18-00-00-0c-22-38-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:29:26,920 [Crc:DEBUG] fcs=0x b15
+2019-04-19 18:29:26,920 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 03 18 00 00 0c 22 38 4e 5a 19 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0e 0e 13
+ - fcs:     0b 15
+ - valid:   True
+2019-04-19 18:29:26,985 [Crc:DEBUG] calculating for data=03-27-03-01-00
+2019-04-19 18:29:26,985 [Crc:DEBUG] fcs=0x75fc
+2019-04-19 18:29:26,986 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 03 01 00
+ - fcs:     75 fc
+ - valid:   True
+2019-04-19 18:29:26,986 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=3 payload=[0]
+2019-04-19 18:29:26,986 [SerialConnector:DEBUG] <--------- pcToMote ACK (3) after 0.066 --------
+2019-04-19 18:29:26,986 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:26,986 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:26,986 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:27,035 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 35], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]}
+2019-04-19 18:29:27,035 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:29:27,036 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 35, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]
+2019-04-19 18:29:27,036 [SerialConnector:DEBUG] ---------- pcToMote DATA (4) ---------->
+2019-04-19 18:29:27,036 [Crc:DEBUG] calculating for data=02-27-04-18-00-00-0c-22-38-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:29:27,036 [Crc:DEBUG] fcs=0x96fb
+2019-04-19 18:29:27,036 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 04 18 00 00 0c 22 38 4e 5a 23 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 13
+ - fcs:     96 fb
+ - valid:   True
+2019-04-19 18:29:27,101 [Crc:DEBUG] calculating for data=03-27-04-01-00
+2019-04-19 18:29:27,101 [Crc:DEBUG] fcs=0x7070
+2019-04-19 18:29:27,101 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 04 01 00
+ - fcs:     70 70
+ - valid:   True
+2019-04-19 18:29:27,101 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=4 payload=[0]
+2019-04-19 18:29:27,101 [SerialConnector:DEBUG] <--------- pcToMote ACK (4) after 0.065 --------
+2019-04-19 18:29:27,101 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:27,102 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:27,102 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:27,151 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 65], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]}
+2019-04-19 18:29:27,151 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:29:27,151 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 65, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]
+2019-04-19 18:29:27,151 [SerialConnector:DEBUG] ---------- pcToMote DATA (5) ---------->
+2019-04-19 18:29:27,151 [Crc:DEBUG] calculating for data=02-27-05-18-00-00-0c-22-38-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:29:27,152 [Crc:DEBUG] fcs=0xb0ee
+2019-04-19 18:29:27,152 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 05 18 00 00 0c 22 38 4e 5a 41 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 13
+ - fcs:     b0 ee
+ - valid:   True
+2019-04-19 18:29:27,216 [Crc:DEBUG] calculating for data=03-27-05-01-00
+2019-04-19 18:29:27,216 [Crc:DEBUG] fcs=0xac2a
+2019-04-19 18:29:27,216 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 05 01 00
+ - fcs:     ac 2a
+ - valid:   True
+2019-04-19 18:29:27,216 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=5 payload=[0]
+2019-04-19 18:29:27,217 [SerialConnector:DEBUG] <--------- pcToMote ACK (5) after 0.065 --------
+2019-04-19 18:29:27,217 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:27,217 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:27,217 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:27,266 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 32], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]}
+2019-04-19 18:29:27,266 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:29:27,266 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 32, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]
+2019-04-19 18:29:27,266 [SerialConnector:DEBUG] ---------- pcToMote DATA (6) ---------->
+2019-04-19 18:29:27,266 [Crc:DEBUG] calculating for data=02-27-06-18-00-00-0c-22-38-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:29:27,266 [Crc:DEBUG] fcs=0x247a
+2019-04-19 18:29:27,266 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 06 18 00 00 0c 22 38 4e 5a 20 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 11
+ - fcs:     24 7a
+ - valid:   True
+2019-04-19 18:29:27,331 [Crc:DEBUG] calculating for data=03-27-06-01-00
+2019-04-19 18:29:27,331 [Crc:DEBUG] fcs=0xc8c5
+2019-04-19 18:29:27,331 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 06 01 00
+ - fcs:     c8 c5
+ - valid:   True
+2019-04-19 18:29:27,331 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=6 payload=[0]
+2019-04-19 18:29:27,331 [SerialConnector:DEBUG] <--------- pcToMote ACK (6) after 0.065 --------
+2019-04-19 18:29:27,331 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:27,331 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:27,332 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:27,380 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 93], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]}
+2019-04-19 18:29:27,381 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:29:27,381 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 93, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]
+2019-04-19 18:29:27,381 [SerialConnector:DEBUG] ---------- pcToMote DATA (7) ---------->
+2019-04-19 18:29:27,381 [Crc:DEBUG] calculating for data=02-27-07-18-00-00-0c-22-38-4e-5a-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:29:27,381 [Crc:DEBUG] fcs=0x3f86
+2019-04-19 18:29:27,381 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 07 18 00 00 0c 22 38 4e 5a 5d 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 10
+ - fcs:     3f 86
+ - valid:   True
+2019-04-19 18:29:27,446 [Crc:DEBUG] calculating for data=03-27-07-01-00
+2019-04-19 18:29:27,446 [Crc:DEBUG] fcs=0x149f
+2019-04-19 18:29:27,446 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 07 01 00
+ - fcs:     14 9f
+ - valid:   True
+2019-04-19 18:29:27,446 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=7 payload=[0]
+2019-04-19 18:29:27,446 [SerialConnector:DEBUG] <--------- pcToMote ACK (7) after 0.065 --------
+2019-04-19 18:29:27,446 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:27,446 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:27,447 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:27,495 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 24], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]}
+2019-04-19 18:29:27,496 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:29:27,496 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 24, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]
+2019-04-19 18:29:27,496 [SerialConnector:DEBUG] ---------- pcToMote DATA (8) ---------->
+2019-04-19 18:29:27,496 [Crc:DEBUG] calculating for data=02-27-08-18-00-00-0c-22-38-4e-5a-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:29:27,496 [Crc:DEBUG] fcs=0x7658
+2019-04-19 18:29:27,496 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 08 18 00 00 0c 22 38 4e 5a 18 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 21 0e 12
+ - fcs:     76 58
+ - valid:   True
+2019-04-19 18:29:27,561 [Crc:DEBUG] calculating for data=03-27-08-01-00
+2019-04-19 18:29:27,561 [Crc:DEBUG] fcs=0xd3d5
+2019-04-19 18:29:27,561 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 08 01 00
+ - fcs:     d3 d5
+ - valid:   True
+2019-04-19 18:29:27,561 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=8 payload=[0]
+2019-04-19 18:29:27,562 [SerialConnector:DEBUG] <--------- pcToMote ACK (8) after 0.066 --------
+2019-04-19 18:29:27,562 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:29:27,562 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:29:27,562 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:29:27,610 [Hdlc:INFO] disconnect
+2019-04-19 18:31:59,187 [SerialConnector:INFO] creating object
+2019-04-19 18:32:03,569 [Hdlc:INFO] Creating object
+2019-04-19 18:32:03,570 [Hdlc:INFO] opened port /dev/ttyUSB3@115200baud
+2019-04-19 18:32:03,570 [SerialConnector:INFO] hdlc notification: connection state=True
+2019-04-19 18:32:03,570 [Hdlc:INFO] thread started
+2019-04-19 18:32:03,571 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['hello']
+- fieldsToFill:     {'cliSeqNo': 255, 'version': 4, 'mode': 0}
+2019-04-19 18:32:03,571 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            1
+- byteArray:        04-ff-00
+2019-04-19 18:32:03,571 [SerialConnector:DEBUG] _sendInternal cmdId=1 retry=0 isResponse=False serializedFields=[4, 255, 0]
+2019-04-19 18:32:03,571 [SerialConnector:DEBUG] ---------- pcToMote DATA (0) ---------->
+2019-04-19 18:32:03,571 [Crc:DEBUG] calculating for data=00-01-00-03-04-ff-00
+2019-04-19 18:32:03,571 [Crc:DEBUG] fcs=0x3731
+2019-04-19 18:32:03,572 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 00 01 00 03 04 ff 00
+ - fcs:     37 31
+ - valid:   True
+2019-04-19 18:32:03,575 [Crc:DEBUG] calculating for data=00-02-00-05-00-04-00-ff-00
+2019-04-19 18:32:03,576 [Crc:DEBUG] fcs=0x2323
+2019-04-19 18:32:03,576 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 00 02 00 05 00 04 00 ff 00
+ - fcs:     23 23
+ - valid:   True
+2019-04-19 18:32:03,576 [SerialConnector:DEBUG] cmdId=2 length=5 isResponse=False packetId=0 payload=[0, 4, 0, 255, 0]
+2019-04-19 18:32:03,576 [SerialConnector:DEBUG] <--------- moteToPc DATA (0) ----------
+2019-04-19 18:32:03,576 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:32:03,576 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               2
+- byteArray:        00-04-00-ff-00
+2019-04-19 18:32:03,576 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['hello_response']
+- returnFields:     {'cliSeqNo': 255, 'version': 4, 'successCode': 0, 'mgrSeqNo': 0, 'mode': 0}
+2019-04-19 18:32:03,579 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 12], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]}
+2019-04-19 18:32:03,579 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:32:03,580 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 12, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 17]
+2019-04-19 18:32:03,580 [SerialConnector:DEBUG] ---------- pcToMote DATA (0) ---------->
+2019-04-19 18:32:03,580 [Crc:DEBUG] calculating for data=02-27-00-18-00-00-0c-22-38-4e-5a-0c-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-11
+2019-04-19 18:32:03,580 [Crc:DEBUG] fcs=0x4ede
+2019-04-19 18:32:03,580 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 00 18 00 00 0c 22 38 4e 5a 0c 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 11
+ - fcs:     4e de
+ - valid:   True
+2019-04-19 18:32:03,645 [Crc:DEBUG] calculating for data=03-27-00-01-00
+2019-04-19 18:32:03,645 [Crc:DEBUG] fcs=0x1113
+2019-04-19 18:32:03,646 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 00 01 00
+ - fcs:     11 13
+ - valid:   True
+2019-04-19 18:32:03,646 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=0 payload=[0]
+2019-04-19 18:32:03,646 [SerialConnector:DEBUG] <--------- pcToMote ACK (0) after 0.066 --------
+2019-04-19 18:32:03,646 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:32:03,646 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:32:03,646 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:32:03,694 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 43], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]}
+2019-04-19 18:32:03,694 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:32:03,694 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 43, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16]
+2019-04-19 18:32:03,694 [SerialConnector:DEBUG] ---------- pcToMote DATA (1) ---------->
+2019-04-19 18:32:03,695 [Crc:DEBUG] calculating for data=02-27-01-18-00-00-0c-22-38-4e-5a-2b-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0f-10
+2019-04-19 18:32:03,695 [Crc:DEBUG] fcs=0xa07a
+2019-04-19 18:32:03,695 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 01 18 00 00 0c 22 38 4e 5a 2b 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0f 10
+ - fcs:     a0 7a
+ - valid:   True
+2019-04-19 18:32:03,759 [Crc:DEBUG] calculating for data=03-27-01-01-00
+2019-04-19 18:32:03,759 [Crc:DEBUG] fcs=0xcd49
+2019-04-19 18:32:03,759 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 01 01 00
+ - fcs:     cd 49
+ - valid:   True
+2019-04-19 18:32:03,759 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=1 payload=[0]
+2019-04-19 18:32:03,760 [SerialConnector:DEBUG] <--------- pcToMote ACK (1) after 0.065 --------
+2019-04-19 18:32:03,760 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:32:03,760 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:32:03,760 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:32:03,809 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 34], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]}
+2019-04-19 18:32:03,809 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:32:03,809 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 34, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 14, 18]
+2019-04-19 18:32:03,809 [SerialConnector:DEBUG] ---------- pcToMote DATA (2) ---------->
+2019-04-19 18:32:03,809 [Crc:DEBUG] calculating for data=02-27-02-18-00-00-0c-22-38-4e-5a-22-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0f-0e-12
+2019-04-19 18:32:03,809 [Crc:DEBUG] fcs=0x443a
+2019-04-19 18:32:03,809 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 02 18 00 00 0c 22 38 4e 5a 22 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0f 0e 12
+ - fcs:     44 3a
+ - valid:   True
+2019-04-19 18:32:03,888 [Crc:DEBUG] calculating for data=03-27-02-01-00
+2019-04-19 18:32:03,888 [Crc:DEBUG] fcs=0xa9a6
+2019-04-19 18:32:03,888 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 02 01 00
+ - fcs:     a9 a6
+ - valid:   True
+2019-04-19 18:32:03,888 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=2 payload=[0]
+2019-04-19 18:32:03,889 [SerialConnector:DEBUG] <--------- pcToMote ACK (2) after 0.079 --------
+2019-04-19 18:32:03,889 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:32:03,889 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:32:03,889 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:32:03,924 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 25], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]}
+2019-04-19 18:32:03,924 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:32:03,924 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 25, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 19]
+2019-04-19 18:32:03,924 [SerialConnector:DEBUG] ---------- pcToMote DATA (3) ---------->
+2019-04-19 18:32:03,924 [Crc:DEBUG] calculating for data=02-27-03-18-00-00-0c-22-38-4e-5a-19-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0e-0e-13
+2019-04-19 18:32:03,925 [Crc:DEBUG] fcs=0x b15
+2019-04-19 18:32:03,925 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 03 18 00 00 0c 22 38 4e 5a 19 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0e 0e 13
+ - fcs:     0b 15
+ - valid:   True
+2019-04-19 18:32:03,989 [Crc:DEBUG] calculating for data=03-27-03-01-00
+2019-04-19 18:32:03,990 [Crc:DEBUG] fcs=0x75fc
+2019-04-19 18:32:03,990 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 03 01 00
+ - fcs:     75 fc
+ - valid:   True
+2019-04-19 18:32:03,990 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=3 payload=[0]
+2019-04-19 18:32:03,990 [SerialConnector:DEBUG] <--------- pcToMote ACK (3) after 0.066 --------
+2019-04-19 18:32:03,990 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:32:03,991 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:32:03,991 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:32:04,039 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 35], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]}
+2019-04-19 18:32:04,039 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:32:04,039 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 35, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 19]
+2019-04-19 18:32:04,040 [SerialConnector:DEBUG] ---------- pcToMote DATA (4) ---------->
+2019-04-19 18:32:04,040 [Crc:DEBUG] calculating for data=02-27-04-18-00-00-0c-22-38-4e-5a-23-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-13
+2019-04-19 18:32:04,040 [Crc:DEBUG] fcs=0x96fb
+2019-04-19 18:32:04,040 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 04 18 00 00 0c 22 38 4e 5a 23 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 13
+ - fcs:     96 fb
+ - valid:   True
+2019-04-19 18:32:04,104 [Crc:DEBUG] calculating for data=03-27-04-01-00
+2019-04-19 18:32:04,104 [Crc:DEBUG] fcs=0x7070
+2019-04-19 18:32:04,105 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 04 01 00
+ - fcs:     70 70
+ - valid:   True
+2019-04-19 18:32:04,105 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=4 payload=[0]
+2019-04-19 18:32:04,105 [SerialConnector:DEBUG] <--------- pcToMote ACK (4) after 0.065 --------
+2019-04-19 18:32:04,105 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:32:04,105 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:32:04,105 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:32:04,154 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 65], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]}
+2019-04-19 18:32:04,154 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:32:04,154 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 65, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 19]
+2019-04-19 18:32:04,154 [SerialConnector:DEBUG] ---------- pcToMote DATA (5) ---------->
+2019-04-19 18:32:04,155 [Crc:DEBUG] calculating for data=02-27-05-18-00-00-0c-22-38-4e-5a-41-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-13
+2019-04-19 18:32:04,155 [Crc:DEBUG] fcs=0xb0ee
+2019-04-19 18:32:04,155 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 05 18 00 00 0c 22 38 4e 5a 41 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 13
+ - fcs:     b0 ee
+ - valid:   True
+2019-04-19 18:32:04,219 [Crc:DEBUG] calculating for data=03-27-05-01-00
+2019-04-19 18:32:04,219 [Crc:DEBUG] fcs=0xac2a
+2019-04-19 18:32:04,219 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 05 01 00
+ - fcs:     ac 2a
+ - valid:   True
+2019-04-19 18:32:04,219 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=5 payload=[0]
+2019-04-19 18:32:04,220 [SerialConnector:DEBUG] <--------- pcToMote ACK (5) after 0.065 --------
+2019-04-19 18:32:04,220 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:32:04,220 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:32:04,220 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:32:04,269 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 32], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]}
+2019-04-19 18:32:04,269 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:32:04,269 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 32, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 133, 14, 17]
+2019-04-19 18:32:04,269 [SerialConnector:DEBUG] ---------- pcToMote DATA (6) ---------->
+2019-04-19 18:32:04,270 [Crc:DEBUG] calculating for data=02-27-06-18-00-00-0c-22-38-4e-5a-20-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-85-0e-11
+2019-04-19 18:32:04,270 [Crc:DEBUG] fcs=0x247a
+2019-04-19 18:32:04,270 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 06 18 00 00 0c 22 38 4e 5a 20 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 85 0e 11
+ - fcs:     24 7a
+ - valid:   True
+2019-04-19 18:32:04,334 [Crc:DEBUG] calculating for data=03-27-06-01-00
+2019-04-19 18:32:04,334 [Crc:DEBUG] fcs=0xc8c5
+2019-04-19 18:32:04,334 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 06 01 00
+ - fcs:     c8 c5
+ - valid:   True
+2019-04-19 18:32:04,335 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=6 payload=[0]
+2019-04-19 18:32:04,335 [SerialConnector:DEBUG] <--------- pcToMote ACK (6) after 0.065 --------
+2019-04-19 18:32:04,335 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:32:04,335 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:32:04,335 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:32:04,384 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 93], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]}
+2019-04-19 18:32:04,384 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:32:04,384 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 93, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16]
+2019-04-19 18:32:04,384 [SerialConnector:DEBUG] ---------- pcToMote DATA (7) ---------->
+2019-04-19 18:32:04,385 [Crc:DEBUG] calculating for data=02-27-07-18-00-00-0c-22-38-4e-5a-5d-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-0d-0e-10
+2019-04-19 18:32:04,385 [Crc:DEBUG] fcs=0x3f86
+2019-04-19 18:32:04,385 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 07 18 00 00 0c 22 38 4e 5a 5d 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 10
+ - fcs:     3f 86
+ - valid:   True
+2019-04-19 18:32:04,449 [Crc:DEBUG] calculating for data=03-27-07-01-00
+2019-04-19 18:32:04,449 [Crc:DEBUG] fcs=0x149f
+2019-04-19 18:32:04,449 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 07 01 00
+ - fcs:     14 9f
+ - valid:   True
+2019-04-19 18:32:04,450 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=7 payload=[0]
+2019-04-19 18:32:04,450 [SerialConnector:DEBUG] <--------- pcToMote ACK (7) after 0.065 --------
+2019-04-19 18:32:04,450 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:32:04,450 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:32:04,450 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:32:04,499 [ByteArraySerializer:DEBUG] serialize ...
+- commandArray:     ['setACLEntry']
+- fieldsToFill:     {'macAddress': [12, 34, 56, 78, 90, 24], 'joinKey': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]}
+2019-04-19 18:32:04,499 [ByteArraySerializer:DEBUG] ... serialize into
+- cmdId:            39
+- byteArray:        00-00-0c-22-38-4e-5a-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:32:04,499 [SerialConnector:DEBUG] _sendInternal cmdId=39 retry=0 isResponse=False serializedFields=[0, 0, 12, 34, 56, 78, 90, 24, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 33, 14, 18]
+2019-04-19 18:32:04,499 [SerialConnector:DEBUG] ---------- pcToMote DATA (8) ---------->
+2019-04-19 18:32:04,500 [Crc:DEBUG] calculating for data=02-27-08-18-00-00-0c-22-38-4e-5a-18-00-01-02-03-04-05-06-07-08-09-0a-0b-0c-21-0e-12
+2019-04-19 18:32:04,500 [Crc:DEBUG] fcs=0x7658
+2019-04-19 18:32:04,500 [Hdlc:DEBUG] 
+packetToSend:
+ - payload: 02 27 08 18 00 00 0c 22 38 4e 5a 18 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 21 0e 12
+ - fcs:     76 58
+ - valid:   True
+2019-04-19 18:32:04,564 [Crc:DEBUG] calculating for data=03-27-08-01-00
+2019-04-19 18:32:04,565 [Crc:DEBUG] fcs=0xd3d5
+2019-04-19 18:32:04,565 [Hdlc:DEBUG] 
+receivedFrame:
+ - payload: 03 27 08 01 00
+ - fcs:     d3 d5
+ - valid:   True
+2019-04-19 18:32:04,565 [SerialConnector:DEBUG] cmdId=39 length=1 isResponse=True packetId=8 payload=[0]
+2019-04-19 18:32:04,565 [SerialConnector:DEBUG] <--------- pcToMote ACK (8) after 0.065 --------
+2019-04-19 18:32:04,565 [SerialConnector:DEBUG] no ack needed
+2019-04-19 18:32:04,565 [ByteArraySerializer:DEBUG] deserialize ...
+- type:             command
+- id:               39
+- byteArray:        00
+2019-04-19 18:32:04,565 [ByteArraySerializer:DEBUG] ... deserialized into
+- nameArray:        ['setACLEntry']
+- returnFields:     {'RC': 0}
+2019-04-19 18:32:04,614 [Hdlc:INFO] disconnect
