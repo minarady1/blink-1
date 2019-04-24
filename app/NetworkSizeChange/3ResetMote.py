@@ -60,7 +60,7 @@ DEFAULT_MOTESERIALPORT  = 'COM19'
 try:
     # Connect to Manager
     manager        = IpMgrConnectorSerial.IpMgrConnectorSerial()
-    print 'ACL creation (c) Dust Networks'
+    print 'Reset operational motes (c) Dust Networks'
     print 'SmartMesh SDK {0}\n'.format('.'.join([str(b) for b in sdk_version.VERSION]))
     
     print '==== Connect to manager'
@@ -71,25 +71,32 @@ try:
     manager.connect({'port': serialport})
     print 'Connected to manager at {0}.\n'.format(serialport)
  
-    # Create ACL until the final of file
+    # Reset all motes until the final of file
             
-    print '    Create ACL on the manager...\n',
-    
+    print '    Reset operational motes...\n',
+
     with open('decFile.json','r') as MacFile:
         for line in MacFile:
             data = json.loads(line)
             print('MAC address {}'.format(FormatUtils.formatBuffer(data['MAC'])))
-            #print(data['MAC'])
-            manager.dn_setACLEntry(
-                macAddress   = data['MAC'],
-                joinKey      = data['JoinKey'],
+            manager.dn_reset(
+                type = 2,
+                macAddress = data['MAC']
             )
             if not line:
                 f.close()
     print 'done.'
+    '''
 
+    # Reset specific motes to apply new ACL
     
-
+    manager.dn_reset(
+        type = 2,
+        macAddress = [0, 23, 13, 0, 0, 49, 213, 106]
+    )
+    
+    '''
+    
     print '\n\n==== disconnect from manager'
     manager.disconnect()
     print 'Bye bye.\n'

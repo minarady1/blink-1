@@ -60,7 +60,7 @@ DEFAULT_MOTESERIALPORT  = 'COM19'
 try:
     # Connect to Manager
     manager        = IpMgrConnectorSerial.IpMgrConnectorSerial()
-    print 'ACL creation (c) Dust Networks'
+    print 'ACL deletion (c) Dust Networks'
     print 'SmartMesh SDK {0}\n'.format('.'.join([str(b) for b in sdk_version.VERSION]))
     
     print '==== Connect to manager'
@@ -74,7 +74,7 @@ try:
     # Create ACL until the final of file
             
     print '    Detele ACL on the manager... \n',
-    with open('ListMacJoinKey.json','r') as MacFile:
+    with open('decFile.json','r') as MacFile:
         for line in MacFile:
             data = json.loads(line)
             print('MAC address:{}'.format(FormatUtils.formatBuffer(data['MAC'])))
