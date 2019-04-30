@@ -1,5 +1,31 @@
 #!/usr/bin/python
 
+    ##
+    # Send a packet into the network without joining. The mote searches for a network 
+    # and sends the packet. Optionally, the list of neighbors discovered during the 
+    # search process is also sent, up to a maximum of four neighbors. If the discovered 
+    # neighbor list is not included, the payload maximum size is 73B, and if the discovered 
+    # neighbors are included, the maximum size is 58B.
+    # 
+    # Upon receiving a blink command, the mote will transition to the blink state and start 
+    # searching for advertisements. When it hears an advertisement, it synchronizes and continues 
+    # listening briefly in efforts to discover more neighbors. After this short timeout, the 
+    # mote immediately sends the data packet to one of the discovered neighbors. If the blink 
+    # command is called repeatedly to send consecutive packets, the mote does not search 
+    # again unless the discovered neighbor list is requested.
+    # 
+    # When the mote successfully sends the packet, a txDone notification will be sent with status 
+    # set to 0. If the mote cannot send the packet, e.g. if 60 seconds elapse without receiving 
+    # a MAC-layer acknowledgement, a txDone notification is sent with status set to 1.
+    # 
+    # For Blink packets, the mote can only accept a single packet at a time. To send multiple 
+    # packets, the application must wait for the txDone notification. The mote will return to 
+    # low-power sleep when 60 seconds elapse without any MAC-layer acknowledgements, so to 
+    # prevent the mote from sleeping, the application should send the packets much faster than 
+    # this 60 second timeout. See the SmartMesh Embedded IP Manager API Guide for details on 
+    # the manager-side blink notification.
+    # 
+    # 
 ''' BlinkPacketSend
 
 This scipt will connect to a mote via serial port, then issue a Blink command
@@ -77,23 +103,21 @@ class NotifListener(threading.Thread):
                     keepListening = False
         self.disconnectedCb()
 
-def mynotifIndication(mynotif):
+def mynotifIndication(my_notif):
     # Check for txDone notification, then print status information
-    if mynotif[0]==['txDone']:
-        for key, value in mynotif[1].items():
+    if my_notif[0]==['txDone']:
+        for key, value in my_notif[1].items():
             if key == "status":
-                if value == 0:                    
-                    #print ('\n     txDone Status = {0}, Blink packet successfully sent\n'.format(value))
-                    #timeTx = datetime.datetime.now()
-                    jsonTimeTxDone = {'TimeTxDone': '{}'.format(datetime.datetime.now()), 'Payload':'{}'.format(STRING_TO_PUBLISH)}
-                    with open('blinkMoteTxDone.json', 'a') as f:                    
-                        f.write(json.dumps(jsonTimeTxDone))
+                if value == 0:
+                    txDoneTime = datetime.datetime.now()                    
+                    jsonTime = {'TimeIssue': '{}'.format(issueTime), 'TimeTxDone': '{}'.format(txDoneTime), 'Payload':'{}'.format(STRING_TO_PUBLISH)}
+                    with open('blinkMoteTime.json', 'a') as f:                    
+                        f.write(json.dumps(jsonTime))
                         f.write('\n')   
-                    print ('\n     txDone Status = {0}, Blink packet successfully sent\n'.format(value))                 
+                    print ('\n     txDone Status = {0}, Blink packet successfully sent\n'.format(value))                
                 else:
                     print ('\n     txDone Status = {0}, Error, Blink packet NOT sent\n'.format(value))
                 NotifEventDone.set()
-
 
 def mydisconnectedIndication():
     print 'Mote was disconnected\n'
@@ -128,7 +152,6 @@ try:
 
     # start a NotifListener
     NotifEventDone = threading.Event()
-    
     mynotifListener   = NotifListener (
                           moteconnector,
                           mynotifIndication,
@@ -141,28 +164,25 @@ try:
 
     for i in range(0, int(options.packets)):
         try:
-            STRING_TO_PUBLISH       = "{}_".format(options.location)+ "{}{}".format(random.randint(1, 100000000),random.randint(1, 100000000))
+            timePoch = time.time()
+            #STRING_TO_PUBLISH       = "{}__".format(options.location)+ "{}{}{}{}__{}".format(random.randint(1000000000, 9999999999),random.randint(1000000000, 9999999999), random.randint(1000000000, 9999999999), random.randint(1000000000, 9999999999), i+1)
+            STRING_TO_PUBLISH       = "{}__".format(options.location) + "{}__{}".format(timePoch, i+1)
             resp = moteconnector.dn_blink(
                 fIncludeDscvNbrs    = int(options.neighbors),
                 payload             = [ord(i) for i in STRING_TO_PUBLISH],
             )            
             print '    Requested a Blink with payload --> "{0}"'.format(STRING_TO_PUBLISH)
             # Wtire capture time in json file here
-            jsonBlinkIssue = {'TimeIssueDone': '{}'.format(datetime.datetime.now()), 'Payload':'{}'.format(STRING_TO_PUBLISH)}
-            with open('blinkMoteIssue.json', 'a') as f:                    
-                f.write(json.dumps(jsonBlinkIssue))
-                f.write('\n') 
-
+            issueTime = datetime.datetime.now()
         except Exception as err:
             print ("Could not execute dn_blink: {0}\n".format(err))
                
-        #print "...waiting for packet sent Notifaction",       
+        print "...waiting for packet sent Notifaction",       
         while not NotifEventDone.is_set():
-            print '.',
+            print '!',
             time.sleep(1)
 
         NotifEventDone.clear()
-
     moteconnector.disconnect()
   
     print 'Script ended normally.'
