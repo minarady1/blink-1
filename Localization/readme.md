@@ -1,4 +1,3 @@
-
 # Blink
 
 This directory is organized as follows:
