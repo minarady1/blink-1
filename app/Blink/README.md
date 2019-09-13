@@ -8,6 +8,6 @@ pip install -r requirements.txt
 ```
 
 ## Scripts
-* manager.py: run with SmartMeshIP Manager
-* run with sensor
+* manager.py: run with SmartMesh IP Manager
+* sensor.py: run with SmartMesh IP Mote (Slave mode)
 * run with a log file to produce results
