@@ -28,29 +28,29 @@ following fields:
 * `macAddress` or `neighborMacAddress`: for an entry having only mote ID
 
 MAC address is reformated by `manager.py` to a human-friendly format,
-`XX-XX-XX-XX-XX-XX-XX-XX`.
+`xx-xx-xx-xx-xx-xx-xx-xx`.
 
 Here is an example of log lines (formatted for readability):
 ```
 {
   "timestamp": "Mon Sep 16 18:45:29 2019",
   "type": "notifData",
-  "params": {"utcSecs": 1025675279, "utcUsecs": 399500, "macAddress": "00-17-0D-00-00-31-C6-A1", "srcPort": 61625, "dstPort": 61625, "data": [0, 0, 5, 0, 255, 1, 5, 0, 0, 0, 0, 61, 34, 144, 15, 0, 6, 25, 60, 0, 0, 117, 48, 1, 16, 9, 236]}
+  "params": {"utcSecs": 1025675279, "utcUsecs": 399500, "macAddress": "00-17-0d-00-00-31-c6-a1", "srcPort": 61625, "dstPort": 61625, "data": [0, 0, 5, 0, 255, 1, 5, 0, 0, 0, 0, 61, 34, 144, 15, 0, 6, 25, 60, 0, 0, 117, 48, 1, 16, 9, 236]}
 }
 {
   "timestamp": "Mon Sep 16 18:45:32 2019",
   "type": "notifData",
   "parsed_data": {
     "neighbors": [
-      {"macAddress": "00-17-0D-00-00-30-3E-09", "rssi": -31},
-      {"macAddress": "00-17-0D-00-00-31-C1-AB", "rssi": -32},
-      {"macAddress": "00-17-0D-00-00-31-C6-A1", "rssi": -43},
-      {"macAddress": "00-17-0D-00-00-31-CA-03", "rssi": -44}
+      {"macAddress": "00-17-0d-00-00-30-3e-09", "rssi": -31},
+      {"macAddress": "00-17-0d-00-00-31-c1-ab", "rssi": -32},
+      {"macAddress": "00-17-0d-00-00-31-c6-a1", "rssi": -43},
+      {"macAddress": "00-17-0d-00-00-31-ca-03", "rssi": -44}
     ],
     "subtype": "blink",
     "user_input": "room1"
   },
-  "params": {"utcSecs": 1025675280, "utcUsecs": 124500, "macAddress": "00-17-0D-00-00-38-05-E9", "srcPort": 61616, "dstPort": 61616, "data": [148, 5, 114, 111, 111, 109, 49, 149, 13, 4, 0, 1, 225, 0, 4, 224, 0, 8, 213, 0, 2, 212]}
+  "params": {"utcSecs": 1025675280, "utcUsecs": 124500, "macAddress": "00-17-0d-00-00-38-05-e9", "srcPort": 61616, "dstPort": 61616, "data": [148, 5, 114, 111, 111, 109, 49, 149, 13, 4, 0, 1, 225, 0, 4, 224, 0, 8, 213, 0, 2, 212]}
 }
 {
   "timestamp": "Mon Sep 16 18:46:36 2019",
@@ -76,19 +76,19 @@ Here is an example of log lines (formatted for readability):
     },
     "Discovered": {
       "discoveredNeighbors": [
-        {"macAddress": "00-17-0D-00-00-31-C3-19", "rssi": -16, "numRx": 3, "neighborId": 5},
-        {"macAddress": "00-17-0D-00-00-31-D5-30", "rssi": -14, "numRx": 3, "neighborId": 6},
-        {"macAddress": "00-17-0D-00-00-31-C6-A1", "rssi": -2, "numRx": 3, "neighborId": 8},
-        {"macAddress": "00-17-0D-00-00-31-CA-03", "rssi": -16, "numRx": 2, "neighborId": 2},
-        {"macAddress": "00-17-0D-00-00-31-C1-A0", "rssi": -18, "numRx": 2, "neighborId": 3},
-        {"macAddress": "00-17-0D-00-00-31-C1-AB", "rssi": -9, "numRx": 2, "neighborId": 4},
-        {"macAddress": "00-17-0D-00-00-31-D4-7E", "rssi": -5, "numRx": 2, "neighborId": 10}
+        {"macAddress": "00-17-0d-00-00-31-c3-19", "rssi": -16, "numRx": 3, "neighborId": 5},
+        {"macAddress": "00-17-0d-00-00-31-d5-30", "rssi": -14, "numRx": 3, "neighborId": 6},
+        {"macAddress": "00-17-0d-00-00-31-c6-a1", "rssi": -2, "numRx": 3, "neighborId": 8},
+        {"macAddress": "00-17-0d-00-00-31-ca-03", "rssi": -16, "numRx": 2, "neighborId": 2},
+        {"macAddress": "00-17-0d-00-00-31-c1-a0", "rssi": -18, "numRx": 2, "neighborId": 3},
+        {"macAddress": "00-17-0d-00-00-31-c1-ab", "rssi": -9, "numRx": 2, "neighborId": 4},
+        {"macAddress": "00-17-0d-00-00-31-d4-7e", "rssi": -5, "numRx": 2, "neighborId": 10}
       ],
       "numItems": 7,
       "numJoinParents": 7
     }
   },
-  "params": {"macAddress": "00-17-0D-00-00-31-CC-2E", "payload": [128, 27, 0, 0, 0, 117, 49, 25, 12, 171, 0, 62, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 130, 30, 7, 7, 0, 5, 240, 3, 0, 6, 242, 3, 0, 8, 254, 3, 0, 2, 240, 2, 0, 3, 238, 2, 0, 4, 247, 2, 0, 10, 251, 2]}
+  "params": {"macAddress": "00-17-0d-00-00-31-cc-2e", "payload": [128, 27, 0, 0, 0, 117, 49, 25, 12, 171, 0, 62, 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 130, 30, 7, 7, 0, 5, 240, 3, 0, 6, 242, 3, 0, 8, 254, 3, 0, 2, 240, 2, 0, 3, 238, 2, 0, 4, 247, 2, 0, 10, 251, 2]}
 }
 {
   "timestamp": "Mon Sep 16 19:02:14 2019", 
@@ -96,11 +96,11 @@ Here is an example of log lines (formatted for readability):
   "parsed_data": {
     "Neighbors": {
       "neighbors": [
-        {"macAddress": "00-17-0D-00-00-31-C6-A1", "neighborFlag": 0, "neighborId": 8, "numTxFailures": 0, "rssi": -5, "numTxPackets": 91, "numRxPackets": 3},
-        {"macAddress": "00-17-0D-00-00-30-3E-09", "neighborFlag": 0, "neighborId": 1, "numTxFailures": 5, "rssi": -45, "numTxPackets": 97, "numRxPackets": 3}
+        {"macAddress": "00-17-0d-00-00-31-c6-a1", "neighborFlag": 0, "neighborId": 8, "numTxFailures": 0, "rssi": -5, "numTxPackets": 91, "numRxPackets": 3},
+        {"macAddress": "00-17-0d-00-00-30-3e-09", "neighborFlag": 0, "neighborId": 1, "numTxFailures": 5, "rssi": -45, "numTxPackets": 97, "numRxPackets": 3}
       ],
       "numItems": 2}
     },
-  "params": {"macAddress": "00-17-0D-00-00-31-D4-7E", "payload": [129, 21, 2, 0, 8, 0, 251, 0, 91, 0, 0, 0, 3, 0, 1, 0, 211, 0, 97, 0, 5, 0, 3]}
+  "params": {"macAddress": "00-17-0d-00-00-31-d4-7e", "payload": [129, 21, 2, 0, 8, 0, 251, 0, 91, 0, 0, 0, 3, 0, 1, 0, 211, 0, 97, 0, 5, 0, 3]}
 }
 ```

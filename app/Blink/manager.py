@@ -159,7 +159,7 @@ def setup_acl(manager, config):
 
 def convert_mote_id_to_mac_address(manager, mote_id):
     ret = manager.dn_getMoteConfigById(mote_id)
-    return '-'.join(map(lambda x: '%02X' % x, ret.macAddress))
+    return '-'.join(map(lambda x: '%02x' % x, ret.macAddress))
 
 def it_is_blink_packet_log(log):
     return (
@@ -218,10 +218,10 @@ def subscribe_notification(manager, log_file_path):
             }
             if 'macAddress' in log['params']:
                 # convert the MAC address in 'params' to a human-friendly format
-                # [0, 255, 0, 10, 0, 0, 0, 1] -> 00-FF-00-0A-00-00-00-01
+                # [0, 255, 0, 10, 0, 0, 0, 1] -> 00-ff-00-0a-00-00-00-01
                 mac_address_in_list = log['params']['macAddress']
                 log['params']['macAddress'] = (
-                    '-'.join(map(lambda x: '%02X' % x, mac_address_in_list))
+                    '-'.join(map(lambda x: '%02x' % x, mac_address_in_list))
                 )
 
             if it_is_blink_packet_log(log):
