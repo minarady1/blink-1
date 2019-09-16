@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from array import array
 from collections import namedtuple
 import json
 import os
@@ -12,8 +13,9 @@ from halo import Halo
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../libs'))
 import SmartMeshSDK.ApiException
 from SmartMeshSDK.IpMgrConnectorSerial import IpMgrConnectorSerial
-from SmartMeshSDK.IpMgrConnectorMux     import IpMgrSubscribe
-from SmartMeshSDK.protocols.blink.blink import decode_blink
+from SmartMeshSDK.IpMgrConnectorMux.IpMgrSubscribe import IpMgrSubscribe
+from SmartMeshSDK.protocols.Hr.HrParser import HrParser
+from SmartMeshSDK.protocols.blink import blink
 
 BLINK_BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 CONFIG_FILE_NAME = 'config.json'
@@ -155,39 +157,98 @@ def setup_acl(manager, config):
     )
     return
 
-def subscribe_notification(manager, log_file_path):
-    def handler(name, params):
-        params = params._asdict()
-        with open(log_file_path, 'a') as f:
-            log = {'name': name, 'params': params}
-            f.write('{}\n'.format(json.dumps(log)))
+def convert_mote_id_to_mac_address(manager, mote_id):
+    ret = manager.dn_getMoteConfigById(mote_id)
+    return '-'.join(map(lambda x: '%02X' % x, ret.macAddress))
 
-        # if it is about a blink packet, print it
-        if (
-            name == 'notifData'
-            and
-            'data' in params
-            and
-            params['data'][0] == BLINK_PAYLOAD_COMMAND_ID
-        ):
-            payload = ''.join([chr(b) for b in params['data']])
-            data, neighbors = decode_blink(payload)
-            print '{}: '.format(data)
+def it_is_blink_packet_log(log):
+    return (
+        log['type'] == IpMgrSubscribe.NOTIFDATA
+        and
+        'data' in log['params']
+        and
+        log['params']['data'][0] == blink.BLINK_PAYLOAD_COMMAND_ID
+    )
 
-            if neighbors:
-                for id, rssi in neighbors:
-                    print 'o id: {0}, rssi: {1}'.format(id, rssi)
+def parse_blink_packet(manager, log):
+    payload = ''.join([chr(b) for b in log['params']['data']])
+    user_input, neighbors = blink.decode_blink(payload)
+
+    new_neighbors = []
+    for mote_id, rssi in neighbors:
+        new_neighbors.append({
+            'macAddress': convert_mote_id_to_mac_address(manager, mote_id),
+            'rssi': rssi
+        })
+
+    return {
+        'subtype': 'blink',
+        'user_input': user_input,
+        'neighbors': new_neighbors
+    }
+
+def parse_health_report_packet(manager, health_report_parser, log):
+    payload = array('B', log['params']['payload'])
+    ret = health_report_parser.parseHr(payload)
+    for key in ret:
+        if key in ['Neighbors', 'Discovered']:
+            if key == 'Neighbors':
+                subkey = 'neighbors'
             else:
+                subkey = 'discoveredNeighbors'
+            for neighbor in ret[key][subkey]:
+                neighbor['macAddress'] = convert_mote_id_to_mac_address(
+                    manager,
+                    neighbor['neighborId']
+                )
+        else:
+            # do nothing
+            pass
+    return ret
+
+def subscribe_notification(manager, log_file_path):
+    health_report_parser = HrParser()
+
+    def handler(name, params):
+        with open(log_file_path, 'a') as f:
+            log = {
+                'type': name,
+                'timestamp': time.ctime(),
+                'params': params._asdict()
+            }
+            if 'macAddress' in log['params']:
+                # convert the MAC address in 'params' to a human-friendly format
+                # [0, 255, 0, 10, 0, 0, 0, 1] -> 00-FF-00-0A-00-00-00-01
+                mac_address_in_list = log['params']['macAddress']
+                log['params']['macAddress'] = (
+                    '-'.join(map(lambda x: '%02X' % x, mac_address_in_list))
+                )
+
+            if it_is_blink_packet_log(log):
+                log['parsed_data'] = parse_blink_packet(manager, log)
+            elif log['type'] == IpMgrSubscribe.NOTIFHEALTHREPORT:
+                log['parsed_data'] = parse_health_report_packet(
+                    manager,
+                    health_report_parser,
+                    log
+                )
+            else:
+                # parsed_data is not added for a log comming here. if
+                # we need temperature reports for localization, use
+                # the result object returned by parse_oap_notif()
+                # defined in SmartMeshSDK.protocols.oap.OAPNotif
                 pass
+
+            f.write('{}\n'.format(json.dumps(log)))
 
     spinner = Halo(text='Setting up Subscriber')
     spinner.start()
 
     try:
-        subscriber = IpMgrSubscribe.IpMgrSubscribe(manager)
+        subscriber = IpMgrSubscribe(manager)
         subscriber.start()
         subscriber.subscribe(
-            notifTypes = IpMgrSubscribe.IpMgrSubscribe.ALLNOTIF,
+            notifTypes = IpMgrSubscribe.ALLNOTIF,
             fun        = handler,
             isRlbl     = False,
         )
