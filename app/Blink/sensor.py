@@ -11,7 +11,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../../libs'))
 import SmartMeshSDK.ApiException
 from SmartMeshSDK.IpMoteConnector import IpMoteConnector
 
-BLINK_TIMEOUT_SECONDS = 65
+BLINK_TIMEOUT_SECONDS = 120
 RESET_WAIT_SECONDS = 10
 NUM_BLINK_PACKETS_TO_SEND = 10
 NUM_NEIGHBORS_IN_BLINK_PACKET = 4
@@ -155,9 +155,11 @@ def main(serial_dev):
             break
         else:
             _print('Sending blink packets with "{}": '.format(str))
+            now = time.time()
             for _ in range(NUM_BLINK_PACKETS_TO_SEND):
-                send_blink_packet(sensor, payload=str)
+                send_blink_packet(sensor, payload=str, include_neighbors=True)
                 _print('.')
+            _print(' [done, {}s]'.format(int(time.time() - now)))
             _print('\n')
 
     sensor.disconnect()
