@@ -199,12 +199,16 @@ def subscribe_notification(manager, log_file_path):
 
 @click.command()
 @click.argument('serial_dev')
-def main(serial_dev):
+@click.option('--acl-setup/--no-acl-setup', default=False,
+              show_default=True,
+              help='specify --acl-setup if ACL needs to be configured')
+def main(serial_dev, acl_setup):
     manager = connect_manager(serial_dev)
     config = load_config()
     log_file_path = prepare_log_file()
 
-    setup_acl(manager, config)
+    if acl_setup:
+        setup_acl(manager, config)
     subscribe_notification(manager, log_file_path)
 
     while True:
