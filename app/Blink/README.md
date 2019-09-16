@@ -1,4 +1,4 @@
-# Sensor Localization with Blink
+# Tag Localization with Blink
 ## Prerequisite
 There are additional required packages which are listed in
 `requirements.txt`.  Install them by the following command:
@@ -9,7 +9,7 @@ pip install -r requirements.txt
 
 ## Scripts
 * manager.py: run with SmartMesh IP Manager
-* sensor.py: run with SmartMesh IP Mote (Slave mode)
+* tag.py: run with SmartMesh IP Mote (Slave mode)
 * analyzer.py: run against a log file
 
 ## Log format

@@ -20,7 +20,7 @@ def _print(str):
     sys.stdout.write(str)
     sys.stdout.flush()
 
-def send_blink_packet(sensor, payload, include_neighbors=True):
+def send_blink_packet(tag, payload, include_neighbors=True):
     payload = map(lambda c: ord(c), list(payload))
 
     if include_neighbors:
@@ -28,8 +28,8 @@ def send_blink_packet(sensor, payload, include_neighbors=True):
     else:
         fIncludeDscvNbrs = 0
 
-    sensor.dn_blink(fIncludeDscvNbrs, payload)
-    notification = sensor.getNotificationInternal(BLINK_TIMEOUT_SECONDS)
+    tag.dn_blink(fIncludeDscvNbrs, payload)
+    notification = tag.getNotificationInternal(BLINK_TIMEOUT_SECONDS)
     if (
         notification
         and
@@ -39,53 +39,53 @@ def send_blink_packet(sensor, payload, include_neighbors=True):
         pass
     else:
         msg = (
-            'No network around the sensor?\n' +
+            'No network around the tag?\n' +
             'Check if the manager and the anchors are running as expected'
         )
         raise RuntimeError(msg)
 
-def connect_sensor(serial_dev):
+def connect_tag(serial_dev):
     # prepaer and return a ready-to-use IpMoteConnector()
-    spinner = Halo(text='Connecting to Sensor')
+    spinner = Halo(text='Connecting to Tag')
     spinner.start()
 
-    sensor = IpMoteConnector.IpMoteConnector()
+    tag = IpMoteConnector.IpMoteConnector()
 
     try:
-        sensor.connect({'port': serial_dev})
+        tag.connect({'port': serial_dev})
     except SmartMeshSDK.ApiException.ConnectionError:
         spinner.fail()
         msg = (
             'Cannot establish connection to {}.\n'.format(serial_dev) +
-            'Is this the right port for "API" of the sensor?\n' +
+            'Is this the right port for "API" of the tag?\n' +
             'You may have specified the port for "CLI".\n'
         )
         sys.exit(msg)
 
-    spinner.succeed('Connected to Sensor')
-    return sensor
+    spinner.succeed('Connected to Tag')
+    return tag
 
-def reset(sensor):
+def reset(tag):
     # clear a pending blink packet by reset if any
-    spinner = Halo(text='Resetting Sensor')
+    spinner = Halo(text='Resetting Tag')
     spinner.start()
 
     # clear notification queue
-    while sensor.getNotificationInternal(timeoutSec=1) != None:
+    while tag.getNotificationInternal(timeoutSec=1) != None:
         # timeoutSec needs to be equal to or larger than one to get a
-        # remaining notification from the sensor.
+        # remaining notification from the tag.
         pass
 
     # issue the reset command
     try:
-        res = sensor.dn_reset()
+        res = tag.dn_reset()
         assert res.RC == 0 # RC_OK
     except SmartMeshSDK.ApiException.ConnectionError as err:
         spinner.fail()
         msg = (
-            'Is the sensor powered?\n' +
-            'Make sure the sensor is running under the Slave mode.\n' +
-            'Access the sensor via CLI port, then:\n' +
+            'Is the tag powered?\n' +
+            'Make sure the tag is running under the Slave mode.\n' +
+            'Access the tag via CLI port, then:\n' +
             '\n' +
             ' > get mode\n' +
             '\n'
@@ -99,7 +99,7 @@ def reset(sensor):
     # wait until it boots
     start_time = time.time()
     while True:
-        notification = sensor.getNotificationInternal(timeoutSec=1)
+        notification = tag.getNotificationInternal(timeoutSec=1)
         if (
                 notification
                 and
@@ -121,29 +121,29 @@ def reset(sensor):
             spinner.fail()
             sys.exit('reset do not complete in time')
 
-    spinner.succeed('Sensor is ready')
+    spinner.succeed('Tag is ready')
 
-def test_blink(sensor):
+def test_blink(tag):
     spinner = Halo(text='Testing Blink')
     spinner.start()
 
     try:
         # test Blink
-        send_blink_packet(sensor, payload='test', include_neighbors=False)
+        send_blink_packet(tag, payload='test', include_neighbors=False)
     except (RuntimeError, SmartMeshSDK.ApiException.ConnectionError) as err:
         spinner.fail()
         sys.exit('Failed to send a Blink packet: {}'.format(err))
 
     spinner.succeed('Blink works fine')
-    return sensor
+    return tag
 
 @click.command()
 @click.argument('serial_dev')
 def main(serial_dev):
-    sensor = connect_sensor(serial_dev)
+    tag = connect_tag(serial_dev)
 
-    reset(sensor)
-    test_blink(sensor)
+    reset(tag)
+    test_blink(tag)
 
     msg = 'Input something to send or "quit" to stop this script: '
     while True:
@@ -157,12 +157,12 @@ def main(serial_dev):
             _print('Sending blink packets with "{}": '.format(str))
             now = time.time()
             for _ in range(NUM_BLINK_PACKETS_TO_SEND):
-                send_blink_packet(sensor, payload=str, include_neighbors=True)
+                send_blink_packet(tag, payload=str, include_neighbors=True)
                 _print('.')
             _print(' [done, {}s]'.format(int(time.time() - now)))
             _print('\n')
 
-    sensor.disconnect()
+    tag.disconnect()
 
 if __name__ == '__main__':
     main()
