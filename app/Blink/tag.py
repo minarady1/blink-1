@@ -154,7 +154,7 @@ def main(serial_dev, num_packets):
         if not str:
             continue
         elif str == 'quit':
-            print 'stoping...'
+            print 'stopping...'
             break
         else:
             _print('Sending blink packets with "{}": '.format(str))

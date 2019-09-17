@@ -291,7 +291,7 @@ def main(serial_dev, acl_setup):
 
     while True:
         if raw_input('Input "quit" to stop the script: ') == 'quit':
-            print 'stoping...'
+            print 'stopping...'
             break
         else:
             continue
