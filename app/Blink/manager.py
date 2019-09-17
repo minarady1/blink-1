@@ -125,7 +125,7 @@ def prepare_log_file():
 def setup_acl(manager, config):
     # - clear ACL (for a case when we change the list of anchors)
     # - add ACL entries for the anchors
-    # - add an ACL entry for the sensor
+    # - add an ACL entry for the tag
     spinner = Halo(text='Setting up ACK')
     spinner.start()
 
@@ -139,7 +139,7 @@ def setup_acl(manager, config):
 
     spinner.text = 'Adding ACL entries'
     # anchor entry is two-element list: [0] is MAC address, [1] is location
-    mote_list = [config.sensor] + [anchor[0] for anchor in config.anchors]
+    mote_list = [config.tag] + [anchor[0] for anchor in config.anchors]
     for mote in mote_list:
         try:
             manager.dn_setACLEntry(
