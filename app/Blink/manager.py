@@ -171,16 +171,30 @@ def it_is_blink_packet_log(log):
         log['params']['data'][0] == blink.BLINK_PAYLOAD_COMMAND_ID
     )
 
-def parse_blink_packet(manager, log):
+def get_anchor_location(anchors, mac_addr):
+    if mac_addr in anchors:
+        ret_val = anchors[mac_addr]
+    else:
+        ret_val = "N/A"
+
+    return ret_val
+
+def parse_blink_packet(manager, anchors, log):
     payload = ''.join([chr(b) for b in log['params']['data']])
     user_input, neighbors = blink.decode_blink(payload)
 
     new_neighbors = []
     for mote_id, rssi in neighbors:
+        mac_addr = convert_mote_id_to_mac_address(manager, mote_id)
         new_neighbors.append({
-            'macAddress': convert_mote_id_to_mac_address(manager, mote_id),
+            'macAddress': mac_addr,
+            'location': get_anchor_location(anchors, mac_addr),
             'rssi': rssi
         })
+
+    for neighbor in new_neighbors:
+        print neighbor
+    print '---'
 
     return {
         'subtype': 'blink',
@@ -207,7 +221,7 @@ def parse_health_report_packet(manager, health_report_parser, log):
             pass
     return ret
 
-def subscribe_notification(manager, log_file_path):
+def subscribe_notification(manager, anchors, log_file_path):
     health_report_parser = HrParser()
 
     def handler(name, params):
@@ -226,7 +240,7 @@ def subscribe_notification(manager, log_file_path):
                 )
 
             if it_is_blink_packet_log(log):
-                log['parsed_data'] = parse_blink_packet(manager, log)
+                log['parsed_data'] = parse_blink_packet(manager, anchors, log)
             elif log['type'] == IpMgrSubscribe.NOTIFHEALTHREPORT:
                 log['parsed_data'] = parse_health_report_packet(
                     manager,
@@ -271,7 +285,9 @@ def main(serial_dev, acl_setup):
 
     if acl_setup:
         setup_acl(manager, config)
-    subscribe_notification(manager, log_file_path)
+
+    anchors = {entry[0]: entry[1] for entry in [config.manager]+config.anchors}
+    subscribe_notification(manager, anchors, log_file_path)
 
     while True:
         if raw_input('Input "quit" to stop the script: ') == 'quit':
