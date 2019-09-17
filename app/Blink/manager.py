@@ -138,7 +138,8 @@ def setup_acl(manager, config):
         sys.exit('Failed to clear ACL: {}'.format(err))
 
     spinner.text = 'Adding ACL entries'
-    mote_list = [config.sensor] + config.anchors
+    # anchor entry is two-element list: [0] is MAC address, [1] is location
+    mote_list = [config.sensor] + [anchor[0] for anchor in config.anchors]
     for mote in mote_list:
         try:
             manager.dn_setACLEntry(
