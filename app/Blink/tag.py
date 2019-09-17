@@ -13,7 +13,7 @@ from SmartMeshSDK.IpMoteConnector import IpMoteConnector
 
 BLINK_TIMEOUT_SECONDS = 120
 RESET_WAIT_SECONDS = 10
-NUM_BLINK_PACKETS_TO_SEND = 10
+NUM_BLINK_PACKETS_TO_SEND = 25
 NUM_NEIGHBORS_IN_BLINK_PACKET = 4
 
 def _print(str):
@@ -139,7 +139,10 @@ def test_blink(tag):
 
 @click.command()
 @click.argument('serial_dev')
-def main(serial_dev):
+@click.option('--num-packets', default=NUM_BLINK_PACKETS_TO_SEND,
+              show_default=True,
+              help='number of blink packets to send for one measurement')
+def main(serial_dev, num_packets):
     tag = connect_tag(serial_dev)
 
     reset(tag)
@@ -156,7 +159,7 @@ def main(serial_dev):
         else:
             _print('Sending blink packets with "{}": '.format(str))
             now = time.time()
-            for _ in range(NUM_BLINK_PACKETS_TO_SEND):
+            for _ in range(num_packets):
                 send_blink_packet(tag, payload=str, include_neighbors=True)
                 _print('.')
             _print(' [done, {}s]'.format(int(time.time() - now)))
