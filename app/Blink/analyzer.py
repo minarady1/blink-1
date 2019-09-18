@@ -2,6 +2,7 @@
 
 from array import array
 import json
+import math
 import os
 import sys
 import time
@@ -22,6 +23,7 @@ from draw import draw_floor_map
 import utils
 
 RESULT_DIR_NAME = 'results'
+NUM_BLINK_PACKETS = 25
 
 def get_weight(rssi):
     POSSIBLE_BEST_RSSI = -35.0
@@ -54,8 +56,12 @@ def compute_tag_position_with_weighted_average(anchor_position_list, data):
     coord_list = [coord for coord in coord_list if coord != (0, 0)]
 
     # average the weighted coordinates
-    x = sum([coord[0] for coord in coord_list]) / len(coord_list)
-    y = sum([coord[1] for coord in coord_list]) / len(coord_list)
+    if coord_list:
+        x = sum([coord[0] for coord in coord_list]) / len(coord_list)
+        y = sum([coord[1] for coord in coord_list]) / len(coord_list)
+    else:
+        x = None
+        y = None
 
     return x, y
 
@@ -68,6 +74,27 @@ def get_anchor_position_list(config):
             pass
     return anchor_position_list
 
+def generate_chart_error_vs_num_packet(ground_truth, error_list):
+    output_file_path = os.path.join(
+        RESULT_DIR_NAME,
+        'chart-error-vs-num_packet-{}.png'.format(ground_truth)
+    )
+    df = pd.DataFrame(
+        data = {
+            'num_packet': [i+1 for i in range(len(error_list))],
+            'error'     : error_list
+        },
+        dtype = int
+    )
+    plt.figure()
+    sns.pointplot(
+        x    = 'num_packet',
+        y    = 'error',
+        data = df
+    )
+    plt.savefig(output_file_path)
+    plt.close()
+
 def generate_position_by_weighted_average(
         config,
         ground_truth,
@@ -76,11 +103,29 @@ def generate_position_by_weighted_average(
         RESULT_DIR_NAME,
         'map-tag_position-by-weighted_average-{}.png'.format(ground_truth)
     )
-    tag_position = compute_tag_position_with_weighted_average(
-        get_anchor_position_list(config),
-        data
-    )
+
+    for anchor in config.anchors:
+        if anchor[1] == ground_truth:
+            closest_anchor_position = anchor[2]
+            break
+    error_list = []
+    for i in range(NUM_BLINK_PACKETS):
+        tag_position = compute_tag_position_with_weighted_average(
+            get_anchor_position_list(config),
+            data[data['log_seqno']<=i]
+        )
+        if tag_position[0]:
+            error_list.append(
+                math.sqrt(
+                    (tag_position[0]-closest_anchor_position[0])**2 +
+                    (tag_position[1]-closest_anchor_position[1])**2
+                )
+            )
+        else:
+            error_list.append(None)
+
     draw_floor_map(config, output_file_path, ground_truth, tag_position)
+    generate_chart_error_vs_num_packet(ground_truth, error_list)
 
 def generate_chart_rssi_vs_anchor_location(ground_truth, data):
     output_file_path = os.path.join(
