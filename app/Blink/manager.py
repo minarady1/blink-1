@@ -10,6 +10,8 @@ import time
 import click
 from halo import Halo
 
+import utils
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../libs'))
 import SmartMeshSDK.ApiException
 from SmartMeshSDK.IpMgrConnectorSerial import IpMgrConnectorSerial
@@ -17,8 +19,6 @@ from SmartMeshSDK.IpMgrConnectorMux.IpMgrSubscribe import IpMgrSubscribe
 from SmartMeshSDK.protocols.Hr.HrParser import HrParser
 from SmartMeshSDK.protocols.blink import blink
 
-BLINK_BASE_PATH = os.path.dirname(os.path.abspath(__file__))
-CONFIG_FILE_NAME = 'config.json'
 LOG_DIR_NAME = 'logs'
 # See "Factory Default Settings", Section 3.7 of SmartMesh IP User's Guide
 DEFAULT_JOIN_KEY = (
@@ -54,37 +54,9 @@ def connect_manager(serial_dev):
     spinner.succeed('Manager is ready')
     return manager
 
-def load_config():
-    # load config.json, and convert a resulting dict to a namedtuple
-    # so that we can access config parameters as attributes, like
-    # config.anchors instead of config['anchors'].
-    spinner = Halo(text='Loading config')
-    spinner.start()
-
-    config_path = os.path.join(BLINK_BASE_PATH, CONFIG_FILE_NAME)
-
-    try:
-        with open(config_path) as f:
-            config = json.load(
-                f,
-                object_hook = (
-                    lambda d: namedtuple('Config', d.keys())(*d.values())
-                )
-            )
-    except IOError:
-        spinner.fail()
-        msg = (
-            'Cannot load the config file.\n' +
-            'Confirm that {} exists and is readable.'.format(config_path)
-        )
-        sys.exit(msg)
-
-    spinner.succeed('Config is loaded')
-    return config
-
 def prepare_log_file():
     spinner = Halo(text='Preparing a log file')
-    log_dir_path = os.path.join(BLINK_BASE_PATH, LOG_DIR_NAME)
+    log_dir_path = os.path.join(utils.get_blink_base_path(), LOG_DIR_NAME)
 
     # make sure we have the log directory
     if os.path.isdir(log_dir_path):
@@ -280,7 +252,7 @@ def subscribe_notification(manager, anchors, log_file_path):
               help='specify --acl-setup if ACL needs to be configured')
 def main(serial_dev, acl_setup):
     manager = connect_manager(serial_dev)
-    config = load_config()
+    config = utils.load_config()
     log_file_path = prepare_log_file()
 
     if acl_setup:
