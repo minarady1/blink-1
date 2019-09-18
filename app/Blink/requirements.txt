@@ -1,4 +1,5 @@
 click
 halo
 pandas
+pillow
 seaborn
