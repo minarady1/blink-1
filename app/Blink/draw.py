@@ -1,12 +1,17 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import platform
+
 from PIL import Image, ImageDraw, ImageFont
 
 import utils
 
 FLOOR_PLAN = 'images/floor_plan.png'
-TEXT_FONT = 'DejaVuSansMono'
+if platform.system() == 'Darwin':
+    TEXT_FONT = 'Helvetica'
+else:
+    TEXT_FONT = 'DejaVuSansMono'
 
 def open_floor_plan_image():
     im = Image.open(FLOOR_PLAN)
