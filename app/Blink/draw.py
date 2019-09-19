@@ -36,8 +36,8 @@ def draw_text(draw, (x, y), text):
     y_offset = font.getsize(text)[1] / 2
     draw.text((x, y-y_offset), text, fill='black', font=font)
 
-def draw_line(draw, (x0, y0), (x1, y1)):
-    draw.line(((x0, y0), (x1, y1)), width=3, fill='black')
+def draw_line(draw, (x0, y0), (x1, y1), width=1):
+    draw.line(((x0, y0), (x1, y1)), width=width, fill='black')
 
 def draw_legends(draw, with_tag):
     x = 710
@@ -65,7 +65,8 @@ def draw_legends(draw, with_tag):
 def draw_floor_map(config,
                    output_file_path,
                    ground_truth=None,
-                   tag_position=None):
+                   tag_position=None,
+                   max_rssi_list=None):
     im = open_floor_plan_image()
 
     draw = ImageDraw.Draw(im)
@@ -86,10 +87,28 @@ def draw_floor_map(config,
 
     if tag_position:
         draw_rectangle(draw, tag_position)
-        draw_line(draw, closest_anchor_position, tag_position)
+        draw_line(draw, closest_anchor_position, tag_position, width=3)
         with_tag = True
     else:
         with_tag = False
+
+    if max_rssi_list:
+        for anchor in config.anchors:
+            mac_addr = anchor[0]
+            if mac_addr in max_rssi_list:
+                assert anchor[2]
+                x, y = anchor[2]
+                # put RSSI value on the top-left of the circlt off by
+                # 10-px
+                draw_text(
+                    draw,
+                    (x+10, y-10),
+                    '{}dBm'.format(max_rssi_list[mac_addr])
+                )
+                draw_line(draw, tag_position, anchor[2])
+            else:
+                # we don't have a RSSI value of this anchor
+                pass
 
     draw_legends(draw, with_tag)
 

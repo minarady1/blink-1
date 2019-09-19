@@ -95,7 +95,7 @@ def generate_chart_error_vs_num_packet(ground_truth, error_list):
     plt.savefig(output_file_path)
     plt.close()
 
-def generate_position_by_weighted_average(
+def generate_map_tag_position_by_weighted_average(
         config,
         ground_truth,
         data):
@@ -124,7 +124,21 @@ def generate_position_by_weighted_average(
         else:
             error_list.append(None)
 
-    draw_floor_map(config, output_file_path, ground_truth, tag_position)
+    df_max_rssi = pd.pivot_table(
+        data,
+        values  = 'rssi',
+        index   = 'anchor',
+        aggfunc = np.max
+    )
+    max_rssi_list = df_max_rssi.to_dict()['rssi']
+
+    draw_floor_map(
+        config,
+        output_file_path,
+        ground_truth,
+        tag_position,
+        max_rssi_list
+    )
     generate_chart_error_vs_num_packet(ground_truth, error_list)
 
 def generate_chart_rssi_vs_anchor_location(ground_truth, data):
@@ -250,7 +264,7 @@ def main(log_file):
     for ground_truth in df.ground_truth.unique():
         data = df[df['ground_truth']==ground_truth]
         generate_chart_rssi_vs_anchor_location(ground_truth, data)
-        generate_position_by_weighted_average(
+        generate_map_tag_position_by_weighted_average(
             config,
             ground_truth,
             data
