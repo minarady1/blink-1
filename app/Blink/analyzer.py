@@ -39,7 +39,7 @@ def get_weight(rssi):
 def compute_tag_position_with_weighted_average(anchor_position_list, data):
     data = pd.pivot_table(
         data,
-        values   = 'rssi',
+        values  = 'rssi',
         index   = 'anchor',
         aggfunc = np.max
     )
@@ -74,6 +74,29 @@ def get_anchor_position_list(config):
             pass
     return anchor_position_list
 
+def get_position_error_list(config, data, ground_truth):
+    for anchor in config.anchors:
+        if anchor[1] == ground_truth:
+            closest_anchor_position = anchor[2]
+            break
+
+    error_list = []
+    for i in range(NUM_BLINK_PACKETS):
+        tag_position = compute_tag_position_with_weighted_average(
+            get_anchor_position_list(config),
+            data[data['log_seqno']<=i]
+        )
+        if tag_position[0]:
+            error_list.append(
+                math.sqrt(
+                    (tag_position[0]-closest_anchor_position[0])**2 +
+                    (tag_position[1]-closest_anchor_position[1])**2
+                )
+            )
+        else:
+            error_list.append(np.nan)
+    return error_list
+
 def generate_chart_error_vs_num_packet(ground_truth, error_list):
     output_file_path = os.path.join(
         RESULT_DIR_NAME,
@@ -81,14 +104,14 @@ def generate_chart_error_vs_num_packet(ground_truth, error_list):
     )
     df = pd.DataFrame(
         data = {
-            'num_packet': [i+1 for i in range(len(error_list))],
+            'num_packets': [i+1 for i in range(len(error_list))],
             'error'     : error_list
         },
         dtype = int
     )
     plt.figure()
     sns.pointplot(
-        x    = 'num_packet',
+        x    = 'num_packets',
         y    = 'error',
         data = df
     )
@@ -104,25 +127,10 @@ def generate_map_tag_position_by_weighted_average(
         'map-tag_position-by-weighted_average-{}.png'.format(ground_truth)
     )
 
-    for anchor in config.anchors:
-        if anchor[1] == ground_truth:
-            closest_anchor_position = anchor[2]
-            break
-    error_list = []
-    for i in range(NUM_BLINK_PACKETS):
-        tag_position = compute_tag_position_with_weighted_average(
-            get_anchor_position_list(config),
-            data[data['log_seqno']<=i]
-        )
-        if tag_position[0]:
-            error_list.append(
-                math.sqrt(
-                    (tag_position[0]-closest_anchor_position[0])**2 +
-                    (tag_position[1]-closest_anchor_position[1])**2
-                )
-            )
-        else:
-            error_list.append(None)
+    generate_chart_error_vs_num_packet(
+        ground_truth,
+        get_position_error_list(config, data, ground_truth)
+    )
 
     df_max_rssi = pd.pivot_table(
         data,
@@ -131,6 +139,10 @@ def generate_map_tag_position_by_weighted_average(
         aggfunc = np.max
     )
     max_rssi_list = df_max_rssi.to_dict()['rssi']
+    tag_position = compute_tag_position_with_weighted_average(
+        get_anchor_position_list(config),
+        data
+    )
 
     draw_floor_map(
         config,
@@ -139,7 +151,6 @@ def generate_map_tag_position_by_weighted_average(
         tag_position,
         max_rssi_list
     )
-    generate_chart_error_vs_num_packet(ground_truth, error_list)
 
 def generate_chart_rssi_vs_anchor_location(ground_truth, data):
     output_file_path = os.path.join(
@@ -156,6 +167,39 @@ def generate_chart_rssi_vs_anchor_location(ground_truth, data):
     plt.savefig(output_file_path)
     plt.close()
 
+def generate_chart_error_distribution(config, df):
+    output_file_path = os.path.join(
+        RESULT_DIR_NAME,
+        'chart-error-distribution.png'
+    )
+    data = pd.DataFrame()
+    for ground_truth in df.ground_truth.unique():
+        error_list = get_position_error_list(
+            config,
+            df[df['ground_truth']==ground_truth],
+            ground_truth
+        )
+        data = data.append(
+            pd.DataFrame(
+                data = {
+                    'num_packets': [i+1 for i in range(len(error_list))],
+                    'error'     : error_list
+                },
+                dtype = int
+            ),
+            ignore_index=True
+        )
+    data = data.astype({'error': float})
+
+    plt.figure()
+    g = sns.boxplot(
+        x     = 'num_packets',
+        y     = 'error',
+        color = 'skyblue',
+        data  = data
+    )
+    plt.savefig(output_file_path)
+    plt.close()
 def generate_chart_num_packets_to_get_closest_anchor(df):
     output_file_path = os.path.join(
         RESULT_DIR_NAME,
@@ -260,6 +304,8 @@ def main(log_file):
 
     spinner = Halo(text='Analyzing...')
     spinner.start()
+
+    generate_chart_error_distribution(config, df)
 
     for ground_truth in df.ground_truth.unique():
         data = df[df['ground_truth']==ground_truth]
