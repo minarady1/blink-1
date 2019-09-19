@@ -87,7 +87,6 @@ def draw_floor_map(config,
 
     if tag_position:
         draw_rectangle(draw, tag_position)
-        draw_line(draw, closest_anchor_position, tag_position, width=3)
         with_tag = True
     else:
         with_tag = False
