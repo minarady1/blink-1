@@ -24,6 +24,7 @@ import utils
 
 RESULT_DIR_NAME = 'results'
 NUM_BLINK_PACKETS = 25
+METER_PER_PIXEL = 0.057
 
 def get_weight(rssi):
     POSSIBLE_BEST_RSSI = -35.0
@@ -92,6 +93,8 @@ def get_position_error_list(config, data, ground_truth):
                     (tag_position[0]-closest_anchor_position[0])**2 +
                     (tag_position[1]-closest_anchor_position[1])**2
                 )
+                *
+                METER_PER_PIXEL
             )
         else:
             error_list.append(np.nan)
@@ -110,10 +113,14 @@ def generate_chart_error_vs_num_packet(ground_truth, error_list):
         dtype = int
     )
     plt.figure()
-    sns.pointplot(
+    g = sns.pointplot(
         x    = 'num_packets',
         y    = 'error',
         data = df
+    )
+    g.set(
+        xlabel = 'Number of Blink Packets',
+        ylabel = 'Error (m)'
     )
     plt.savefig(output_file_path)
     plt.close()
@@ -164,6 +171,10 @@ def generate_chart_rssi_vs_anchor_location(ground_truth, data):
         data = data
     )
     plt.xticks(rotation=30)
+    g.set(
+        xlabel = 'Anchor Location',
+        ylabel = 'RSSI (dBm)'
+    )
     plt.savefig(output_file_path)
     plt.close()
 
@@ -198,6 +209,10 @@ def generate_chart_error_distribution(config, df):
         color = 'skyblue',
         data  = data
     )
+    g.set(
+        xlabel = 'Number of Blink Packets',
+        ylabel = 'Error (m)'
+    )
     plt.savefig(output_file_path)
     plt.close()
 def generate_chart_num_packets_to_get_closest_anchor(df):
@@ -214,6 +229,10 @@ def generate_chart_num_packets_to_get_closest_anchor(df):
             index   = 'ground_truth',
             aggfunc = np.min
         )
+    )
+    g.set(
+        xlabel = '',
+        ylabel = 'Number of Blink Packets'
     )
     plt.savefig(output_file_path)
     plt.close()
