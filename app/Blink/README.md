@@ -8,9 +8,76 @@ pip install -r requirements.txt
 ```
 
 ## Scripts
-* manager.py: run with SmartMesh IP Manager
-* tag.py: run with SmartMesh IP Mote (Slave mode)
-* analyzer.py: run against a log file
+* `manager.py`: run with SmartMesh IP Manager
+* `tag.py`: run with SmartMesh IP Mote (Slave mode)
+* `analyzer.py`: run against a log file
+
+## How to Use
+### Experment
+#### Manager
+```
+$ ./manager.py /dev/ttyUSB3
+or
+$ python manager.py /dev/ttyUSB3
+```
+
+If you want to make sure ACL is configured properly, use `--acl-setup`
+option:
+
+```
+$ ./manager.py --acl-setup /dev/ttyUSB3
+```
+
+#### Tag
+```
+$ ./tag.py /dev/ttyUSB3
+or
+$ python manager.py /dev/ttyUSB3
+```
+
+You can change the number of blink packets to send for one measurement
+by `--num-packets.`
+```
+$ ./tag.py --num-packets=20 /dev/ttyUSB3
+```
+
+Its default value is shown by `--help`, which is 25 as of writing:
+```
+$ ./tag.py --help
+Usage: tag.py [OPTIONS] SERIAL_DEV
+
+Options:
+  --num-packets INTEGER  number of blink packets to send for one measurement
+                           [default: 25]
+  --help                 Show this message and exit.
+```
+
+### Analysis
+
+Suppose you have a log file named
+`log-blink-manager-20190917-162255.jsonl` under `logs`:
+
+```
+$ ./analyze.py logs/log-blink-manager-20190917-162255.jsonl
+or
+$ python ./analyze.py logs/log-blink-manager-20190917-162255.jsonl
+```
+
+`measurements` directory has log files previously taken. You can run
+`analyze.py` against a log file there:
+```
+$ ./analyze.py measurements/log-blink-manager-20190917-162255.jsonl
+```
+
+`analyze.py` generates figures under `results` directory.
+
+## Config file
+You need to use the same `config.json` for experiment and
+analysis. See [config.json](./config.json) as an example.
+
+A valid entry of `manager` or `anchor` has three values: MAC address,
+location, coordinates. Coordinates are specified in pixel, which
+should be within the area of `images/floor_plan.png`.
 
 ## Log format
 
