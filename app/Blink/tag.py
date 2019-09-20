@@ -7,6 +7,8 @@ import time
 import click
 from halo import Halo
 
+import utils
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../libs'))
 import SmartMeshSDK.ApiException
 from SmartMeshSDK.IpMoteConnector import IpMoteConnector
@@ -28,8 +30,11 @@ def send_blink_packet(tag, payload, include_neighbors=True):
     else:
         fIncludeDscvNbrs = 0
 
+    now = time.time()
     tag.dn_blink(fIncludeDscvNbrs, payload)
     notification = tag.getNotificationInternal(BLINK_TIMEOUT_SECONDS)
+    time_delta = time.time() - now
+
     if (
         notification
         and
@@ -43,6 +48,8 @@ def send_blink_packet(tag, payload, include_neighbors=True):
             'Check if the manager and the anchors are running as expected'
         )
         raise RuntimeError(msg)
+
+    return time_delta
 
 def connect_tag(serial_dev):
     # prepaer and return a ready-to-use IpMoteConnector()
@@ -142,28 +149,61 @@ def test_blink(tag):
 @click.option('--num-packets', default=NUM_BLINK_PACKETS_TO_SEND,
               show_default=True,
               help='number of blink packets to send for one measurement')
-def main(serial_dev, num_packets):
+@click.option('--profile-mode/--no-profile-mode', default=False,
+              show_default=True,
+              help=('send blink packets without user input, ' +
+                    'and print process time for each Blink')
+              )
+def main(serial_dev, num_packets, profile_mode):
     tag = connect_tag(serial_dev)
 
-    reset(tag)
-    test_blink(tag)
-
-    msg = 'Input something to send or "quit" to stop this script: '
-    while True:
-        str = raw_input(msg)
-        if not str:
-            continue
-        elif str == 'quit':
-            print 'stopping...'
-            break
+    if profile_mode:
+        log_file_path = os.path.join(
+            utils.get_blink_base_path(),
+            'blink-process-time-data.txt'
+        )
+        if os.path.exists(log_file_path):
+            msg = ('{} exists; '.format(log_file_path) +
+                   'rename it, then retry the script')
+            raise EnvironmentError(msg)
         else:
-            _print('Sending blink packets with "{}": '.format(str))
-            now = time.time()
-            for _ in range(num_packets):
-                send_blink_packet(tag, payload=str, include_neighbors=True)
-                _print('.')
-            _print(' [done, {}s]'.format(int(time.time() - now)))
-            _print('\n')
+            open(log_file_path, 'w').close()
+            print ('process time of Blink command will '+
+                   'be written into {}'.format(log_file_path))
+            print '{} blink packets will be sent'.format(num_packets)
+        str = 'profile'
+
+        reset(tag)
+        test_blink(tag)
+        print 'Measurement started'
+        for _ in range(num_packets):
+            time_delta = send_blink_packet(
+                tag,
+                payload=str,
+                include_neighbors=True
+            )
+            with open(log_file_path, 'a') as f:
+                 f.write('{}\n'.format(time_delta))
+    else:
+        reset(tag)
+        test_blink(tag)
+        msg = 'Input something to send or "quit" to stop this script: '
+        while True:
+            str = raw_input(msg)
+
+            if not str:
+                continue
+            elif str == 'quit':
+                print 'stopping...'
+                break
+            else:
+                _print('Sending blink packets with "{}": '.format(str))
+                now = time.time()
+                for _ in range(num_packets):
+                    send_blink_packet(tag, payload=str, include_neighbors=True)
+                    _print('.')
+                _print(' [done, {}s]'.format(int(time.time() - now)))
+                _print('\n')
 
     tag.disconnect()
 
