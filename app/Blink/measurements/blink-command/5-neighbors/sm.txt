@@ -1,0 +1,11 @@
+> sm
+     MAC                MoteId  State Nbrs Links Joins    Age StateTime
+00-17-0D-00-00-30-3E-09    1     Oper    3    24     1      0    0-01:45:39
+00-17-0D-00-00-31-C3-71    2     Oper    4    14     1      1    0-01:15:20
+00-17-0D-00-00-31-C3-19    3     Oper    2    10     1      8    0-00:42:51
+00-17-0D-00-00-31-D5-1F    4     Oper    2    10     1     20    0-00:20:38
+00-17-0D-00-00-31-D5-01    5     Oper    1     8     1      3    0-00:00:03
+
+Number of motes (max 101): Total 5, Live 5, Joining 0 Blink 1
+
+
