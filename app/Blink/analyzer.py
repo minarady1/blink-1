@@ -16,9 +16,6 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../libs'))
-from SmartMeshSDK.IpMgrConnectorMux.IpMgrSubscribe import IpMgrSubscribe
-
 from draw import draw_floor_map
 import utils
 
@@ -277,15 +274,7 @@ def load_blink_logs(log_file):
     blink_logs = []
     for line in log_file:
         log = json.loads(line)
-        if (
-            log['type'] == IpMgrSubscribe.NOTIFDATA
-            and
-            'parsed_data' in log
-            and
-            'subtype' in log['parsed_data']
-            and
-            log['parsed_data']['subtype'] == 'blink'
-        ):
+        if utils.it_is_blink_log(log):
             if last_ground_truth == log['parsed_data']['user_input']:
                 seqno += 1
             else:

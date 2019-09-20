@@ -5,6 +5,9 @@ import sys
 
 from halo import Halo
 
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../libs'))
+from SmartMeshSDK.IpMgrConnectorMux.IpMgrSubscribe import IpMgrSubscribe
+
 BLINK_BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 CONFIG_FILE_NAME = 'config.json'
 
@@ -38,3 +41,14 @@ def load_config():
 
     spinner.succeed('Config is loaded')
     return config
+
+def it_is_blink_log(log):
+    return (
+        log['type'] == IpMgrSubscribe.NOTIFDATA
+        and
+        'parsed_data' in log
+        and
+        'subtype' in log['parsed_data']
+        and
+        log['parsed_data']['subtype'] == 'blink'
+    )
