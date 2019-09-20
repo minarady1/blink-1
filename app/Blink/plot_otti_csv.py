@@ -6,6 +6,7 @@ import click
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import seaborn as sns
 
@@ -13,6 +14,7 @@ import utils
 
 LOWER_XLIM = 3.75
 HIGHER_XLIM = 8.50
+NUM_ROWS_FOR_DOWNSAMPLING = 40
 
 @click.command()
 @click.argument('csv_file', type=click.Path(exists=True))
@@ -32,8 +34,10 @@ def main(csv_file):
     df['current'] = df['current'] * 1000 # convert A to mA
     df['timestamp'] -= LOWER_XLIM
     higher_xlim = HIGHER_XLIM - LOWER_XLIM
+    df = df.groupby(np.arange(len(df)) / NUM_ROWS_FOR_DOWNSAMPLING).mean()
 
     plt.figure()
+    sns.set_context('paper')
     g = sns.lineplot(
         x    = 'timestamp',
         y    = 'current',
