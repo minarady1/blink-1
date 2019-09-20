@@ -184,6 +184,8 @@ def main(serial_dev, num_packets, profile_mode):
             )
             with open(log_file_path, 'a') as f:
                  f.write('{}\n'.format(time_delta))
+                 f.flush()
+        print 'Measurement done'
     else:
         reset(tag)
         test_blink(tag)
