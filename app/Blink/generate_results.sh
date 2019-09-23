@@ -1,4 +1,6 @@
 #!/bin/sh
+echo "genereate deployment.png"
+python ./draw.py
 
 echo "analyzer.py"
 ./analyzer.py measurements/log-blink-manager-20190919-143138.jsonl
