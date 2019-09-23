@@ -22,7 +22,7 @@ def _print(str):
     sys.stdout.write(str)
     sys.stdout.flush()
 
-def send_blink_packet(tag, payload, include_neighbors=True):
+def send_blink_packet(tag, payload, include_neighbors=True, with_reset=False):
     payload = map(lambda c: ord(c), list(payload))
 
     if include_neighbors:
@@ -30,6 +30,11 @@ def send_blink_packet(tag, payload, include_neighbors=True):
     else:
         fIncludeDscvNbrs = 0
 
+    if with_reset:
+        reset(tag)
+    else:
+        # do nothing
+        pass
     now = time.time()
     tag.dn_blink(fIncludeDscvNbrs, payload)
     notification = tag.getNotificationInternal(BLINK_TIMEOUT_SECONDS)
@@ -154,7 +159,11 @@ def test_blink(tag):
               help=('send blink packets without user input, ' +
                     'and print process time for each Blink')
               )
-def main(serial_dev, num_packets, profile_mode):
+@click.option('--with-reset/--without-reset', default=False,
+              show_default=True,
+              help=('reset before issuing a blink command')
+              )
+def main(serial_dev, num_packets, profile_mode, with_reset):
     tag = connect_tag(serial_dev)
 
     if profile_mode:
@@ -180,7 +189,8 @@ def main(serial_dev, num_packets, profile_mode):
             time_delta = send_blink_packet(
                 tag,
                 payload=str,
-                include_neighbors=True
+                include_neighbors=True,
+                with_reset=with_reset
             )
             with open(log_file_path, 'a') as f:
                  f.write('{}\n'.format(time_delta))
@@ -202,7 +212,12 @@ def main(serial_dev, num_packets, profile_mode):
                 _print('Sending blink packets with "{}": '.format(str))
                 now = time.time()
                 for _ in range(num_packets):
-                    send_blink_packet(tag, payload=str, include_neighbors=True)
+                    send_blink_packet(
+                        tag,
+                        payload=str,
+                        include_neighbors=True,
+                        with_reset=with_reset
+                    )
                     _print('.')
                 _print(' [done, {}s]'.format(int(time.time() - now)))
                 _print('\n')
