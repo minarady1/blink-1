@@ -88,6 +88,8 @@ def genreate_chart_discovered_neighbor(logs):
                         neighbor['macAddress']
                         for neighbor in log_line['parsed_data']['neighbors']
                     ]
+                    #for mac_addr in mac_addr_list:
+                    #    print mac_addr
                     global_mac_addr_set = global_mac_addr_set.union(
                         set(mac_addr_list)
                     )
