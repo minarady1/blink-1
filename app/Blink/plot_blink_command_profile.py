@@ -74,7 +74,7 @@ def genreate_chart_discovered_neighbor(logs):
     for log in logs:
         num_packets = 0
         num_discovered_hist = []
-        mac_addr_set = set()
+        global_mac_addr_set = set()
         with open(log.manager_log, 'r') as f:
             for line in f:
                 log_line = json.loads(line)
@@ -84,13 +84,14 @@ def genreate_chart_discovered_neighbor(logs):
                         log_line['parsed_data']['user_input'] != 'test'
                 ):
                     num_packets += 1
-                    mac_addr_set = mac_addr_set.union(
-                        set([
-                            neighbor['macAddress']
-                            for neighbor in log_line['parsed_data']['neighbors']
-                        ])
+                    mac_addr_list = [
+                        neighbor['macAddress']
+                        for neighbor in log_line['parsed_data']['neighbors']
+                    ]
+                    global_mac_addr_set = global_mac_addr_set.union(
+                        set(mac_addr_list)
                     )
-                    num_discovered_hist.append(len(mac_addr_set))
+                    num_discovered_hist.append(len(global_mac_addr_set))
                 else:
                     # skip this one
                     pass
