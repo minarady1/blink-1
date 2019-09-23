@@ -35,18 +35,23 @@ def main(csv_file):
     df['timestamp'] -= LOWER_XLIM
     higher_xlim = HIGHER_XLIM - LOWER_XLIM
     df = df.groupby(np.arange(len(df)) / NUM_ROWS_FOR_DOWNSAMPLING).mean()
+    #max_current = df['current'].max()
 
     plt.figure()
     sns.set_context('paper')
+    sns.set_style('whitegrid')
     g = sns.lineplot(
-        x    = 'timestamp',
-        y    = 'current',
-        data = df[(df['timestamp']>=0) & (df['timestamp']<=higher_xlim)]
+        x     = 'timestamp',
+        y     = 'current',
+        data  = df[(df['timestamp']>=0) & (df['timestamp']<=higher_xlim)],
+        color = 'black',
+        lw    = 0.5
     )
     g.set(
         xlabel = 'Time (s)',
         ylabel = 'Current (mA)'
     )
+    #g.axhline(max_current, ls='--', color='red')
     plt.savefig(output_file_path)
     plt.close()
 
