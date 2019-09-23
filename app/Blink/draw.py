@@ -64,9 +64,11 @@ def draw_legends(draw, with_tag, tag_position_by_room):
         y += margin
         if tag_position_by_room:
             draw_circle_no_fill(draw, (x, y), r=7)
+            tag_position_text = 'computed closest anchor'
         else:
             draw_rectangle(draw, (x, y))
-        draw_text(draw, (x+x_offset, y), 'computed tag room')
+            tag_position_text = 'computed tag position'
+        draw_text(draw, (x+x_offset, y), tag_position_text)
 
 def draw_floor_map(config,
                    output_file_path,
