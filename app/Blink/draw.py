@@ -24,6 +24,9 @@ def draw_circle(draw, (x, y), color='blue'):
     r = 5
     draw.ellipse(((x-r, y-r), (x+r, y+r)), fill=color)
 
+def draw_circle_no_fill(draw, (x, y), r=25, color='red'):
+    draw.ellipse(((x-r, y-r), (x+r, y+r)), outline=color)
+
 def draw_triangle(draw, (x, y)):
     draw.polygon(((x-6, y+5), (x, y-10), (x+6, y+5)), fill='black')
 
@@ -39,7 +42,7 @@ def draw_text(draw, (x, y), text):
 def draw_line(draw, (x0, y0), (x1, y1), width=1):
     draw.line(((x0, y0), (x1, y1)), width=width, fill='black')
 
-def draw_legends(draw, with_tag):
+def draw_legends(draw, with_tag, tag_position_by_room):
     x = 710
     x_offset = 20
     base_y = 10
@@ -59,14 +62,18 @@ def draw_legends(draw, with_tag):
         draw_text(draw, (x+x_offset, y), 'actual tag position')
 
         y += margin
-        draw_rectangle(draw, (x, y))
-        draw_text(draw, (x+x_offset, y), 'computed tag position')
+        if tag_position_by_room:
+            draw_circle_no_fill(draw, (x, y), r=7)
+        else:
+            draw_rectangle(draw, (x, y))
+        draw_text(draw, (x+x_offset, y), 'computed tag room')
 
 def draw_floor_map(config,
                    output_file_path,
                    ground_truth=None,
                    tag_position=None,
-                   max_rssi_list=None):
+                   max_rssi_list=None,
+                   tag_position_by_room=False):
     im = open_floor_plan_image()
 
     draw = ImageDraw.Draw(im)
@@ -86,7 +93,10 @@ def draw_floor_map(config,
     draw_triangle(draw, config.manager[2])
 
     if tag_position:
-        draw_rectangle(draw, tag_position)
+        if tag_position_by_room:
+            draw_circle_no_fill(draw, tag_position, r=25)
+        else:
+            draw_rectangle(draw, tag_position)
         with_tag = True
     else:
         with_tag = False
@@ -109,7 +119,7 @@ def draw_floor_map(config,
                 # we don't have a RSSI value of this anchor
                 pass
 
-    draw_legends(draw, with_tag)
+    draw_legends(draw, with_tag, tag_position_by_room)
 
     im.save(output_file_path)
 

@@ -156,6 +156,37 @@ def generate_map_tag_position_by_weighted_average(
         max_rssi_list
     )
 
+def generate_map_tag_position_by_strongest_rssi(
+        config,
+        ground_truth,
+        data):
+    output_file_path = os.path.join(
+        RESULT_DIR_NAME,
+        'map-tag_position-by-strongest_rssi-{}.png'.format(ground_truth)
+    )
+
+    df_max_rssi = pd.pivot_table(
+        data,
+        values  = 'rssi',
+        index   = 'anchor',
+        aggfunc = np.max
+    )
+    max_rssi_list = df_max_rssi.to_dict()['rssi']
+
+    closest_anchor = data[data['rssi']==data['rssi'].max()]
+    closest_anchor = closest_anchor.iloc[0]['anchor']
+    anchor_position_list = get_anchor_position_list(config)
+    tag_position = anchor_position_list[closest_anchor]
+
+    draw_floor_map(
+        config,
+        output_file_path,
+        ground_truth,
+        tag_position,
+        max_rssi_list,
+        tag_position_by_room=True
+    )
+
 def generate_chart_rssi_vs_anchor_location(ground_truth, data):
     output_file_path = os.path.join(
         RESULT_DIR_NAME,
@@ -318,6 +349,11 @@ def main(log_file):
     for ground_truth in df.ground_truth.unique():
         data = df[df['ground_truth']==ground_truth]
         generate_chart_rssi_vs_anchor_location(ground_truth, data)
+        generate_map_tag_position_by_strongest_rssi(
+            config,
+            ground_truth,
+            data
+        )
         generate_map_tag_position_by_weighted_average(
             config,
             ground_truth,
