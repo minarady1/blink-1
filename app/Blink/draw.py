@@ -42,7 +42,7 @@ def draw_text(draw, (x, y), text):
 def draw_line(draw, (x0, y0), (x1, y1), width=1):
     draw.line(((x0, y0), (x1, y1)), width=width, fill='black')
 
-def draw_legends(draw, with_tag, tag_position_by_room):
+def draw_legends(draw, with_tag):
     x = 710
     x_offset = 20
     base_y = 10
@@ -62,20 +62,15 @@ def draw_legends(draw, with_tag, tag_position_by_room):
         draw_text(draw, (x+x_offset, y), 'actual tag position')
 
         y += margin
-        if tag_position_by_room:
-            draw_circle_no_fill(draw, (x, y), r=7)
-            tag_position_text = 'computed closest anchor'
-        else:
-            draw_rectangle(draw, (x, y))
-            tag_position_text = 'computed tag position'
+        draw_circle_no_fill(draw, (x, y), r=7)
+        tag_position_text = 'computed tag position'
         draw_text(draw, (x+x_offset, y), tag_position_text)
 
 def draw_floor_map(config,
                    output_file_path,
                    ground_truth=None,
                    tag_position=None,
-                   max_rssi_list=None,
-                   tag_position_by_room=False):
+                   max_rssi_list=None):
     im = open_floor_plan_image()
 
     draw = ImageDraw.Draw(im)
@@ -95,10 +90,7 @@ def draw_floor_map(config,
     draw_triangle(draw, config.manager[2])
 
     if tag_position:
-        if tag_position_by_room:
-            draw_circle_no_fill(draw, tag_position, r=25)
-        else:
-            draw_rectangle(draw, tag_position)
+        draw_circle_no_fill(draw, tag_position, r=25)
         with_tag = True
     else:
         with_tag = False
@@ -121,7 +113,7 @@ def draw_floor_map(config,
                 # we don't have a RSSI value of this anchor
                 pass
 
-    draw_legends(draw, with_tag, tag_position_by_room)
+    draw_legends(draw, with_tag)
 
     im.save(output_file_path)
 

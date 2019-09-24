@@ -183,8 +183,7 @@ def generate_map_tag_position_by_strongest_rssi(
         output_file_path,
         ground_truth,
         tag_position,
-        max_rssi_list,
-        tag_position_by_room=True
+        max_rssi_list
     )
 
 def generate_chart_rssi_vs_anchor_location(ground_truth, data):

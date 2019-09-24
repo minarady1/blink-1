@@ -12,7 +12,7 @@ import seaborn as sns
 
 import utils
 
-LOWER_XLIM = 3.75
+LOWER_XLIM = 4.15
 HIGHER_XLIM = 8.50
 NUM_ROWS_FOR_DOWNSAMPLING = 40
 
@@ -48,8 +48,8 @@ def main(csv_file):
         lw    = 0.5
     )
     g.set(
-        xlabel = 'Time (s)',
-        ylabel = 'Current (mA)'
+        xlabel = 'time (s)',
+        ylabel = 'current (mA)'
     )
     #g.axhline(max_current, ls='--', color='red')
     plt.savefig(output_file_path)
