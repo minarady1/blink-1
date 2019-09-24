@@ -3,6 +3,7 @@
 
 import platform
 
+import click
 from PIL import Image, ImageDraw, ImageFont
 
 import utils
@@ -117,8 +118,12 @@ def draw_floor_map(config,
 
     im.save(output_file_path)
 
-def main():
-    draw_floor_map(utils.load_config(), 'deployment.png')
+@click.command()
+@click.option('-o', '--output-file-path', type=click.Path(),
+              show_default=True,
+              default='deployment.png')
+def main(output_file_path):
+    draw_floor_map(utils.load_config(), output_file_path)
 
 if __name__ == '__main__':
     main()
