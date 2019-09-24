@@ -12,6 +12,7 @@ from halo import Halo
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -262,20 +263,27 @@ def generate_chart_accuracy_distribution(config, df):
     )
     data = data.reset_index()
     num_of_measurements = len(df.ground_truth.unique())
-    data['accuracy'] = data['accuracy'] / num_of_measurements
+    data['accuracy'] = data['accuracy'] / num_of_measurements * 100
 
     plt.figure()
     sns.set_context('paper')
+    sns.set_style('whitegrid')
     g = sns.lineplot(
-        x     = 'num_packets',
-        y     = 'accuracy',
-        data  = data
+        x    = 'num_packets',
+        y    = 'accuracy',
+        data = data[data['num_packets']<11],
+        lw   = 2
     )
     g.set(
         xlabel = 'number of Blink packets',
-        ylabel = 'probability',
-        ylim = (0, 1.1)
+        ylabel = 'accuracy rate (%)',
+        xlim   = (1, 10),
+        ylim   = (0, 100),
     )
+    g.xaxis.set_major_locator(ticker.MultipleLocator(1))
+    g.xaxis.set_major_formatter(ticker.ScalarFormatter())
+    g.yaxis.set_major_locator(ticker.MultipleLocator(10))
+    g.yaxis.set_major_formatter(ticker.ScalarFormatter())
     plt.savefig(output_file_path)
     plt.close()
 
