@@ -34,7 +34,7 @@ def get_weight(rssi):
         weight = POSSIBLE_BEST_RSSI / rssi
     return weight
 
-def compute_tag_position_with_weighted_average(anchor_position_list, data):
+def compute_tag_position_by_weighted_average(anchor_position_list, data):
     data = pd.pivot_table(
         data,
         values  = 'rssi',
@@ -63,6 +63,25 @@ def compute_tag_position_with_weighted_average(anchor_position_list, data):
 
     return x, y
 
+def compute_tag_position_by_strongest_rssi(data):
+    df_max_rssi = pd.pivot_table(
+        data,
+        values  = 'rssi',
+        index   = 'anchor',
+        aggfunc = np.max
+    )
+
+    if df_max_rssi.empty:
+        location = None
+        mac_addr = None
+    else:
+        max_rssi_list = df_max_rssi.to_dict()['rssi']
+        closest_anchor = data[data['rssi']==data['rssi'].max()]
+        location = closest_anchor.iloc[0]['anchor_location']
+        mac_addr = closest_anchor.iloc[0]['anchor']
+
+    return (mac_addr, location)
+
 def get_anchor_position_list(config):
     anchor_position_list = {}
     for anchor in config.anchors:
@@ -80,7 +99,7 @@ def get_position_error_list(config, data, ground_truth):
 
     error_list = []
     for i in range(NUM_BLINK_PACKETS):
-        tag_position = compute_tag_position_with_weighted_average(
+        tag_position = compute_tag_position_by_weighted_average(
             get_anchor_position_list(config),
             data[data['log_seqno']<=i]
         )
@@ -116,8 +135,8 @@ def generate_chart_error_vs_num_packet(ground_truth, error_list):
         data = df
     )
     g.set(
-        xlabel = 'Number of Blink Packets',
-        ylabel = 'Error (m)'
+        xlabel = 'number of Blink Packets',
+        ylabel = 'error (m)'
     )
     plt.savefig(output_file_path)
     plt.close()
@@ -143,7 +162,7 @@ def generate_map_tag_position_by_weighted_average(
         aggfunc = np.max
     )
     max_rssi_list = df_max_rssi.to_dict()['rssi']
-    tag_position = compute_tag_position_with_weighted_average(
+    tag_position = compute_tag_position_by_weighted_average(
         get_anchor_position_list(config),
         data
     )
@@ -156,6 +175,15 @@ def generate_map_tag_position_by_weighted_average(
         max_rssi_list
     )
 
+def get_room_error_list(config, data, ground_truth):
+    error_list = []
+    for i in range(NUM_BLINK_PACKETS):
+        _, tag_room = compute_tag_position_by_strongest_rssi(
+            data[data['log_seqno']<=i]
+        )
+        error_list.append(1 if tag_room==ground_truth else 0)
+    return error_list
+
 def generate_map_tag_position_by_strongest_rssi(
         config,
         ground_truth,
@@ -165,18 +193,17 @@ def generate_map_tag_position_by_strongest_rssi(
         'map-tag_position-by-strongest_rssi-{}.png'.format(ground_truth)
     )
 
-    df_max_rssi = pd.pivot_table(
+    closest_anchor, closest_anchor_location = (
+        compute_tag_position_by_strongest_rssi(data)
+    )
+    anchor_position_list = get_anchor_position_list(config)
+    tag_position = anchor_position_list[closest_anchor]
+    max_rssi_list = pd.pivot_table(
         data,
         values  = 'rssi',
         index   = 'anchor',
         aggfunc = np.max
-    )
-    max_rssi_list = df_max_rssi.to_dict()['rssi']
-
-    closest_anchor = data[data['rssi']==data['rssi'].max()]
-    closest_anchor = closest_anchor.iloc[0]['anchor']
-    anchor_position_list = get_anchor_position_list(config)
-    tag_position = anchor_position_list[closest_anchor]
+    ).to_dict()['rssi']
 
     draw_floor_map(
         config,
@@ -201,6 +228,52 @@ def generate_chart_rssi_vs_anchor_location(ground_truth, data):
     g.set(
         xlabel = 'Anchor Location',
         ylabel = 'RSSI (dBm)'
+    )
+    plt.savefig(output_file_path)
+    plt.close()
+
+def generate_chart_accuracy_distribution(config, df):
+    output_file_path = os.path.join(
+        RESULT_DIR_NAME,
+        'chart-accuracy_distribution'
+    )
+    data = pd.DataFrame()
+    for ground_truth in df.ground_truth.unique():
+        error_list = get_room_error_list(
+            config,
+            df[df['ground_truth']==ground_truth],
+            ground_truth
+        )
+        data = data.append(
+            pd.DataFrame(
+                data = {
+                    'num_packets': [i+1 for i in range(len(error_list))],
+                    'accuracy'     : error_list
+                },
+                dtype = float
+            ),
+            ignore_index=True
+        )
+    data = pd.pivot_table(
+        data,
+        values  = 'accuracy',
+        index   = 'num_packets',
+        aggfunc = np.sum
+    )
+    data = data.reset_index()
+    num_of_measurements = len(df.ground_truth.unique())
+    data['accuracy'] = data['accuracy'] / num_of_measurements * 100
+
+    plt.figure()
+    sns.set_context('paper')
+    g = sns.lineplot(
+        x     = 'num_packets',
+        y     = 'accuracy',
+        data  = data
+    )
+    g.set(
+        xlabel = 'number of Blink packets',
+        ylabel = 'accuracy rate (%)'
     )
     plt.savefig(output_file_path)
     plt.close()
@@ -237,8 +310,8 @@ def generate_chart_error_distribution(config, df):
         data  = data
     )
     g.set(
-        xlabel = 'Number of Blink Packets',
-        ylabel = 'Error (m)'
+        xlabel = 'number of Blink Packets',
+        ylabel = 'error (m)'
     )
     plt.savefig(output_file_path)
     plt.close()
@@ -259,7 +332,7 @@ def generate_chart_num_packets_to_get_closest_anchor(df):
     )
     g.set(
         xlabel = '',
-        ylabel = 'Number of Blink Packets'
+        ylabel = 'number of Blink Packets'
     )
     plt.savefig(output_file_path)
     plt.close()
@@ -343,7 +416,8 @@ def main(log_file):
     spinner = Halo(text='Analyzing...')
     spinner.start()
 
-    generate_chart_error_distribution(config, df)
+    generate_chart_accuracy_distribution(config, df) # room-level
+    generate_chart_error_distribution(config, df)    # distance
 
     for ground_truth in df.ground_truth.unique():
         data = df[df['ground_truth']==ground_truth]
