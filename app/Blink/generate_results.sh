@@ -1,4 +1,10 @@
 #!/bin/sh
+echo "rm -rf results"
+rm -rf results
+
+echo "mkdir results"
+mkdir results
+
 echo "genereate deployment.png"
 python ./draw.py -o results/deployment.png
 
