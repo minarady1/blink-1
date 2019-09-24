@@ -58,8 +58,8 @@ def generate_chart_blink_process_time(logs):
             raise NotImplemented()
 
         g.set(
-            xlabel = 'Number of Neighbors',
-            ylabel = 'Processing Time of Blink Command (s)'
+            xlabel = 'number of neighbors',
+            ylabel = 'processing time of Blink command (s)'
         )
         plt.savefig(output_file_path)
         plt.close()
@@ -124,8 +124,8 @@ def genreate_chart_discovered_neighbor(logs):
         scale     = 0.5
     )
     g.set(
-        xlabel = 'Number of Blink Packets',
-        ylabel = 'Number of Discovered Unique Neighbors'
+        xlabel = 'number of Blink packets',
+        ylabel = 'number of discovered unique neighbors'
     )
     g.xaxis.set_major_locator(ticker.MultipleLocator(10))
     g.xaxis.set_major_formatter(ticker.ScalarFormatter())
