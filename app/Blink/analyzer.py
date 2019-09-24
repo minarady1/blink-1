@@ -236,7 +236,7 @@ def generate_chart_rssi_vs_anchor_location(ground_truth, data):
 def generate_chart_accuracy_distribution(config, df):
     output_file_path = os.path.join(
         RESULT_DIR_NAME,
-        'chart-accuracy_distribution'
+        'chart-accuracy_distribution.png'
     )
     data = pd.DataFrame()
     for ground_truth in df.ground_truth.unique():
