@@ -226,7 +226,7 @@ def generate_chart_rssi_vs_anchor_location(ground_truth, data):
     )
     plt.xticks(rotation=30)
     g.set(
-        xlabel = 'Anchor Location',
+        xlabel = '',
         ylabel = 'RSSI (dBm)'
     )
     plt.savefig(output_file_path)
@@ -262,7 +262,7 @@ def generate_chart_accuracy_distribution(config, df):
     )
     data = data.reset_index()
     num_of_measurements = len(df.ground_truth.unique())
-    data['accuracy'] = data['accuracy'] / num_of_measurements * 100
+    data['accuracy'] = data['accuracy'] / num_of_measurements
 
     plt.figure()
     sns.set_context('paper')
@@ -273,7 +273,8 @@ def generate_chart_accuracy_distribution(config, df):
     )
     g.set(
         xlabel = 'number of Blink packets',
-        ylabel = 'accuracy rate (%)'
+        ylabel = 'probability',
+        ylim = (0, 1.1)
     )
     plt.savefig(output_file_path)
     plt.close()
