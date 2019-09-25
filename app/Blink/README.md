@@ -8,43 +8,43 @@ pip install -r requirements.txt
 ```
 
 ## Scripts
-* `manager.py`: run with SmartMesh IP Manager
-* `tag.py`: run with SmartMesh IP Mote (Slave mode)
+* `blink_manager.py`: run with SmartMesh IP Manager
+* `blink_tag.py`: run with SmartMesh IP Mote (Slave mode)
 * `analyzer.py`: run against a log file
 
 ## How to Use
 ### Experment
 #### Manager
 ```
-$ ./manager.py /dev/ttyUSB3
+$ ./blink_manager.py /dev/ttyUSB3
 or
-$ python manager.py /dev/ttyUSB3
+$ python blink_manager.py /dev/ttyUSB3
 ```
 
 If you want to make sure ACL is configured properly, use `--acl-setup`
 option:
 
 ```
-$ ./manager.py --acl-setup /dev/ttyUSB3
+$ ./blink_manager.py --acl-setup /dev/ttyUSB3
 ```
 
 #### Tag
 ```
-$ ./tag.py /dev/ttyUSB3
+$ ./blink_tag.py /dev/ttyUSB3
 or
-$ python manager.py /dev/ttyUSB3
+$ python blink_manager.py /dev/ttyUSB3
 ```
 
 You can change the number of blink packets to send for one measurement
 by `--num-packets.`
 ```
-$ ./tag.py --num-packets=20 /dev/ttyUSB3
+$ ./blink_tag.py --num-packets=20 /dev/ttyUSB3
 ```
 
 Its default value is shown by `--help`, which is 25 as of writing:
 ```
-$ ./tag.py --help
-Usage: tag.py [OPTIONS] SERIAL_DEV
+$ ./blink_tag.py --help
+Usage: blink_tag.py [OPTIONS] SERIAL_DEV
 
 Options:
   --num-packets INTEGER  number of blink packets to send for one measurement
@@ -81,12 +81,12 @@ should be within the area of `images/floor_plan.png`.
 
 ## Log format
 
-`manager.py` generates a log file each line of which is a JSON string
+`blink_manager.py` generates a log file each line of which is a JSON string
 of an event notified by the manager.
 
 A log line has `<notification name>` and `<notification parameter>` of
 a corresponding event which are returned via `fun()` callback of
-`IpMgrSubscribe.subscribe()`. In addition, `manager.py` adds the
+`IpMgrSubscribe.subscribe()`. In addition, `blink_manager.py` adds the
 following fields:
 
 * `timestamp`: time when the log is recorded
@@ -94,7 +94,7 @@ following fields:
 * `subtype`: only for a blink packet
 * `macAddress` or `neighborMacAddress`: for an entry having only mote ID
 
-MAC address is reformated by `manager.py` to a human-friendly format,
+MAC address is reformated by `blink_manager.py` to a human-friendly format,
 `xx-xx-xx-xx-xx-xx-xx-xx`.
 
 Here is an example of log lines (formatted for readability):
