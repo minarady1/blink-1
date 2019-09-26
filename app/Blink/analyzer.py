@@ -115,6 +115,8 @@ def get_position_error_list(config, data, ground_truth):
             )
         else:
             error_list.append(np.nan)
+    if ground_truth in ['A126', 'A112']:
+        print ground_truth, error_list[-1]
     return error_list
 
 def generate_chart_error_vs_num_packet(ground_truth, error_list):
@@ -320,7 +322,7 @@ def generate_chart_error_distribution(config, df):
     )
     g.set(
         xlabel = 'number of Blink Packets',
-        ylabel = 'error (m)'
+        ylabel = 'localization error (m)'
     )
     plt.savefig(output_file_path)
     plt.close()

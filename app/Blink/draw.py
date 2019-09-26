@@ -40,8 +40,8 @@ def draw_text(draw, (x, y), text):
     y_offset = font.getsize(text)[1] / 2
     draw.text((x, y-y_offset), text, fill='black', font=font)
 
-def draw_line(draw, (x0, y0), (x1, y1), width=1):
-    draw.line(((x0, y0), (x1, y1)), width=width, fill='black')
+def draw_line(draw, (x0, y0), (x1, y1), color, width=1):
+    draw.line(((x0, y0), (x1, y1)), width=width, fill=color)
 
 def draw_legends(draw, with_tag):
     x = 710
@@ -109,7 +109,11 @@ def draw_floor_map(config,
                     (x+10, y-10),
                     '{}dBm'.format(max_rssi_list[mac_addr])
                 )
-                draw_line(draw, tag_position, anchor[2])
+                if anchor[1] == ground_truth:
+                    color = 'red'
+                else:
+                    color = 'black'
+                draw_line(draw, tag_position, anchor[2], color)
             else:
                 # we don't have a RSSI value of this anchor
                 pass
