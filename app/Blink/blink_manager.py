@@ -11,6 +11,12 @@ import click
 from halo import Halo
 
 import utils
+import paho.mqtt.client as mqtt
+
+MQTT_BROKER_HOST = 'mqtt.eclipse.org'
+MQTT_BROKER_PORT = 1883
+MQTT_TOPIC = 'bloc/demo'
+
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../libs'))
 import SmartMeshSDK.ApiException
@@ -27,6 +33,36 @@ DEFAULT_JOIN_KEY = (
 )
 # See libs/SmartMeshSDK/protocols/blink/blink.py
 BLINK_PAYLOAD_COMMAND_ID = 0x94
+
+class MqttManager:
+
+
+    def __init__(self):
+        self.client = mqtt.Client()
+        self.client.on_connect = self._on_connect
+        self.client.on_message = self._on_message
+
+    def connect(self):
+        self.client.connect(MQTT_BROKER_HOST, MQTT_BROKER_PORT)
+
+    def _send_blink_update(self, message):
+        print('publish message: {}'.format(message))
+        self.client.publish(MQTT_TOPIC, json.dumps(message))
+
+    def _on_connect(self, client, userdata, flags, rc):
+        print('connected')
+        client.subscribe(MQTT_TOPIC)
+        print('subscribe to {}'.format(MQTT_TOPIC))
+        self.publish_tag_positions = True
+
+    def _on_message(self, client, userdata, message):
+        msg = json.loads(message.payload)
+        if ('type' in msg) and (msg['type'] == 'req-config'):
+            client.publish(MQTT_TOPIC, json.dumps({'type': 'res-config',
+                                                   'config': self.config}))
+            self._send_tag_position()
+        else:
+            pass
 
 def convert_mac_addr_to_tuple(mac_addr):
     # input : (mac_addr) 'XX-XX-XX-XX-XX-XX-XX-XX'
@@ -154,7 +190,6 @@ def get_anchor_location(anchors, mac_addr):
 def parse_blink_packet(manager, anchors, log):
     payload = ''.join([chr(b) for b in log['params']['data']])
     user_input, neighbors = blink.decode_blink(payload)
-
     new_neighbors = []
     for mote_id, rssi in neighbors:
         mac_addr = convert_mote_id_to_mac_address(manager, mote_id)
@@ -163,7 +198,7 @@ def parse_blink_packet(manager, anchors, log):
             'location': get_anchor_location(anchors, mac_addr),
             'rssi': rssi
         })
-
+    
     for neighbor in new_neighbors:
         print neighbor
     print '---'
@@ -193,7 +228,7 @@ def parse_health_report_packet(manager, health_report_parser, log):
             pass
     return ret
 
-def subscribe_notification(manager, anchors, log_file_path):
+def subscribe_notification(manager,mqtt_manager, anchors, log_file_path):
     health_report_parser = HrParser()
 
     def handler(name, params):
@@ -210,9 +245,11 @@ def subscribe_notification(manager, anchors, log_file_path):
                 log['params']['macAddress'] = (
                     '-'.join(map(lambda x: '%02x' % x, mac_address_in_list))
                 )
-
             if it_is_blink_packet_log(log):
-                log['parsed_data'] = parse_blink_packet(manager, anchors, log)
+                parsed_data = parse_blink_packet(manager, anchors, log)
+                log['parsed_data'] = parsed_data
+                # This is where you push the notifications.
+                mqtt_manager._send_blink_update(parsed_data);
             elif log['type'] == IpMgrSubscribe.NOTIFHEALTHREPORT:
                 log['parsed_data'] = parse_health_report_packet(
                     manager,
@@ -245,6 +282,14 @@ def subscribe_notification(manager, anchors, log_file_path):
 
     spinner.succeed('Subscriber is ready.')
 
+    try:
+        mqtt_manager.connect();
+    except:
+        spinner.fail()
+        sys.exit('Failed to set up an MQTT subscriber.')
+
+    spinner.succeed('MQTT Subscriber is ready.')
+
 @click.command()
 @click.argument('serial_dev')
 @click.option('--acl-setup/--no-acl-setup', default=False,
@@ -259,7 +304,10 @@ def main(serial_dev, acl_setup):
         setup_acl(manager, config)
 
     anchors = {entry[0]: entry[1] for entry in [config.manager]+config.anchors}
-    subscribe_notification(manager, anchors, log_file_path)
+    
+    # This is where the MQTT connector will be initialized
+    mqtt_manager = MqttManager();
+    subscribe_notification(manager, mqtt_manager, anchors, log_file_path)
 
     while True:
         if raw_input('Input "quit" to stop the script: ') == 'quit':
