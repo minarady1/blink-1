@@ -181,8 +181,8 @@ def main(serial_dev, num_packets, profile_mode, with_reset):
                    'be written into {}'.format(log_file_path))
             print '{} blink packets will be sent'.format(num_packets)
         str = 'profile'
-
-        reset(tag)
+        if (with_reset):
+            reset(tag)
         test_blink(tag)
         print 'Measurement started'
         for _ in range(num_packets):
@@ -197,7 +197,8 @@ def main(serial_dev, num_packets, profile_mode, with_reset):
                  f.flush()
         print 'Measurement done'
     else:
-        reset(tag)
+        if (with_reset):
+            reset(tag)
         test_blink(tag)
         msg = 'Input something to send or "quit" to stop this script: '
         while True:
