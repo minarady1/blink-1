@@ -26,6 +26,11 @@ from SmartMeshSDK.protocols.Hr.HrParser import HrParser
 from SmartMeshSDK.protocols.blink import blink
 
 LOG_DIR_NAME = 'logs'
+current_burst_id='abcdef'
+new_burst = True
+first_burst = True
+burst_max_rssi=-200
+burst_closest_neighbor ={}
 # See "Factory Default Settings", Section 3.7 of SmartMesh IP User's Guide
 DEFAULT_JOIN_KEY = (
     0x44, 0x55, 0x53, 0x54, 0x4E, 0x45, 0x54, 0x57,
@@ -192,10 +197,12 @@ def parse_blink_packet(manager, anchors, log):
     payload = ''.join([chr(b) for b in log['params']['data']])
     user_input, neighbors = blink.decode_blink(payload)
     new_neighbors = []
-    closest_neighbor = {}
+    closest_neighbor = 0
     max_rssi= -200
     for mote_id, rssi in neighbors:
-        if (rssi>max_rssi):
+        if (rssi<max_rssi):
+            print 'found better rssi in blink packet'
+            print rssi
             mac_addr = convert_mote_id_to_mac_address(manager, mote_id)
             closest_neighbor = {
                 'macAddress': mac_addr,
@@ -210,11 +217,13 @@ def parse_blink_packet(manager, anchors, log):
     for neighbor in new_neighbors:
         print neighbor
     print '---'
+    print 'closest neighbor'
+    print str(closest_neighbor)
 
     return {
         'subtype': 'blink',
         'user_input': user_input,
-        'neighbors': new_neighbors
+        'neighbors': new_neighbors,
         'closest_neighbor':closest_neighbor
         },user_input
 
@@ -239,11 +248,12 @@ def parse_health_report_packet(manager, health_report_parser, log):
 
 def subscribe_notification(manager,mqtt_manager, anchors, log_file_path):
     health_report_parser = HrParser()
-    current_burst_id='abcdef'
-    new_burst = True
-    first_burst = True
-    burst_max_rssi=-200
+
     def handler(name, params):
+        global new_burst
+        global first_burst
+        global burst_max_rssi
+        global burst_closest_neighbor
         with open(log_file_path, 'a') as f:
             log = {
                 'type': name,
@@ -259,27 +269,49 @@ def subscribe_notification(manager,mqtt_manager, anchors, log_file_path):
                 )
             if it_is_blink_packet_log(log):
                 parsed_data,burst_id = parse_blink_packet(manager, anchors, log)
+                global current_burst_id
+                print parsed_data
                 log['parsed_data'] = parsed_data
                 if (burst_id==current_burst_id):
+                    print 'old burst'
                     new_burst=False
-                else
+                else:
+                    print 'new burst'
                     new_burst=True
                     current_burst_id=burst_id
                         
-                if (new_burst):
-                    if (first_burst)
+                if new_burst:
+                    print 'first burst?'
+                    if first_burst:
                         #do nothing
+                        print 'first burst'
                         first_burst= False
-                    else
+                    else:
+                        print 'later burst'
+                        print 'sending last estimation'
+                        print str(burst_closest_neighbor)
                         # send closest neighbor alreay selected from previous burst
-                        mqtt_manager._send_blink_update(burst_closest_neighbor)
+                        mqtt_manager._send_blink_update(json.dumps(burst_closest_neighbor))
                     #Add the first neighbor
                     burst_max_rssi = parsed_data ['closest_neighbor']['rssi']
                     burst_closest_neighbor = parsed_data ['closest_neighbor']
+                    print 'first neighbor'
+                    print parsed_data ['closest_neighbor']
                     new_burst = False
-                else
+                else:
+                    print 'same burst'
                     # If found a closer neighbor, record it. 
-                    if (parsed_data ['closest_neighbor']['rssi']>burst_max_rssi)
+                    print 'closest rssi'
+                    print parsed_data ['closest_neighbor']['rssi']
+                    print 'candidate rssi'
+                    print burst_max_rssi
+                    if (int((parsed_data ['closest_neighbor']['rssi'])<int(burst_max_rssi))):
+                        print 'candidate greater'
+                    else:
+                        print 'existing greater'
+                    if (int((parsed_data ['closest_neighbor']['rssi'])>int(burst_max_rssi))):
+                        print 'found closer neighbor'
+                        print parsed_data ['closest_neighbor']
                         #Add the  neighbor
                         burst_max_rssi = parsed_data ['closest_neighbor']['rssi']
                         burst_closest_neighbor = parsed_data ['closest_neighbor']
