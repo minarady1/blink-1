@@ -3,6 +3,8 @@
 import os
 import sys
 import time
+import random
+import string
 
 import click
 from halo import Halo
@@ -21,6 +23,11 @@ NUM_NEIGHBORS_IN_BLINK_PACKET = 4
 def _print(str):
     sys.stdout.write(str)
     sys.stdout.flush()
+
+def random_string(stringLength=5):
+    """Generate a random string of fixed length """
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(stringLength))
 
 def send_blink_packet(tag, payload, include_neighbors=True, with_reset=False):
     payload = map(lambda c: ord(c), list(payload))
@@ -167,35 +174,38 @@ def main(serial_dev, num_packets, profile_mode, with_reset):
     tag = connect_tag(serial_dev)
 
     if profile_mode:
-        log_file_path = os.path.join(
-            utils.get_blink_base_path(),
-            'blink-process-time-data.txt'
-        )
-        if os.path.exists(log_file_path):
-            msg = ('{} exists; '.format(log_file_path) +
-                   'rename it, then retry the script')
-            raise EnvironmentError(msg)
-        else:
-            open(log_file_path, 'w').close()
-            print ('process time of Blink command will '+
-                   'be written into {}'.format(log_file_path))
-            print '{} blink packets will be sent'.format(num_packets)
-        str = 'profile'
+#        log_file_path = os.path.join(
+#            utils.get_blink_base_path(),
+#            'blink-process-time-{}.txt'.format(
+#        time.strftime('%Y%m%d-%H%M%S')
+#    )
+#        )
+#        if os.path.exists(log_file_path):
+#            msg = ('{} exists; '.format(log_file_path) +
+#                   'rename it, then retry the script')
+#            raise EnvironmentError(msg)
+#        else:
+#            open(log_file_path, 'w').close()
+#            print ('process time of Blink command will '+
+#                   'be written into {}'.format(log_file_path))
+#            print '{} blink packets will be sent'.format(num_packets)
         if (with_reset):
             reset(tag)
         test_blink(tag)
-        print 'Measurement started'
-        for _ in range(num_packets):
-            time_delta = send_blink_packet(
-                tag,
-                payload=str,
-                include_neighbors=True,
-                with_reset=with_reset
-            )
-            with open(log_file_path, 'a') as f:
-                 f.write('{}\n'.format(time_delta))
-                 f.flush()
-        print 'Measurement done'
+        while True:
+            print 'Measurement started'
+            str = random_string(5)
+            for _ in range(num_packets):
+                time_delta = send_blink_packet(
+                    tag,
+                    payload=str,
+                    include_neighbors=True,
+                    with_reset=with_reset
+                )
+#                with open(log_file_path, 'a') as f:
+#                     f.write('{}\n'.format(time_delta))
+#                     f.flush()
+            print 'Measurement done'
     else:
         if (with_reset):
             reset(tag)
