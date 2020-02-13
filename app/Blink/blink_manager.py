@@ -33,6 +33,7 @@ first_burst = True
 burst_max_rssi=-200
 burst_closest_neighbor ={}
 position={}
+tag = {'macAddress':'00-17-0d-00-00-38-03-69'}
 # See "Factory Default Settings", Section 3.7 of SmartMesh IP User's Guide
 DEFAULT_JOIN_KEY = (
     0x44, 0x55, 0x53, 0x54, 0x4E, 0x45, 0x54, 0x57,
@@ -299,16 +300,16 @@ def subscribe_notification(manager,mqtt_manager, anchors, log_file_path):
                            'location': parsed_data ['closest_neighbor'] ['location'],
                            'rssi': parsed_data ['closest_neighbor'] ['rssi']
                            }
-                        position = {'type': 'tag-position',
+                        position = {
+                        'type': 'tag-position',
                         'timestamp': ts.strftime('%c'),
                         'tag': tag['macAddress'],
                         'anchor': parsed_data ['closest_neighbor'] ['macAddress']
                         }
                         print '>>>>> sending last estimation<<<<<<<<<<'
-                        print parsed_data ['closest_neighbor'] ['macAddress']
                         print('publish position: {}'.format(position))
                         # send closest neighbor alreay selected from previous burst
-                        mqtt_manager._send_blink_update(json.dumps(position))                        
+                        mqtt_manager._send_blink_update(position)                        
                                            
                     print 'first neighbor'
                     print parsed_data ['closest_neighbor']
@@ -341,12 +342,9 @@ def subscribe_notification(manager,mqtt_manager, anchors, log_file_path):
                         }                
                     #testing only
                     print '>>>>> sending estimation<<<<<<<<<<'
-                    print ts.strftime('%c')
-                    print parsed_data ['closest_neighbor'] ['macAddress']
-                    print parsed_data ['closest_neighbor'] ['macAddress']
-                    print str(position)
+                    print('publish position: {}'.format(position))
                     # send closest neighbor alreay selected from previous burst
-                    mqtt_manager._send_blink_update(json.dumps(position))
+                    mqtt_manager._send_blink_update(position)
             elif log['type'] == IpMgrSubscribe.NOTIFHEALTHREPORT:
                 log['parsed_data'] = parse_health_report_packet(
                     manager,
@@ -379,13 +377,7 @@ def subscribe_notification(manager,mqtt_manager, anchors, log_file_path):
 
     spinner.succeed('Subscriber is ready.')
 
-    try:
-        mqtt_manager.connect()
-    except:
-        spinner.fail()
-        sys.exit('Failed to set up an MQTT subscriber.')
-
-    spinner.succeed('MQTT Subscriber is ready.')
+    
 
 @click.command()
 @click.argument('serial_dev')
@@ -404,6 +396,7 @@ def main(serial_dev, acl_setup):
     
     # This is where the MQTT connector will be initialized
     mqtt_manager = MqttManager()
+    mqtt_manager.connect()
     subscribe_notification(manager, mqtt_manager, anchors, log_file_path)
 
     while True:
