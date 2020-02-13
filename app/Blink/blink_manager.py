@@ -200,7 +200,7 @@ def parse_blink_packet(manager, anchors, log):
     closest_neighbor = 0
     max_rssi= -200
     for mote_id, rssi in neighbors:
-        if (rssi<max_rssi):
+        if (int(rssi)>int(max_rssi)):
             print 'found better rssi in blink packet'
             print rssi
             mac_addr = convert_mote_id_to_mac_address(manager, mote_id)
@@ -288,7 +288,7 @@ def subscribe_notification(manager,mqtt_manager, anchors, log_file_path):
                         first_burst= False
                     else:
                         print 'later burst'
-                        print 'sending last estimation'
+                        print '>>>>> sending last estimation<<<<<<<<<<'
                         print str(burst_closest_neighbor)
                         # send closest neighbor alreay selected from previous burst
                         mqtt_manager._send_blink_update(json.dumps(burst_closest_neighbor))
@@ -301,15 +301,15 @@ def subscribe_notification(manager,mqtt_manager, anchors, log_file_path):
                 else:
                     print 'same burst'
                     # If found a closer neighbor, record it. 
-                    print 'closest rssi'
-                    print parsed_data ['closest_neighbor']['rssi']
                     print 'candidate rssi'
+                    print parsed_data ['closest_neighbor']['rssi']
+                    print 'closest rssi'
                     print burst_max_rssi
-                    if (int((parsed_data ['closest_neighbor']['rssi'])<int(burst_max_rssi))):
-                        print 'candidate greater'
-                    else:
-                        print 'existing greater'
                     if (int((parsed_data ['closest_neighbor']['rssi'])>int(burst_max_rssi))):
+                        print 'candidate greater left'
+                    else:
+                        print 'existing greater right'
+                    if (int(parsed_data ['closest_neighbor']['rssi'])>int(burst_max_rssi)):
                         print 'found closer neighbor'
                         print parsed_data ['closest_neighbor']
                         #Add the  neighbor
