@@ -37,11 +37,6 @@ def send_blink_packet(tag, payload, include_neighbors=True, with_reset=False):
     else:
         fIncludeDscvNbrs = 0
 
-    if with_reset:
-        reset(tag)
-    else:
-        # do nothing
-        pass
     now = time.time()
     tag.dn_blink(fIncludeDscvNbrs, payload)
     notification = tag.getNotificationInternal(BLINK_TIMEOUT_SECONDS)
@@ -59,7 +54,7 @@ def send_blink_packet(tag, payload, include_neighbors=True, with_reset=False):
             'No network around the tag?\n' +
             'Check if the manager and the anchors are running as expected'
         )
-        raise RuntimeError(msg)
+        print notification
 
     return time_delta
 
