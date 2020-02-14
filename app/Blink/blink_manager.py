@@ -7,6 +7,7 @@ import os
 import sys
 import time
 import datetime
+import yaml
 
 import click
 from halo import Halo
@@ -32,7 +33,10 @@ new_burst = True
 first_burst = True
 burst_max_rssi=-200
 burst_closest_neighbor ={}
-position={}
+position={"timestamp": "02/13/20 16:09:00", "tag": "00-17-0d-00-00-38-03-69", "type": "tag-position", "anchor": "00-17-0D-00-00-31-C3-71"}
+position_set=False
+
+
 tag = {'macAddress':'00-17-0d-00-00-38-03-69'}
 # See "Factory Default Settings", Section 3.7 of SmartMesh IP User's Guide
 DEFAULT_JOIN_KEY = (
@@ -49,7 +53,7 @@ class MqttManager:
         self.client = mqtt.Client()
         self.client.on_connect = self._on_connect
         self.client.on_message = self._on_message
-
+        
     def connect(self):
         self.client.connect(MQTT_BROKER_HOST, MQTT_BROKER_PORT)
 
@@ -61,16 +65,15 @@ class MqttManager:
         print('connected')
         client.subscribe(MQTT_TOPIC)
         print('subscribe to {}'.format(MQTT_TOPIC))
-        self.publish_tag_positions = True
 
     def _on_message(self, client, userdata, message):
+
         msg = json.loads(message.payload)
-        if ('type' in msg) and (msg['type'] == 'req-config'):
-            client.publish(MQTT_TOPIC, json.dumps({'type': 'res-config',
-                                                   'config': self.config}))
-            self._send_tag_position()
-        else:
-            pass
+        #if ('type' in msg) and (msg['type'] == 'req-config'):
+        #    self.client.publish(MQTT_TOPIC, json.dumps({'type': 'res-config', 'config': self.config}))
+        #else:
+        #    pass
+        #self._send_blink_update(position)
 
 def convert_mac_addr_to_tuple(mac_addr):
     # input : (mac_addr) 'XX-XX-XX-XX-XX-XX-XX-XX'
@@ -201,9 +204,11 @@ def parse_blink_packet(manager, anchors, log):
     user_input, neighbors = blink.decode_blink(payload)
     new_neighbors = []
     closest_neighbor = 0
-    max_rssi= -200
+    max_rssi=-200
+    
     for mote_id, rssi in neighbors:
         if (int(rssi)>int(max_rssi)):
+            max_rssi=rssi
             print 'found better rssi in blink packet'
             print rssi
             mac_addr = convert_mote_id_to_mac_address(manager, mote_id)
@@ -250,6 +255,7 @@ def parse_health_report_packet(manager, health_report_parser, log):
     return ret
 
 def subscribe_notification(manager,mqtt_manager, anchors, log_file_path):
+
     health_report_parser = HrParser()
 
     def handler(name, params):
@@ -341,10 +347,10 @@ def subscribe_notification(manager,mqtt_manager, anchors, log_file_path):
                         'anchor': parsed_data ['closest_neighbor'] ['macAddress']
                         }                
                     #testing only
-                    print '>>>>> sending estimation<<<<<<<<<<'
-                    print('publish position: {}'.format(position))
+                    #print '>>>>> sending estimation<<<<<<<<<<'
+                    #print('publish position: {}'.format(position))
                     # send closest neighbor alreay selected from previous burst
-                    mqtt_manager._send_blink_update(position)
+                    #mqtt_manager._send_blink_update(position)
             elif log['type'] == IpMgrSubscribe.NOTIFHEALTHREPORT:
                 log['parsed_data'] = parse_health_report_packet(
                     manager,
@@ -385,6 +391,7 @@ def subscribe_notification(manager,mqtt_manager, anchors, log_file_path):
               show_default=True,
               help='specify --acl-setup if ACL needs to be configured')
 def main(serial_dev, acl_setup):
+
     manager = connect_manager(serial_dev)
     config = utils.load_config()
     log_file_path = prepare_log_file()
@@ -396,6 +403,7 @@ def main(serial_dev, acl_setup):
     
     # This is where the MQTT connector will be initialized
     mqtt_manager = MqttManager()
+    
     mqtt_manager.connect()
     subscribe_notification(manager, mqtt_manager, anchors, log_file_path)
 
