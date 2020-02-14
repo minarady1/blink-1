@@ -33,11 +33,11 @@ new_burst = True
 first_burst = True
 burst_max_rssi=-200
 burst_closest_neighbor ={}
-position={"timestamp": "02/13/20 16:09:00", "tag": "00-17-0d-00-00-38-03-69", "type": "tag-position", "anchor": "00-17-0D-00-00-31-C3-71"}
+position={"timestamp": "02/13/20 16:09:00", "tag": "00-17-0D-00-00-38-03-69", "type": "tag-position", "anchor": "00-17-0D-00-00-31-C3-71"}
 position_set=False
 
 
-tag = {'macAddress':'00-17-0d-00-00-38-03-69'}
+tag = {'macAddress':'00-17-0D-00-00-38-03-69'}
 # See "Factory Default Settings", Section 3.7 of SmartMesh IP User's Guide
 DEFAULT_JOIN_KEY = (
     0x44, 0x55, 0x53, 0x54, 0x4E, 0x45, 0x54, 0x57,
@@ -309,8 +309,8 @@ def subscribe_notification(manager,mqtt_manager, anchors, log_file_path):
                         position = {
                         'type': 'tag-position',
                         'timestamp': ts.strftime('%c'),
-                        'tag': tag['macAddress'],
-                        'anchor': parsed_data ['closest_neighbor'] ['macAddress']
+                        'tag': tag['macAddress'].upper() ,
+                        'anchor': parsed_data ['closest_neighbor'] ['macAddress'].upper() 
                         }
                         print '>>>>> sending last estimation<<<<<<<<<<'
                         print('publish position: {}'.format(position))
@@ -343,8 +343,8 @@ def subscribe_notification(manager,mqtt_manager, anchors, log_file_path):
                         }
                         position = {'type': 'tag-position',
                         'timestamp': ts.strftime('%c'),
-                        'tag': tag['macAddress'],
-                        'anchor': parsed_data ['closest_neighbor'] ['macAddress']
+                        'tag': tag['macAddress'].upper(),
+                        'anchor': parsed_data ['closest_neighbor'] ['macAddress'].upper() 
                         }                
                     #testing only
                     #print '>>>>> sending estimation<<<<<<<<<<'
